@@ -1,10 +1,13 @@
 import unittest
+from objects.room import Room
 
 
 class RoomTestCase(unittest.TestCase):
 
     def test_1(self):
-        self.assertTrue(True)
+        name = "Foyer"
+        room = Room(name)
+        self.assertEqual(room.get_name(), name)
 
 
 if __name__ == '__main__':
