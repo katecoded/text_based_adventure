@@ -1,6 +1,6 @@
-import string
+#import string
 
 
 def tokenize(input):
-    token_list = []
+    token_list = input.split()
     return token_list
