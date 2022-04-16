@@ -1,7 +1,12 @@
 # import string
 
+non_interactive_actions = ["inventory", "help", "savegame", "loadgame"]
+interactive_actions = ["go", "take"]
+modal_actions = ["look"]
+
 
 def tokenize(input):
+    # Initially this will split string at spaces, may be refined after considering other strings
     token_list = input.split()
     return token_list
 
