@@ -2,15 +2,17 @@ class Room:
     """
     Represents a Room in a text-based adventure game.
     A Room has a name, a short_description and a long_description,
-    a list of Doors in the room, and a list of Items in the room.
+    a visited Boolean for tracking if the room has been visited,
+    a dictionary of Doors in the room, and a dictionary of Items in
+    the room.
     """
 
     def __init__(self, name, short_description, long_description, doors,
                  items):
         """
         Initializes a Room with a name, a short_description,
-        a long_description, a list of Doors, and a list of
-        Items.
+        a long_description, a visited Boolean set to False,
+        a dictionary of Doors, and a dictionary of Items.
         :name: A String name.
         :short_description: A String short description (1-2 sentences).
         :long_description: A String long description (a paragraph).
@@ -20,6 +22,7 @@ class Room:
         self._name = name
         self._short_description = short_description
         self._long_description = long_description
+        self._visited = False
         self._doors = doors
         self._items = items
 
@@ -41,23 +44,28 @@ class Room:
         """
         return self._long_description
 
-    def get_doors_description(self):
+    def get_visited(self):
         """
-        Returns a sentence description (String) of the
-        names of the Doors in the Room.
+        Returns the visited Boolean (whether the Room
+        has been visited).
         """
-        pass
+        return self._visited
 
-    def get_items_description(self):
+    def get_doors(self):
         """
-        Returns a sentence description (String) of the
-        names of the Items in the Room.
+        Returns the dictionary of Doors in the Room.
         """
-        pass
+        return self._doors
+
+    def get_items(self):
+        """
+        Returns the dictionary of Items in the Room.
+        """
+        return self._items
 
     def get_door_by_name(self, name):
         """
-        Returns the Door object from the Room's list of Doors
+        Returns the Door object from the Room's dictionary of Doors
         with the given name if it exists. If it does not exist,
         None is returned.
         :name: A String name.
@@ -68,7 +76,7 @@ class Room:
 
     def get_item_by_name(self, name):
         """
-        Returns the Item object from the Room's list of Items
+        Returns the Item object from the Room's dictionary of Items
         with the given name if it exists. If it does not exist,
         None is returned.
         :name: A String name.
@@ -76,6 +84,12 @@ class Room:
         if name in self._items:
             return self._items[name]
         return None
+
+    def set_visited(self):
+        """
+        Sets the Rooms visited Boolean to True.
+        """
+        self._visited = True
 
     def add_item(self, item):
         """

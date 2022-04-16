@@ -84,9 +84,90 @@ class RoomTestCase(unittest.TestCase):
         room = Room(name, short_description, long_description, doors, items)
         self.assertEqual(room.get_long_description(), long_description)
 
+    def test_get_visited_for_unvisited_room(self):
+        """
+        Validates that an unvisited Room's visited Boolean returns False.
+        """
+        name = "Underwater Courtyard"
+        short_description = "A nearby child mermaid is poking you " \
+                            "with a stick. You probably deserve it."
+        long_description = "The courtyard, decorated with shimmering " \
+                           "tiles and marble pillars, is so far " \
+                           "underwater that you wonder if you will " \
+                           "ever be able to leave. A group of dogs " \
+                           "with fins and scales are playing nearby. " \
+                           "You attempt to reconcile yourself with this " \
+                           "reality as a mermaid child pokes you " \
+                           "curiously with a stick."
+        doors = {}
+        items = {}
+        room = Room(name, short_description, long_description, doors, items)
+        self.assertFalse(room.get_visited())
+
+    def test_set_visited(self):
+        """
+        Validates that a visited Room's visited Boolean is set
+        correctly.
+        """
+        name = "Mushroom Forest"
+        short_description = "Despite appearances, the mushroom " \
+                            "monster before you seems quite content " \
+                            "to be your friend."
+        long_description = "Being greeted by a friendly mushroom " \
+                           "monster is definitely the weirdest thing " \
+                           "that has happened to you today. Well, other " \
+                           "than being sent through a wormhole to a " \
+                           "sentient mushroom forest. It is difficult " \
+                           "to see anything past the mushroom's friendly " \
+                           "(and very sharp) smile, but you suppose you " \
+                           "could have worse friends."
+        doors = {}
+        items = {}
+        room = Room(name, short_description, long_description, doors, items)
+        room.set_visited()
+        self.assertTrue(room.get_visited())
+
+    def test_get_doors(self):
+        """
+        Validates that the get_doors method returns the
+        expected Door objects.
+        """
+        name = "Yarn World"
+        short_description = "Everything is made out of yarn - " \
+                            "even you. You're unraveling at the " \
+                            "thought."
+        long_description = "A picturesque yarn landscape stretches " \
+                           "for what seems like forever. It would " \
+                           "be calming if you weren't also, somehow, " \
+                           "made of yarn. You try your best to keep " \
+                           "it together."
+        doors = self.door_dict
+        items = {}
+        room = Room(name, short_description, long_description, doors, items)
+        self.assertIn(self.door.get_name(), room.get_doors())
+        self.assertIn(self.door_2.get_name(), room.get_doors())
+
+    def test_get_items(self):
+        """
+        Validates that the get_items method returns the
+        expected Item objects.
+        """
+        name = "Bees"
+        short_description = "Bees bees bees bees bees"
+        long_description = "Bees bees bees bees bees bees bees " \
+                           "bees bees bees bees bees bees bees " \
+                           "bees bees bees bees. Bees bees bees " \
+                           "bees bees bees bees bees bees bees bees " \
+                           "bees bees bees bees."
+        doors = {}
+        items = self.item_dict
+        room = Room(name, short_description, long_description, doors, items)
+        self.assertIn(self.item.get_name(), room.get_items())
+        self.assertIn(self.item_2.get_name(), room.get_items())
+
     def test_get_existing_door_by_name(self):
         """
-        Validates that the get_door_by_name function returns the
+        Validates that the get_door_by_name method returns the
         correct Door (mocked) object.
         """
         name = "Study"
@@ -105,7 +186,7 @@ class RoomTestCase(unittest.TestCase):
 
     def test_get_non_existent_door_by_name(self):
         """
-        Validates that the get_door_by_name function returns None
+        Validates that the get_door_by_name method returns None
         when the Door is not in the Room.
         """
         name = "Frog Room"
@@ -123,7 +204,7 @@ class RoomTestCase(unittest.TestCase):
 
     def test_get_existing_item_by_name(self):
         """
-        Validates that the get_item_by_name function returns the
+        Validates that the get_item_by_name method returns the
         correct Item (mocked) object.
         """
         name = "Chair Hell"
@@ -147,7 +228,7 @@ class RoomTestCase(unittest.TestCase):
 
     def test_get_non_existent_item_by_name(self):
         """
-        Validates that the get_door_by_name function returns None
+        Validates that the get_door_by_name method returns None
         when the Door is not in the Room.
         """
         name = "Sewing Room"
