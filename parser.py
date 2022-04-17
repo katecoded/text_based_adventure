@@ -65,14 +65,9 @@ def temp_parser(input):
     action, str_list = refine_input(input)
     if action == "error":
         return str_list[0]
-    elif action == "inventory":
-        return "Displays inventory to user"
-    elif action == "help":
-        return "Displays list of standard actions to user"
-    elif action == "savegame":
-        return "Saves the current game state after asking for confirmation"
-    elif action == "loadgame":
-        return "Loads last game save after asking for confirmation"
+     # To reduce complexity and show how parser will outsource work to other functions
+    elif action in non_interactive_actions:
+        return non_interactive_command_handler(action)
     elif action == "look":
         return "Gives long description of room"
     elif len(str_list) > 0 and action == "lookat":
@@ -85,6 +80,17 @@ def temp_parser(input):
         return "Attempts to combine " + str_list[0] + " with " + str_list[2]
     else:
         return "Sorry I don't understand how to do that"
+      
+
+def non_interactive_command_handler(command):
+    if command == "inventory":
+        return "Displays inventory to user"
+    elif command == "help":
+        return "Displays list of standard actions to user"
+    elif command == "savegame":
+        return "Saves the current game state after asking for confirmation"
+    elif command == "loadgame":
+        return "Loads last game save after asking for confirmation"
 
 
 def analyze_tokens(token_list):
