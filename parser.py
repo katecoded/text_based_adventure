@@ -5,7 +5,7 @@ pickup_actions = ["take", "grab", "get"]
 # Different words for moving somewhere
 movement_actions = ["go", "move"]
 # Prepositions to be developed and expanded on
-prepositions = ["in", "at"]         
+prepositions = ["in", "at"]
 
 
 def tokenize(input):
