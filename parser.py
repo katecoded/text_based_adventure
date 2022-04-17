@@ -3,6 +3,7 @@ available_actions = ["inventory", "help", "savegame", "loadgame", "combine",
                      "take", "grab", "get", "pick", "go", "move", "look"]
 prepositions = ["in", "at", "to", "with"]
 special_words = ["up"]
+non_interactive_actions = ["inventory", "help", "savegame", "loadgame"]
 
 
 def tokenize(input):
