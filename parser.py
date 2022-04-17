@@ -63,7 +63,7 @@ def refine_input(input):
 
 def temp_parser(input):
     action, str_list = refine_input(input)
-    if action == "error"
+    if action == "error":
         return str_list[0]
     elif action == "inventory":
         return "Displays inventory to user"
