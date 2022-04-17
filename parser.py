@@ -42,7 +42,7 @@ def refine_input(input):
     token_list = tokenize(input)
     action, tuple_list = logic_splitter(token_list)
     if tuple_list is None:
-        return "Error", ["No user input"]
+        return "error", ["No user input"]
     str_list = []
     for tuple in tuple_list:
         str = ""
@@ -63,6 +63,8 @@ def refine_input(input):
 
 def temp_parser(input):
     action, str_list = refine_input(input)
+    if action == "error"
+        return str_list[0]
     if action == "inventory":
         return "Displays inventory to user"
     elif action == "help":
@@ -77,10 +79,7 @@ def temp_parser(input):
         return "Attempts to look at the object " + str_list[0]
     elif len(str_list) > 0 and action == "take" or action == "grab" or action == "get":
         return "Attempts to take the object " + str_list[0]
-    elif len(str_list) > 0 and action == "go" or action == "move":
-        return "Attempts to go in the direction " + str_list[0]
-    # Similar to above but should return different error
-    elif len(str_list) > 0 and action == "go?":
+    elif len(str_list) > 0 and action == "go" or action == "move" or action == "go?":
         return "Attempts to go in the direction " + str_list[0]
     elif len(str_list) > 2 and action == "combine" and str_list[1] == "with":
         return "Attempts to combine " + str_list[0] + " with " + str_list[2]
