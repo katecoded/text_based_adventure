@@ -66,7 +66,7 @@ def temp_parser(input):
     action, str_list = refine_input(input)
     if action == "error":
         return str_list[0]
-     # To reduce complexity and show how parser will outsource work to other functions
+    # To reduce complexity and show how parser will outsource work to other functions
     elif action in non_interactive_actions:
         return non_interactive_command_handler(action)
     elif action == "look":
@@ -81,7 +81,7 @@ def temp_parser(input):
         return "Attempts to combine " + str_list[0] + " with " + str_list[2]
     else:
         return "Sorry I don't understand how to do that"
-      
+
 
 def non_interactive_command_handler(command):
     if command == "inventory":
