@@ -1,0 +1,62 @@
+import unittest
+from unittest import TestCase
+from parser import input_parser
+
+
+class TestParser(TestCase):
+
+    def test1(self):
+        action, subject = input_parser("take key")
+        self.assertEqual(action + " " + subject, "take key")
+
+    def test2(self):
+        action, subject = input_parser("look")
+        self.assertEqual(action + " " + subject, "look ")
+
+    def test3(self):
+        action, subject = input_parser("look at sky")
+        self.assertEqual(action + " " + subject, "lookat sky")
+
+    def test4(self):
+        action, subject = input_parser("")
+        self.assertEqual(action + " " + subject, "Error ")
+
+    def test5(self):
+        action, subject = input_parser("move north")
+        self.assertEqual(action + " " + subject, "move north")
+
+    def test6(self):
+        action, subject = input_parser("go")
+        self.assertEqual(action + " " + subject, "Error Where am I going?")
+
+    def test7(self):
+        action, subject = input_parser("grab")
+        self.assertEqual(action + " " + subject, "Error What am I picking up?")
+
+    def test8(self):
+        action, subject = input_parser("hug ")
+        self.assertEqual(action + " " + subject, "Error I don't know how to hug something")
+
+    def test9(self):
+        action, subject = input_parser("breathe")
+        self.assertEqual(action + " " + subject, "Error I don't know how to breathe")
+
+    def test10(self):
+        action, subject = input_parser("inventory")
+        self.assertEqual(action + " " + subject, "inventory ")
+        
+    def test11(self):
+        action, subject = input_parser("savefile")
+        self.assertEqual(action + " " + subject, "savefile ")
+
+    def test12(self):
+        action, subject = input_parser("help")
+        self.assertEqual(action + " " + subject, "help ")
+
+    def test12(self):
+        action, subject = input_parser("loadfile")
+        self.assertEqual(action + " " + subject, "loadfile ")
+        
+        
+if __name__ == '__main__':
+    unittest.main()
