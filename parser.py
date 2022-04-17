@@ -64,28 +64,28 @@ def refine_input(input):
 def temp_parser(input):
     action, str_list = refine_input(input)
     if action == "inventory":
-        print("Displays inventory to user")
+        return "Displays inventory to user"
     elif action == "help":
-        print("Displays list of standard actions to user")
+        return "Displays list of standard actions to user"
     elif action == "savegame":
-        print("Saves the current game state after asking for confirmation")
+        return "Saves the current game state after asking for confirmation"
     elif action == "loadgame":
-        print("Loads last game save after asking for confirmation")
+        return "Loads last game save after asking for confirmation"
     elif action == "look":
-        print("Gives long description of room")
+        return "Gives long description of room"
     elif len(str_list) > 0 and action == "lookat":
-        print("Attempts to look at the object " + str_list[0])
+        return "Attempts to look at the object " + str_list[0]
     elif len(str_list) > 0 and action == "take" or action == "grab" or action == "get":
-        print("Attempts to take the object " + str_list[0])
+        return "Attempts to take the object " + str_list[0]
     elif len(str_list) > 0 and action == "go" or action == "move":
-        print("Attempts to go in the direction " + str_list[0])
+        return "Attempts to go in the direction " + str_list[0]
     # Similar to above but should return different error
     elif len(str_list) > 0 and action == "go?":
-        print("Attempts to go in the direction " + str_list[0])
+        return "Attempts to go in the direction " + str_list[0]
     elif len(str_list) > 2 and action == "combine" and str_list[1] == "with":
-        print("Attempts to combine " + str_list[0] + " with " + str_list[2])
+        return "Attempts to combine " + str_list[0] + " with " + str_list[2]
     else:
-        print("Sorry I don't understand how to do that")
+        return "Sorry I don't understand how to do that"
 
 
 def analyze_tokens(token_list):
