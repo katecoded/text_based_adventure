@@ -82,7 +82,7 @@ def analyze_tokens(token_list):
 
     if token_list[0].lower() in go_words:
         if len(token_list) == 1:
-            print("Please give a direction, exit, or adjacent room to go to.")
+            return "Please give a direction, exit, or adjacent room to go to."
 
         else:
             for token in token_list:
@@ -91,6 +91,7 @@ def analyze_tokens(token_list):
                     return ("go", token)
                     # returns a command in the form
                     # of a tuple to move the player to the location
+            return "Cannot go there."
 
     elif token_list[0].lower() in directions:
         return ("go", token_list[0].lower())
@@ -109,23 +110,36 @@ def analyze_tokens(token_list):
 
     elif token_list[0].lower() in take_words:
         if len(token_list) > 1:
-            pass
-            # would call a function for putting the object in inventory here
+            for token in token_list:
+                if token in object_names:
+                    return ("take", token)
+                    # returns a command in the form
+                    # of a tuple to take an object
+            return "Cannot take that object."
         else:
-            print("Please provide an object to take.")
+            return "Please provide an object to take."
 
     elif token_list[0].lower() in examine_words:
         if len(token_list) > 1:
-            pass
-            # would call a function for examining the object here
+            for token in token_list:
+                if token in object_names:
+                    return ("examine", token)
+                    # returns a command in the form
+                    # of a tuple to examine an object
+            return "There's no such object to examine."
         else:
-            print("Please provide an object to examine.")
+            return "Please provide an object to examine."
+
     elif token_list[0].lower() in eat_words:
         if len(token_list) > 1:
-            pass
-            # would call a function for eating the object here
+            for token in token_list:
+                if token in object_names:
+                    return ("eat", token)
+                    # returns a command in the form
+                    # of a tuple to eat an object
+            return "Cannot eat that object."
         else:
-            print("Please provide an object to eat.")
+            return "Please provide an object to eat."
 
 
 # print(analyze_tokens(["move", "to", "the", "foyer"]))
