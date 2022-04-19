@@ -9,14 +9,14 @@ class Game:
 
     # Default starting inventory for a fresh game
     default_inventory = {
-        item_1: None,
-        item_2: None,
-        item_3: None,
-        item_4: None,
-        item_5: None,
-        item_6: None,
-        item_7: None,
-        item_8: None
+        "item_1": None,
+        "item_2": None,
+        "item_3": None,
+        "item_4": None,
+        "item_5": None,
+        "item_6": None,
+        "item_7": None,
+        "item_8": None
     }
 
     def __init__(self, title, authors, room_list, cur_room, 
