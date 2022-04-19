@@ -53,12 +53,13 @@ def refine_input(input):
         str_list.append(str)
     if action is None:
         action = "go?"
-    if action == "look" and str_list[0] == "at":
-        str_list.pop(0)
-        action = "lookat"
-    if action == "pick" and str_list[0] == "up":
-        str_list.pop(0)
-        action = "take"
+    if len(str_list) > 0:
+        if action == "look" and str_list[0] == "at":
+            str_list.pop(0)
+            action = "lookat"
+        if action == "pick" and str_list[0] == "up":
+            str_list.pop(0)
+            action = "take"
     return action, str_list
 
 
