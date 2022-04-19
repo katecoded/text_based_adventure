@@ -76,5 +76,3 @@ class Game:
         :return: none
         """
         self._inventory.append(new_item)
-
-
