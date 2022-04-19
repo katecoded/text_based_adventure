@@ -19,14 +19,14 @@ class Game:
         "item_8": None
     }
 
-    def __init__(self, title, authors, room_list, cur_room, 
+    def __init__(self, title, authors, room_list, cur_room,
                  *, inventory=default_inventory):
         """
         Initializes a game object
         :title: The title of the game.
         :authors: Names of the devs and story writers
         :room_list: Dictionary of all rooms in the game
-        :cur_room: Key value for room_list corresponding to 
+        :cur_room: Key value for room_list corresponding to
         room player is currently in
         :inventory: A dictionary of items in player's inventory.
         By default, the inventory is empty(subject to change)
@@ -70,7 +70,7 @@ class Game:
     def set_room_list(self, new_room_list):
         """
         Change the list of all rooms
-        Note: This might not be necessary as we 
+        Note: This might not be necessary as we
         will likely change one room at a time
         """
         self.room_list = new_room_list
@@ -85,7 +85,7 @@ class Game:
     def set_inventory(self, new_inventory):
         """
         Change the list of all items in inventory
-        Note: This might not be necessary as we 
+        Note: This might not be necessary as we
         will likely change one item at a time
         """
         self.inventory = new_inventory
