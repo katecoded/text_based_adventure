@@ -95,4 +95,4 @@ class Game:
         :param item_key: key for the item in dictionary
         :return: none
         """
-        self._inventory.pop(new_item_key)
+        self._inventory.pop(item_key)
