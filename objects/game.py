@@ -14,9 +14,9 @@ class Game:
         :param title: A String title for the Game
         :param authors: A String of the text-based adventure game's authors
         :param all_rooms: A dictionary holding all the rooms within the game
-        :param current_room: A Room object representing the current location
-                            of the player
-        :param inventory: A list that holds Item objects, representing
+        :param current_room: A key corresponding to a room in the all_rooms
+                        dictionary, representing the player's current position
+        :param inventory: A dictionary that holds Item objects, representing
                         the player's inventory
         """
         self._title = title
@@ -51,28 +51,48 @@ class Game:
         Returns the room the player is currently in
         :return: a Room object that the player is currently in
         """
-        return self._current_room
+        return self._all_rooms.get(self._current_room)
 
     def get_inventory(self):
         """
         Returns the player's inventory
-        :return: a list holding Items, representing the player's
+        :return: a dictionary holding Items, representing the player's
                 inventory
         """
         return self._inventory
 
-    def set_current_room(self, new_room):
+    def update_room(self, room_key, updated_room):
         """
-        Sets the player's current room to a new room
-        :param new_room: Room object
+        Updates the room the player is currently in after an interaction
+        :param room_key: Dictionary key for room in all_rooms
+                        dictionary
+        :param updated_room: A room object that has been updated
         :return: none
         """
-        self._current_room = new_room
+        self._all_rooms.update({room_key: updated_room})
 
-    def add_item_to_inventory(self, new_item):
+    def set_current_room(self, new_room_key):
+        """
+        Sets the player's current room to a new room
+        :param new_room_key: Dictionary key for room in all_rooms
+                        dictionary
+        :return: none
+        """
+        self._current_room = new_room_key
+
+    def add_item_to_inventory(self, new_item_key, new_item):
         """
         Adds a new Item to the player's inventory
+        :param new_item_key: key for the item in dictionary
         :param new_item: Item object
         :return: none
         """
-        self._inventory.append(new_item)
+        self._inventory[new_item_key] = new_item
+
+    def remove_item_from_inventory(self, item_key):
+        """
+        Removes an Item from the player's inventory
+        :param item_key: key for the item in dictionary
+        :return: none
+        """
+        self._inventory.pop(new_item_key)
