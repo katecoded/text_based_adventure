@@ -158,6 +158,48 @@ class GameTestCase(unittest.TestCase):
         game3.add_item_to_inventory(item_key, self.item3)
         self.assertEqual(self.item3, game3.get_inventory()[item_key])
 
+    def test_remove_item_from_inventory(self):
+        """
+        Tests that player's inventory is correctly updated
+        when an item is removed
+        """
+        title = "Game3"
+        authors = "author 1, author 2"
+        kitchen_room = Room("Kitchen", "a quaint kitchen",
+                            "a kitchen full of pots and pans",
+                            self.door_dict, self.room1_item_dict)
+        bathroom = Room("Bathroom", "it's quite luxurious for a bathroom",
+                        "a bathroom where jewels come out of the faucets...",
+                        self.door_dict, self.room2_item_dict)
+        all_rooms = {"Kitchen": kitchen_room,
+                     "Bathroom": bathroom}
+        inventory = {self.item2.get_name(): self.item2}
+
+        game3 = Game(title, authors, all_rooms, kitchen_room.get_name(), inventory)
+        item_key = list(game3.get_inventory().keys())[0]
+        game3.remove_item_from_inventory(item_key)
+        self.assertEqual({}, game3.get_inventory())
+
+    def test_update_room(self):
+        """
+        Tests that rooms update successfully
+        """
+        title = "Game4"
+        authors = "author 1, author 2"
+        kitchen_room = Room("Kitchen", "a quaint kitchen",
+                            "a kitchen full of pots and pans",
+                            self.door_dict, self.room1_item_dict)
+        all_rooms = {"Kitchen": kitchen_room}
+        inventory = {}
+
+        game4 = Game(title, authors, all_rooms, kitchen_room.get_name(), inventory)
+        modified_kitchen_room = Room("Kitchen", "a quaint kitchen",
+                                     "a kitchen devoid of pots and pans",
+                                     self.door_dict, self.room1_item_dict)
+        game4.update_room(kitchen_room.get_name(), modified_kitchen_room)
+        self.assertEqual(game4.get_current_room().get_long_description(),
+                         "a kitchen devoid of pots and pans")
+
 
 if __name__ == '__main__':
     unittest.main()
