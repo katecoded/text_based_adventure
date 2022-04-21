@@ -180,26 +180,6 @@ class GameTestCase(unittest.TestCase):
         game3.remove_item_from_inventory(item_key)
         self.assertEqual({}, game3.get_inventory())
 
-    def test_update_room(self):
-        """
-        Tests that rooms update successfully
-        """
-        title = "Game4"
-        authors = "author 1, author 2"
-        kitchen_room = Room("Kitchen", "a quaint kitchen",
-                            "a kitchen full of pots and pans",
-                            self.door_dict, self.room1_item_dict)
-        all_rooms = {"Kitchen": kitchen_room}
-        inventory = {}
-
-        game4 = Game(title, authors, all_rooms, kitchen_room.get_name(), inventory)
-        modified_kitchen_room = Room("Kitchen", "a quaint kitchen",
-                                     "a kitchen devoid of pots and pans",
-                                     self.door_dict, self.room1_item_dict)
-        game4.update_room(kitchen_room.get_name(), modified_kitchen_room)
-        self.assertEqual(game4.get_current_room().get_long_description(),
-                         "a kitchen devoid of pots and pans")
-
 
 if __name__ == '__main__':
     unittest.main()
