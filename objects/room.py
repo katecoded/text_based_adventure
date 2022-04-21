@@ -1,7 +1,3 @@
-from objects.door import Door
-from objects.item import Item
-
-
 class Room:
     """
     Represents a Room in a text-based adventure game.
