@@ -61,16 +61,6 @@ class Game:
         """
         return self._inventory
 
-    def update_room(self, room_key, updated_room):
-        """
-        Updates the room the player is currently in after an interaction
-        :param room_key: Dictionary key for room in all_rooms
-                        dictionary
-        :param updated_room: A room object that has been updated
-        :return: none
-        """
-        self._all_rooms.update({room_key: updated_room})
-
     def set_current_room(self, new_room_key):
         """
         Sets the player's current room to a new room
