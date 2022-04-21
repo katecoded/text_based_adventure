@@ -1,3 +1,7 @@
+from objects.door import Door
+from objects.item import Item
+
+
 class Room:
     """
     Represents a Room in a text-based adventure game.
@@ -43,6 +47,44 @@ class Room:
         Returns the long_description of a Room.
         """
         return self._long_description
+
+    def get_doors_and_items_description(self):
+        """
+        Returns a sentence description of the names and
+        directions of the Doors in the Room, along with
+        the names of the Items in the Room.
+        """
+
+        description = "You can see "
+        # first, add the directions and names of the doors
+        for door_name in self._doors.keys():
+            if self._doors[door_name].get_direction() == "east":
+                description += "an eastern " + door_name
+            else:
+                description += "a " + self._doors[door_name].get_direction()\
+                               + "ern " + door_name
+            description += ", "
+
+        # second, add the item names
+        for item_name in self._items.keys():
+            if item_name[-1].lower == "s":
+                description += item_name
+            else:
+                if item_name in "ieaou":
+                    description += "an " + item_name
+                else:
+                    description += "a " + item_name
+            description += ", "
+
+        # clean up the formatting of the description by removing
+        # unnecessary commas and spaces
+        description = description[:len(description) - 2] + "."
+        last_comma_occurrence = description.rfind(",")
+        if last_comma_occurrence > 0:
+            description = description[:last_comma_occurrence + 1] + " and" +\
+                          description[last_comma_occurrence + 1:]
+
+        return description
 
     def get_visited(self):
         """
@@ -98,7 +140,10 @@ class Room:
         if the item is already in the Room.
         :item: An Item object.
         """
-        pass
+        if item.get_name() not in self._items:
+            self._items[item.get_name()] = item
+            return True
+        return False
 
     def remove_item(self, item):
         """
@@ -107,7 +152,10 @@ class Room:
         returned.
         :item: An Item object.
         """
-        pass
+        if item.get_name() in self._items:
+            del self._items[item.get_name()]
+            return True
+        return False
 
     def add_door(self, door):
         """
@@ -116,7 +164,10 @@ class Room:
         if the door is already in the Room.
         :door: A Door object.
         """
-        pass
+        if door.get_name() not in self._doors:
+            self._doors[door.get_name()] = door
+            return True
+        return False
 
     def remove_door(self, door):
         """
@@ -125,4 +176,7 @@ class Room:
         returned.
         :door: A Door object.
         """
-        pass
+        if door.get_name() in self._doors:
+            del self._doors[door.get_name()]
+            return True
+        return False

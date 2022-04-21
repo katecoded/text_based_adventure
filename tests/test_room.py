@@ -14,8 +14,10 @@ class RoomTestCase(unittest.TestCase):
         """
         cls.door = Mock()
         cls.door.get_name.return_value = "oak door"
+        cls.door.get_direction.return_value = "east"
         cls.door_2 = Mock()
         cls.door_2.get_name.return_value = "rustic door"
+        cls.door_2.get_direction.return_value = "south"
         cls.door_dict = {
             cls.door.get_name(): cls.door,
             cls.door_2.get_name(): cls.door_2
@@ -83,6 +85,80 @@ class RoomTestCase(unittest.TestCase):
         items = {}
         room = Room(name, short_description, long_description, doors, items)
         self.assertEqual(room.get_long_description(), long_description)
+
+    def test_get_doors_and_items_description(self):
+        """
+        Validates that when a Room has multiple Doors and multiple
+        Items, the description with their names returns correctly.
+        """
+        name = "Plant Room"
+        short_description = "The plant is going to eat you if " \
+                            "you don't leave the room."
+        long_description = "You seem to have woken up a large, " \
+                           "carnivorous plant and it is very angry " \
+                           "at you. It would be advisable to leave " \
+                           "the room as soon as possible."
+        doors = self.door_dict
+        items = self.item_dict
+        room = Room(name, short_description, long_description, doors, items)
+        print(room.get_doors_and_items_description())
+
+    def test_get_doors_and_items_description_2(self):
+        """
+        Validates that when a Room has multiple Doors and one Item,
+        the description with their names returns correctly.
+        """
+        pass
+
+    def test_get_doors_and_items_description_3(self):
+        """
+        Validates that when a Room has one Door and multiple Items,
+        the description with their names returns correctly.
+        """
+        pass
+
+    def test_get_doors_and_items_description_4(self):
+        """
+        Validates that when a Room has one Door and one Item,
+        the description with their names returns correctly.
+        """
+        pass
+
+    def test_get_doors_and_items_description_5(self):
+        """
+        Validates that when a Room has multiple Doors and no
+        Items, the description with their names returns correctly.
+        """
+        pass
+
+    def test_get_doors_and_items_description_6(self):
+        """
+        Validates that when a Room has one Door and no Items,
+        the description with their names returns correctly.
+        """
+        pass
+
+    def test_get_doors_and_items_description_7(self):
+        """
+        Validates that when a Room has no Doors and multiple
+        Items, the description with their names returns correctly.
+        """
+        pass
+
+    def test_get_doors_and_items_description_8(self):
+        """
+        Validates that when a Room has no Doors and one Item,
+        the description with their names returns correctly.
+        """
+        pass
+
+    def test_get_doors_and_items_description_9(self):
+        """
+        Validates that when a Room has no Doors or Items,
+        the description of their names returns an empty string.
+        Note: this should not be possible.
+        """
+        pass
 
     def test_get_visited_for_unvisited_room(self):
         """
@@ -248,6 +324,78 @@ class RoomTestCase(unittest.TestCase):
         items = {}
         room = Room(name, short_description, long_description, doors, items)
         self.assertIsNone(room.get_item_by_name("spoon"))
+
+    def test_add_item(self):
+        """
+        Validates that adding an Item (mocked) object to a Room
+        modifies the Room correctly and returns True.
+        """
+        name = "Poppy's Room"
+        short_description = "The way that the doll's eyes glow " \
+                            "fills you with dread. You are not sure " \
+                            "why you decided to come back in here."
+        long_description = "A sinister light fills the room, and you " \
+                           "fill with dread as the doll on the table " \
+                           "slowly opens its eyes. It is difficult to " \
+                           "ignore the temptation to look at it, even " \
+                           "though the gaudy wallpaper and large array " \
+                           "of saws on the wall are a spectacle of their " \
+                           "own. Entering this room may have been a " \
+                           "mistake."
+        doors = {}
+        items = {}
+        room = Room(name, short_description, long_description, doors, items)
+        self.assertTrue(room.add_item(self.item))
+        self.assertIn(self.item.get_name(), room.get_items())
+
+    def test_add_existing_item(self):
+        """
+        Validates that adding an existing Item (mocked) object to a
+        Room does not modify the Room and returns False.
+        """
+        pass
+
+    def test_remove_item(self):
+        """
+        Validates that removing an existing Item (mocked) object from a
+        Room modifies the Room correctly and returns True.
+        """
+        pass
+
+    def test_remove_non_existent_item(self):
+        """
+        Validates that removing a non-existent Item (mocked) object
+        from a Room does not modify the Room and returns False.
+        """
+        pass
+
+    def test_add_door(self):
+        """
+        Validates that adding a Door (mocked) object to a Room
+        modifies the Room correctly and returns True.
+        """
+        pass
+
+    def test_add_existing_door(self):
+        """
+        Validates that adding an existing Door (mocked) object to a
+        Room does not modify the Room and returns False.
+        """
+        pass
+
+    def test_remove_door(self):
+        """
+        Validates that removing an existing Door (mocked) object from a
+        Room modifies the Room correctly and returns True.
+        """
+        pass
+
+    def test_remove_non_existent_door(self):
+        """
+        Validates that removing a non-existent Door (mocked) object
+        from a Room does not modify the Room and returns False.
+        """
+        pass
 
 
 if __name__ == '__main__':
