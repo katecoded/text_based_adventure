@@ -24,9 +24,9 @@ class GameTestCase(unittest.TestCase):
         cls.item2.get_name.return_value = "loaf of bread"
         cls.item3 = Mock()
         cls.item3.get_name.return_value = "bouquet of roses"
-        cls.item_dict = {cls.item1.get_name(): cls.item1,
-                         cls.item2.get_name(): cls.item2}
-        cls.item_list = [cls.item1, cls.item2]
+        cls.room1_item_dict = {cls.item1.get_name(): cls.item1,
+                               cls.item2.get_name(): cls.item2}
+        cls.room2_item_dict = {cls.item3.getname(): cls.item3}
 
     def test_get_title(self):
         """
@@ -36,11 +36,11 @@ class GameTestCase(unittest.TestCase):
         authors = "author 1, author 2"
         foyer_room = Room("Foyer", "a small foyer",
                           "a small foyer that seems welcoming",
-                          self.door_dict, self.item_dict)
+                          self.door_dict, self.room1_item_dict)
         all_rooms = {"Foyer": foyer_room}
-        inventory = self.item_list
+        inventory = {}
 
-        game1 = Game(title, authors, all_rooms, foyer_room, inventory)
+        game1 = Game(title, authors, all_rooms, foyer_room._name, inventory)
         self.assertEqual(game1.get_title(), title)
 
     def test_get_authors(self):
@@ -51,11 +51,11 @@ class GameTestCase(unittest.TestCase):
         authors = "author 1, author 2"
         kitchen_room = Room("Kitchen", "a quaint kitchen",
                             "a kitchen full of pots and pans",
-                            self.door_dict, self.item_dict)
+                            self.door_dict, self.room1_item_dict)
         all_rooms = {"Kitchen": kitchen_room}
-        inventory = self.item_list
+        inventory = {}
 
-        game2 = Game(title, authors, all_rooms, kitchen_room, inventory)
+        game2 = Game(title, authors, all_rooms, kitchen_room._name, inventory)
         self.assertEqual(game2.get_authors(), authors)
 
     def test_get_all_rooms(self):
@@ -65,16 +65,17 @@ class GameTestCase(unittest.TestCase):
         title = "Game2"
         authors = "author 1, author 2"
         kitchen_room = Room("Kitchen", "a quaint kitchen",
+
                             "a kitchen full of pots and pans",
-                            self.door_dict, self.item_dict)
+                            self.door_dict, self.room1_item_dict)
         bathroom = Room("Bathroom", "it's quite luxurious for a bathroom",
                         "a bathroom where jewels come out of the faucets...",
-                        self.door_dict, self.item_list)
+                        self.door_dict, self.room2_item_dict)
         all_rooms = {"Kitchen": kitchen_room,
                      "Bathroom": bathroom}
-        inventory = self.item_list
+        inventory = {}
 
-        game2 = Game(title, authors, all_rooms, kitchen_room, inventory)
+        game2 = Game(title, authors, all_rooms, kitchen_room._name, inventory)
         self.assertEqual(game2.get_all_rooms(), all_rooms)
 
     def test_get_current_room(self):
@@ -85,16 +86,16 @@ class GameTestCase(unittest.TestCase):
         authors = "author 1, author 2"
         kitchen_room = Room("Kitchen", "a quaint kitchen",
                             "a kitchen full of pots and pans",
-                            self.door_dict, self.item_dict)
+                            self.door_dict, self.room1_item_dict)
         bathroom = Room("Bathroom", "it's quite luxurious for a bathroom",
                         "a bathroom where jewels come out of the faucets...",
-                        self.door_dict, self.item_list)
+                        self.door_dict, self.room2_item_dict)
         all_rooms = {"Kitchen": kitchen_room,
                      "Bathroom": bathroom}
-        inventory = self.item_list
+        inventory = {}
 
-        game3 = Game(title, authors, all_rooms, kitchen_room, inventory)
-        self.assertEqual(game3.get_all_rooms(), all_rooms)
+        game3 = Game(title, authors, all_rooms, kitchen_room._name, inventory)
+        self.assertEqual(game3.get_current_room(), kitchen_room)
 
     def test_get_inventory(self):
         """
@@ -104,15 +105,15 @@ class GameTestCase(unittest.TestCase):
         authors = "author 1, author 2"
         kitchen_room = Room("Kitchen", "a quaint kitchen",
                             "a kitchen full of pots and pans",
-                            self.door_dict, self.item_dict)
+                            self.door_dict, self.room1_item_dict)
         bathroom = Room("Bathroom", "it's quite luxurious for a bathroom",
                         "a bathroom where jewels come out of the faucets...",
-                        self.door_dict, self.item_list)
+                        self.door_dict, self.room2_item_dict)
         all_rooms = {"Kitchen": kitchen_room,
                      "Bathroom": bathroom}
-        inventory = self.item_list
+        inventory = {self.item2.get_name(): self.item2}
 
-        game3 = Game(title, authors, all_rooms, kitchen_room, inventory)
+        game3 = Game(title, authors, all_rooms, kitchen_room._name, inventory)
         self.assertEqual(game3.get_inventory(), inventory)
 
     def test_set_current_room(self):
@@ -123,16 +124,16 @@ class GameTestCase(unittest.TestCase):
         authors = "author 1, author 2"
         kitchen_room = Room("Kitchen", "a quaint kitchen",
                             "a kitchen full of pots and pans",
-                            self.door_dict, self.item_dict)
+                            self.door_dict, self.room1_item_dict)
         bathroom = Room("Bathroom", "it's quite luxurious for a bathroom",
                         "a bathroom where jewels come out of the faucets...",
-                        self.door_dict, self.item_list)
+                        self.door_dict, self.room2_item_dict)
         all_rooms = {"Kitchen": kitchen_room,
                      "Bathroom": bathroom}
-        inventory = self.item_list
+        inventory = {}
 
-        game3 = Game(title, authors, all_rooms, kitchen_room, inventory)
-        game3.set_current_room(bathroom)
+        game3 = Game(title, authors, all_rooms, kitchen_room._name, inventory)
+        game3.set_current_room(bathroom._name)
         self.assertEqual(game3.get_current_room(), bathroom)
 
     def test_add_item_to_inventory(self):
@@ -144,17 +145,40 @@ class GameTestCase(unittest.TestCase):
         authors = "author 1, author 2"
         kitchen_room = Room("Kitchen", "a quaint kitchen",
                             "a kitchen full of pots and pans",
-                            self.door_dict, self.item_dict)
+                            self.door_dict, self.room1_item_dict)
         bathroom = Room("Bathroom", "it's quite luxurious for a bathroom",
                         "a bathroom where jewels come out of the faucets...",
-                        self.door_dict, self.item_list)
+                        self.door_dict, self.room2_item_dict)
         all_rooms = {"Kitchen": kitchen_room,
                      "Bathroom": bathroom}
-        inventory = self.item_list
+        inventory = {}
 
-        game3 = Game(title, authors, all_rooms, kitchen_room, inventory)
-        game3.add_item_to_inventory(self.item3)
-        self.assertIn(self.item3, game3.get_inventory())
+        game3 = Game(title, authors, all_rooms, kitchen_room._name, inventory)
+        item_key = self.item3.get_name()
+        game3.add_item_to_inventory(item_key, self.item3)
+        self.assertEqual(self.item3, game3.get_inventory()[item_key])
+
+    def test_remove_item_from_inventory(self):
+        """
+        Tests that player's inventory is correctly updated
+        when an item is removed
+        """
+        title = "Game3"
+        authors = "author 1, author 2"
+        kitchen_room = Room("Kitchen", "a quaint kitchen",
+                            "a kitchen full of pots and pans",
+                            self.door_dict, self.room1_item_dict)
+        bathroom = Room("Bathroom", "it's quite luxurious for a bathroom",
+                        "a bathroom where jewels come out of the faucets...",
+                        self.door_dict, self.room2_item_dict)
+        all_rooms = {"Kitchen": kitchen_room,
+                     "Bathroom": bathroom}
+        inventory = {self.item2.get_name(): self.item2}
+
+        game3 = Game(title, authors, all_rooms, kitchen_room.get_name(), inventory)
+        item_key = list(game3.get_inventory().keys())[0]
+        game3.remove_item_from_inventory(item_key)
+        self.assertEqual({}, game3.get_inventory())
 
 
 if __name__ == '__main__':
