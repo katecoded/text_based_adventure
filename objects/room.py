@@ -51,22 +51,28 @@ class Room:
         the names of the Items in the Room.
         """
 
+        # if there are no doors or items in the room (should
+        # never happen), return an empty string
+        if not self._doors and not self._items:
+            return ""
+
         description = "You can see "
         # first, add the directions and names of the doors
         for door_name in self._doors.keys():
-            if self._doors[door_name].get_direction() == "east":
-                description += "an eastern " + door_name
+            if door_name[0].lower() in "ieaou":
+                description += "an " + door_name + " to the " +\
+                               self._doors[door_name].get_direction()
             else:
-                description += "a " + self._doors[door_name].get_direction()\
-                               + "ern " + door_name
+                description += "a " + door_name + " to the " +\
+                               self._doors[door_name].get_direction()
             description += ", "
 
         # second, add the item names
         for item_name in self._items.keys():
-            if item_name[-1].lower == "s":
+            if item_name[0].lower() == "s":
                 description += item_name
             else:
-                if item_name in "ieaou":
+                if item_name[0].lower() in "ieaou":
                     description += "an " + item_name
                 else:
                     description += "a " + item_name
