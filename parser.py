@@ -64,6 +64,7 @@ def logic_splitter(token_list):
     print(object_preposition_list)
     return action, object_preposition_list
 
+  
 def temp_parser(input):
     """
     Placeholder for parser that splits user input into an action and sets of
