@@ -112,7 +112,7 @@ def non_interactive_command_handler(command):
     elif command == "loadgame":
         return "Loads last game save after asking for confirmation"
     # Gives long description of current room
-    elif action == "look":
+    elif command == "look":
         return "Gives long description of room"
 
 
