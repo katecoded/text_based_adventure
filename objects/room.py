@@ -69,7 +69,7 @@ class Room:
 
         # second, add the item names
         for item_name in self._items.keys():
-            if item_name[0].lower() == "s":
+            if item_name[-1].lower() == "s":
                 description += item_name
             else:
                 if item_name[0].lower() in "ieaou":

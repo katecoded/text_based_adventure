@@ -27,9 +27,12 @@ class RoomTestCase(unittest.TestCase):
         cls.item.get_name.return_value = "iron key"
         cls.item_2 = Mock()
         cls.item_2.get_name.return_value = "purple mushroom"
+        cls.item_3 = Mock()
+        cls.item_3.get_name.return_value = "scissors"
         cls.item_dict = {
             cls.item.get_name(): cls.item,
-            cls.item_2.get_name(): cls.item_2
+            cls.item_2.get_name(): cls.item_2,
+            cls.item_3.get_name(): cls.item_3
         }
 
     def test_get_name(self):
@@ -132,6 +135,7 @@ class RoomTestCase(unittest.TestCase):
         """
         Validates that when a Room has one Door and multiple Items,
         the description with their names returns correctly.
+        Also tests that a plural item name produces the correct output.
         """
         name = "Golden Carpet"
         short_description = "The entire room is covered in golden " \
@@ -152,6 +156,10 @@ class RoomTestCase(unittest.TestCase):
         for door_name in doors.keys():
             self.assertIn(door_name, result_desc)
             self.assertIn(doors[door_name].get_direction(), result_desc)
+
+        # test the grammar for a plural item
+        self.assertNotIn("a scissors", result_desc)
+        self.assertNotIn("an scissors", result_desc)
 
     def test_get_doors_and_items_description_4(self):
         """
