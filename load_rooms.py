@@ -23,8 +23,7 @@ def create_object_dictionary(object_data, object_type):
             result_dict[name] = Door(name, object_data[name]["destination"],
                                      object_data[name]["direction"],
                                      object_data[name]["key"],
-                                     object_data[name]["short_description"],
-                                     object_data[name]["long_description"])
+                                     object_data[name]["description"])
 
     return result_dict
 

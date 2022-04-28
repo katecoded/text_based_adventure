@@ -8,15 +8,13 @@
 			"destination": "Bee Room",
 			"direction": "east",
 			"key": "silver key",
-			"short_description": "An old wooden door cracked with age.",
-			"long_description": "An old wooden door cracked with age. It has a silver keyhole."
+			"description": "An old wooden door cracked with age. It has a silver keyhole."
 		},
 		"marble door": {
 			"destination": "Living Room",
 			"direction": "south",
 			"key": "",
-			"short_description": "A door made entirely of marble.",
-			"long_description": "A door made entirely of marble. It doesn't appear to have a keyhole."
+			"description": "A door made entirely of marble. It doesn't appear to have a keyhole."
 		}
 	},
 	"items": {
