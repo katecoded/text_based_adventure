@@ -5,7 +5,7 @@ class Door:
 
     def __init__(self, name, destination, direction, key, desc):
         """
-        Initializes door object with a name, a room, a direction, a key status, and a lock status.
+        Initializes door object with a name, a destination, a direction, a key status, a lock status and a description.
         """
 
         self._name = name
