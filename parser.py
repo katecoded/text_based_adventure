@@ -1,4 +1,5 @@
-# import string
+# from objects.game import Game
+
 non_interactive_actions = ["inventory", "help", "look", "savegame", "loadgame"]
 pickup_actions = ["take", "grab", "get", "pickup"]
 movement_actions = ["go", "move"]
@@ -7,7 +8,7 @@ other_actions = ["lookat", "combine"]
 all_available_actions = non_interactive_actions + pickup_actions + \
                         movement_actions + other_actions
 prepositions = ["in", "at", "to", "with"]
-directions = ["north", "south", "east", "west"]  # up/down?
+# directions = ["north", "south", "east", "west"]  # up/down?
 
 
 def pre_process_commands(input):
@@ -24,8 +25,7 @@ def tokenize(input):
     Splits user input into tokens and converts tokens to lowercase
     """
     token_list = input.split()
-    for token in token_list:
-        token = token.lower()
+    token_list = [token.lower() for token in token_list]
     return token_list
 
 
@@ -65,10 +65,10 @@ def logic_splitter(token_list):
     return action, object_preposition_list
 
 
-def temp_parser(input):
+def parser(input, gamestate):
     """
-    Placeholder for parser that splits user input into an action and sets of
-    strings then determines how to change game-state based on the action
+    Parser that splits user input into an action and sets of strings
+    then determines how to change game-state based on the action
     """
     token_list = tokenize(pre_process_commands(input))
     action, str_list = logic_splitter(token_list)
@@ -76,16 +76,15 @@ def temp_parser(input):
         return str_list[0]
     # Sends to helper that deals with actions that don't affect gamestate
     elif action in non_interactive_actions:
-        return non_interactive_command_handler(action)
+        return non_interactive_command_handler(action, gamestate)
     # Attempts to add item to inventory
     elif len(str_list) > 0 and action in pickup_actions:
         return "Attempts to take the object " + str_list[0]
     # Attempts to go through door specified by user
     elif len(str_list) > 0 and action in movement_actions:
-        return "Attempts to go in the direction " + str_list[0]
-    # Similar to above but should be updated to return different error
+        return movement_handler(gamestate, str_list[0], True)
     elif len(str_list) > 0 and action == "unknown":
-        return "Attempts to go in the direction " + str_list[0]
+        return movement_handler(gamestate, str_list[0], False)
     # Gives description of possible item in room
     elif len(str_list) > 0 and action == "lookat":
         return "Attempts to look at the object " + str_list[0]
@@ -96,16 +95,25 @@ def temp_parser(input):
         return "Sorry I don't understand how to do that"
 
 
-def non_interactive_command_handler(command):
+def non_interactive_command_handler(command, gamestate):
     """
     Helper function that handles all commands that don't affect gamestate
     """
     # Lists all items in player's inventory
     if command == "inventory":
-        return "Displays inventory to user"
+        inv = gamestate.get_inventory()
+        if not inv:
+            return "You have nothing in your inventory"
+        message = "The following items are in your inventory: "
+        items = inv.keys()
+        for item in items:
+            message += item + ", "
+        return message[:-2]
     # Returns vocabulary of usable actions
     elif command == "help":
-        return "Displays list of standard actions to user"
+        return "The following is a list of allowed commands:\nHelp\nInventory\nGo\n" \
+               "Take\nLook\nLook At\nGo\nSavefile\nLoadfile\n" \
+               "Certain synonyms such as \"Pick Up\" or \"Move\" will also work"
     # Saves current game-state to a file
     elif command == "savegame":
         return "Saves the current game state after asking for confirmation"
@@ -117,12 +125,38 @@ def non_interactive_command_handler(command):
         return "Gives long description of room"
 
 
-def analyze_tokens(token_list):
-    if len(token_list) == 0:
-        return
-    if token_list[0].lower() == "go":
-        if len(token_list) > 1:
-            pass
-            # would call a function for navigating the player here
-        else:
-            print("Please provide a direction or adjacent room to go to.")
+def movement_handler(gamestate, direction, known_status):
+    """
+    Handler that processes and performs movement actions
+    """
+    doors = gamestate.get_current_room().get_doors()
+    door_name_list = list(doors.keys())
+    lower_door_name_list = []
+    directions = []
+    # Gets list of all available movement directions and doors in lower case
+    for door in door_name_list:
+        lower_door_name_list.append(door.lower())
+        directions.append(doors[door].get_direction().lower())
+    # If user entered a valid cardinal direction, perform movement and return message
+    if direction in directions:
+        perform_movement(gamestate, door_name_list[directions.index(direction)])
+        return "You have moved through the " + direction + " door"
+    # If user entered a valid door name, perform movement and return message
+    elif direction in lower_door_name_list:
+        perform_movement(gamestate, door_name_list[lower_door_name_list.index(direction)])
+        return "You have moved through the " + direction
+    # If user has used a move command but indicated an invalid direction
+    elif known_status:
+        return "You cannot move in that direction"
+    # If user has not entered a valid command and not entered a movement direction
+    return "I don't know how to " + direction
+
+
+def perform_movement(gamestate, door_name):
+    """
+    Moves the player through the indicated door and changes the current
+    room the player is in
+    """
+    doors = gamestate.get_current_room().get_doors()
+    new_room = doors[door_name].get_destination()
+    gamestate.set_current_room(new_room)
