@@ -1,4 +1,4 @@
-from objects.game import Game
+# from objects.game import Game
 
 non_interactive_actions = ["inventory", "help", "look", "savegame", "loadgame"]
 pickup_actions = ["take", "grab", "get", "pickup"]
