@@ -3,29 +3,28 @@ class Door:
     Represents a door leading to a room in a text based adventure game.
     """
 
-    def __init__(self, name, room, direction, key, short_desc, long_desc):
+    def __init__(self, name, destination, direction, key, desc):
         """
-        Initializes door object with a name, a room, a direction, a key status, and a lock status.
+        Initializes door object with a name, a destination, a direction, a key status, a lock status and a description.
         """
 
         self._name = name
-        self._room = room
+        self._destination = destination
         self._direction = direction
         self._key = key
         if self._key:
             self._locked = True
         else:
             self._locked = False
-        self._short_desc = short_desc
-        self._long_desc = long_desc
+        self._desc = desc
 
     def get_name(self):
         """returns the name of the door"""
         return self._name
 
-    def get_room(self):
+    def get_destination(self):
         """returns the name of the room the door leads to"""
-        return self._room
+        return self._destination
 
     def get_direction(self):
         """returns the direction of the door in the current room the player is in"""
@@ -39,13 +38,9 @@ class Door:
         """returns whether door is locked or not. True for locked, False for unlocked."""
         return self._locked
 
-    def get_short_description(self):
-        """returns short description string of the door"""
-        return self._short_desc
-
-    def get_long_description(self):
-        """returns long description string of the door"""
-        return self._long_desc
+    def get_description(self):
+        """returns description string of the door"""
+        return self._desc
 
     def unlock_door(self):
         """
