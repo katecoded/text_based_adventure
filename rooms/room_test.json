@@ -1,0 +1,30 @@
+{
+	"name": "Frog Room",
+	"short_description": "There are frogs everywhere. Just...everywhere.",
+	"long_description": "It's like a dream come true. On every wall - on every surface, in fact - there is a frog. It is the cutest thing in this entire mansion...even if it is extremely confusing.",
+	"visited": false,
+	"doors": {
+		"oak door": {
+			"destination": "Bee Room",
+			"direction": "east",
+			"key": "silver key",
+			"description": "An old wooden door cracked with age. It has a silver keyhole."
+		},
+		"marble door": {
+			"destination": "Living Room",
+			"direction": "south",
+			"key": "",
+			"description": "A door made entirely of marble. It doesn't appear to have a keyhole."
+		}
+	},
+	"items": {
+		"brass key": {
+			"description": "A rusty brass key.",
+			"takeable": true
+		},
+		"fuzzy armchair": {
+			"description": "A blue armchair covered in fuzz. It looks untouched.",
+			"takeable": false
+		}
+	}
+}
