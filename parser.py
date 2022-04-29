@@ -168,7 +168,7 @@ def perform_movement(gamestate, door_name):
     gamestate.set_current_room(new_room)
 
     
- def examine_handler(gamestate, obj_name):
+def examine_handler(gamestate, obj_name):
     """
     Returns the description of the object that the player wants to
     examine.
