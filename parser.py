@@ -167,7 +167,7 @@ def perform_movement(gamestate, door_name):
     new_room = doors[door_name].get_destination()
     gamestate.set_current_room(new_room)
 
-    
+
 def examine_handler(gamestate, obj_name):
     """
     Returns the description of the object that the player wants to
@@ -209,4 +209,3 @@ def take_handler(gamestate, obj_name):
 
     # If the item was not in the room or could not be taken
     return "That object cannot be taken"
-
