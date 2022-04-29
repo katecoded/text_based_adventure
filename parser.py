@@ -2,12 +2,16 @@
 
 non_interactive_actions = ["inventory", "help", "look", "savegame", "loadgame"]
 pickup_actions = ["take", "grab", "get", "pickup"]
-movement_actions = ["go", "move"]
-other_actions = ["lookat", "combine"]
+movement_actions = ["go", "move", "travel"]
+eat_actions = ["eat", "consume"]
+examine_actions = ["lookat", "examine"]
+other_actions = ["combine"]
 
 all_available_actions = non_interactive_actions + pickup_actions + \
-                        movement_actions + other_actions
-prepositions = ["in", "at", "to", "with"]
+                        movement_actions + eat_actions + \
+                        examine_actions + other_actions
+prepositions = ["in", "at", "to", "with", "toward", "towards", "on", "into",
+                "onto"]
 # directions = ["north", "south", "east", "west"]  # up/down?
 
 
@@ -79,15 +83,15 @@ def parser(input, gamestate):
         return non_interactive_command_handler(action, gamestate)
     # Attempts to add item to inventory
     elif len(str_list) > 0 and action in pickup_actions:
-        return "Attempts to take the object " + str_list[0]
+        return take_handler(gamestate, str_list[0])
     # Attempts to go through door specified by user
     elif len(str_list) > 0 and action in movement_actions:
         return movement_handler(gamestate, str_list[0], True)
     elif len(str_list) > 0 and action == "unknown":
         return movement_handler(gamestate, str_list[0], False)
-    # Gives description of possible item in room
-    elif len(str_list) > 0 and action == "lookat":
-        return "Attempts to look at the object " + str_list[0]
+    # Gives description of possible item in room or inventory
+    elif len(str_list) > 0 and action in examine_actions:
+        return examine_handler(gamestate, str_list[0])
     # Attempts to combine two objects
     elif len(str_list) > 2 and action == "combine" and str_list[1] == "with":
         return "Attempts to combine " + str_list[0] + " with " + str_list[2]
@@ -122,7 +126,9 @@ def non_interactive_command_handler(command, gamestate):
         return "Loads last game save after asking for confirmation"
     # Gives long description of current room
     elif command == "look":
-        return "Gives long description of room"
+        # returns long description of room
+        current_room = gamestate.get_current_room()
+        return current_room.get_long_description()
 
 
 def movement_handler(gamestate, direction, known_status):
@@ -160,3 +166,46 @@ def perform_movement(gamestate, door_name):
     doors = gamestate.get_current_room().get_doors()
     new_room = doors[door_name].get_destination()
     gamestate.set_current_room(new_room)
+
+
+def examine_handler(gamestate, obj_name):
+    """
+    Returns the description of the object that the player wants to
+    examine.
+    """
+    # return the description of object str_list[0]
+    current_room = gamestate.get_current_room()
+
+    # if it is an item in the current room
+    item = current_room.get_item_by_name(obj_name)
+    if item is not None:
+        return item.get_description()
+    else:
+        # if it is a door in the current room
+        door = current_room.get_door_by_name(obj_name)
+        if door is not None:
+            return door.get_description()
+        else:
+            # if it is an item in the player's inventory
+            if obj_name in gamestate.get_inventory():
+                item = gamestate.get_inventory()[obj_name]
+                return item.get_description()
+    # if the object is not found in the room or inventory
+    return "That object isn't here"
+
+
+def take_handler(gamestate, obj_name):
+    """
+    Takes and puts given object in inventory if it is
+    in the current room and takeable.
+    """
+    # Add the item into inventory
+    current_room = gamestate.get_current_room()
+    item = current_room.get_item_by_name(obj_name)
+    if item is not None:
+        if item.is_takeable():
+            gamestate.add_item_to_inventory(item.get_name(), item)
+            return item.get_name() + " is now in your inventory"
+
+    # If the item was not in the room or could not be taken
+    return "That object cannot be taken"
