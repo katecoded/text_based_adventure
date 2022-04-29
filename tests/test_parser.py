@@ -23,16 +23,14 @@ class TestParser(TestCase):
         self.item_4 = Item("flashlight",
                            "Ah, this flashlight might help in case you ever get"
                            "lost in some dark corner of this castle."
-                           "It works a little too well though ... so bright..."
-                           , True)
+                           "It works a little too well though ... so bright...", True)
         self.item_5 = Item("hand mirror",
                            "Be careful with this. The last person who looked"
                            "into it for too long may or may not have gotten "
-                           "sucked into it..."
-                           , True)
+                           "sucked into it...", True)
         self.item_6 = Item("leather boot",
-                           "Yup, just an old, dusty-looking leather boot."
-                           , True)
+                           "Yup, just an old, dusty-looking leather boot.", True)
+
         self.door_1 = Door("One Door", "Rome", "North", False, "All doors lead to Rome")
         self.door_2 = Door("Two Door", "Rome", "East", False, "All doors lead to Rome")
         self.door_3 = Door("Red Door", "Rome", "South", False, "All doors lead to Rome")
@@ -84,7 +82,7 @@ class TestParser(TestCase):
     def test_look_command(self):
         message = parser("look", self.game)
         self.assertEqual(message, self.game.get_current_room().get_long_description())
-    
+
     def test_examine_command(self):
         message = parser("look at leather boot", self.game)
         item_desc = self.game.get_current_room().get_item_by_name("leather boot").get_description()
