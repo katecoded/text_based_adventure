@@ -20,6 +20,19 @@ class TestParser(TestCase):
                                                "nothing suspicious about it...", True)
         self.item_3 = Item("Table", "It's a simple wooden table. There are items you make take "
                                     "on the table. No, you may not take the table.", False)
+        self.item_4 = Item("flashlight",
+                           "Ah, this flashlight might help in case you ever get"
+                           "lost in some dark corner of this castle."
+                           "It works a little too well though ... so bright..."
+                           , True)
+        self.item_5 = Item("hand mirror",
+                           "Be careful with this. The last person who looked"
+                           "into it for too long may or may not have gotten "
+                           "sucked into it..."
+                           , True)
+        self.item_6 = Item("leather boot",
+                           "Yup, just an old, dusty-looking leather boot."
+                           , True)
         self.door_1 = Door("One Door", "Rome", "North", False, "All doors lead to Rome")
         self.door_2 = Door("Two Door", "Rome", "East", False, "All doors lead to Rome")
         self.door_3 = Door("Red Door", "Rome", "South", False, "All doors lead to Rome")
@@ -30,7 +43,10 @@ class TestParser(TestCase):
                                  self.door_4.get_name(): self.door_4}
         self.room_1_item_dict = {self.item_1.get_name(): self.item_1,
                                  self.item_2.get_name(): self.item_2,
-                                 self.item_3.get_name(): self.item_3}
+                                 self.item_3.get_name(): self.item_3,
+                                 self.item_4.get_name() self.item_4,
+                                 self.item_5.get_name() self.item_5,
+                                 self.item_6.get_name() self.item_6}
         self.room_1 = Room("Starting Room", "A Barren room with stuff on the table",
                            "A barren concrete room that serves as a starting point. In one of "
                            "the corners stands a simple wooden table with items of interest on "
@@ -57,29 +73,26 @@ class TestParser(TestCase):
                           self.room_2.get_name(): self.room_2}
         self.game = Game("Test", "Great Old Ones", self.room_dict, "Starting Room", {})
 
-    def test1(self):
-        message = parser("take key", self.game)
-        self.assertEqual(message, "Attempts to take the object key")
+    def test_take_command(self):
+        message = parser("take flashlight", self.game)
+        self.assertEqual(message, "flashlight is now in your inventory")
 
-    def test2(self):
+    def test_inventory_after_take_command(self):
+        parser("take hand mirror", self.game)
+        self.assertIn("hand mirror", self.game.get_inventory())
+
+    def test_look_command(self):
         message = parser("look", self.game)
-        self.assertEqual(message, "Gives long description of room")
-
-    def test3(self):
-        message = parser("look at sky", self.game)
-        self.assertEqual(message, "Attempts to look at the object sky")
+        self.assertEqual(message, self.game.get_current_room().get_long_description())
+    
+    def test_examine_command(self):
+        message = parser("look at leather boot", self.game)
+        item_desc = self.game.get_current_room().get_item_by_name("leather boot").get_description()
+        self.assertEqual(message, item_desc)
 
     def test4(self):
         message = parser("combine gem with staff", self.game)
         self.assertEqual(message, "Attempts to combine gem with staff")
-
-    def test5(self):
-        message = parser("grab the key", self.game)
-        self.assertEqual(message, "Attempts to take the object the key")
-
-    def test6(self):
-        message = parser("pick up the big blue ball", self.game)
-        self.assertEqual(message, "Attempts to take the object the big blue ball")
 
     def test7(self):
         message = parser("savegame", self.game)
