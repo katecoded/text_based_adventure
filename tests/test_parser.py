@@ -44,9 +44,9 @@ class TestParser(TestCase):
         self.room_1_item_dict = {self.item_1.get_name(): self.item_1,
                                  self.item_2.get_name(): self.item_2,
                                  self.item_3.get_name(): self.item_3,
-                                 self.item_4.get_name() self.item_4,
-                                 self.item_5.get_name() self.item_5,
-                                 self.item_6.get_name() self.item_6}
+                                 self.item_4.get_name(): self.item_4,
+                                 self.item_5.get_name(): self.item_5,
+                                 self.item_6.get_name(): self.item_6}
         self.room_1 = Room("Starting Room", "A Barren room with stuff on the table",
                            "A barren concrete room that serves as a starting point. In one of "
                            "the corners stands a simple wooden table with items of interest on "
