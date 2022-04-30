@@ -53,10 +53,12 @@ class LoadRoomsTestCase(unittest.TestCase):
                                    "room. All of them say 'This room belongs "
                                    "to Bob.'",
                     "takeable": False,
+                    "type": "decor"
                 },
                 "table": {
                     "description": "The wooden table is covered in signs.",
                     "takeable": False,
+                    "type": "decor"
                 }
             }
         }
