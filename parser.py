@@ -3,12 +3,13 @@
 non_interactive_actions = ["inventory", "help", "look", "savegame", "loadgame"]
 pickup_actions = ["take", "grab", "get", "pickup"]
 movement_actions = ["go", "move", "travel"]
+drop_actions = ["drop", "remove"]
 eat_actions = ["eat", "consume"]
 examine_actions = ["lookat", "examine"]
 other_actions = ["combine"]
 
 all_available_actions = non_interactive_actions + pickup_actions + \
-                        movement_actions + eat_actions + \
+                        movement_actions + eat_actions + drop_actions\
                         examine_actions + other_actions
 prepositions = ["in", "at", "to", "with", "toward", "towards", "on", "into",
                 "onto"]
@@ -83,6 +84,9 @@ def parser(input, gamestate):
     # Attempts to add item to inventory
     elif len(str_list) > 0 and action in pickup_actions:
         return take_handler(gamestate, str_list[0])
+    # Attempts to drop item in inventory
+    elif len(str_list) > 0 and action in drop_actions:
+        return drop_handler(gamestate, str_list[0])
     # Attempts to go through door specified by user
     elif len(str_list) > 0 and action in movement_actions:
         return movement_handler(gamestate, str_list[0], True)
@@ -214,3 +218,18 @@ def take_handler(gamestate, obj_name):
 
     # If the item was not in the room or could not be taken
     return "That object cannot be taken"
+
+
+def drop_handler(gamestate, obj_name):
+    """
+    Tries to drop an item if it item exists in the inventory
+    The item will be removed from the inventory and added to the current room
+    """
+    item = gamestate.get_item_by_name(obj_name)
+    if item is not None:
+        gamestate.get_current_room().add_item(item)
+        gamestate.remove_item_from_inventory(obj_name)
+        return "You have dropped " + obj_name + " from your inventory"
+
+    # If the item is not in your inventory
+    return "You do not have " + obj_name + " in your inventory"
