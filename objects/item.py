@@ -43,4 +43,3 @@ class Item:
         Returns the Item type.
         """
         return self._type
-
