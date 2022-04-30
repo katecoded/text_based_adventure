@@ -37,10 +37,10 @@ class Item:
         be put in the player's inventory).
         """
         return self._takeable
-    
+
     def get_type(self):
         """
         Returns the Item type.
         """
         return self._type
-    
+
