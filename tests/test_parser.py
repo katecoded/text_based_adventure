@@ -70,6 +70,7 @@ class TestParser(TestCase):
         self.room_dict = {self.room_1.get_name(): self.room_1,
                           self.room_2.get_name(): self.room_2}
         self.game = Game("Test", "Great Old Ones", self.room_dict, "Starting Room", {})
+        self.game.get_current_room().set_visited()
 
     def test_take_command(self):
         message = parser("take flashlight", self.game)
