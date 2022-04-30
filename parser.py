@@ -129,7 +129,7 @@ def non_interactive_command_handler(command, gamestate):
         current_room = gamestate.get_current_room()
         return current_room.get_long_description()
 
-      
+
 def movement_handler(gamestate, direction, known_status):
     """
     Handler that processes and performs movement actions
