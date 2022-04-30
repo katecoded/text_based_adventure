@@ -28,7 +28,6 @@ class LoadRoomsTestCase(unittest.TestCase):
             "long_description": "From all of the signs hanging around the "
                                 "room, you can guess that this room belongs "
                                 "to Bob.",
-            "visited": False,
             "doors": {
                 "broken door": {
                     "destination": "Unknown Room",
@@ -62,7 +61,7 @@ class LoadRoomsTestCase(unittest.TestCase):
                 }
             }
         }
-        with open("rooms/room_test_1.json", "w+") as room_test_1:
+        with open("rooms/room_test_1.json", "w") as room_test_1:
             json.dump(cls.test_file_data_1, room_test_1)
 
         # create the second JSON test file
@@ -70,7 +69,6 @@ class LoadRoomsTestCase(unittest.TestCase):
             "name": "Test File Hallway",
             "short_description": "An empty hallway.",
             "long_description": "A spooky empty hallway.",
-            "visited": True,
             "doors": {
                 "squeaky door": {
                     "destination": "Test File Bob's Room",
@@ -82,7 +80,7 @@ class LoadRoomsTestCase(unittest.TestCase):
             },
             "items": {}
         }
-        with open("rooms/room_test_2.json", "w+") as room_test_2:
+        with open("rooms/room_test_2.json", "w") as room_test_2:
             json.dump(cls.test_file_data_2, room_test_2)
 
     @classmethod
@@ -126,3 +124,124 @@ class LoadRoomsTestCase(unittest.TestCase):
             for door_name in doors.keys():
                 self.assertIsInstance(door_name, str)
                 self.assertIsInstance(doors[door_name], Door)
+
+    def test_room_test_objects_exist(self):
+        """
+        Validates that the Test File Room objects are contained in the
+        resulting returned dictionary.
+        """
+        room_dict = load_rooms()
+        self.assertIn(self.test_file_data_1["name"], room_dict)
+        self.assertIn(self.test_file_data_2["name"], room_dict)
+
+    def test_room_1_properties_correct(self):
+        """
+        Validates that the first Test File Room object properties (created
+        from test_file_data_1) contain the expected information.
+        """
+        room_dict = load_rooms()
+        room = room_dict[self.test_file_data_1["name"]]
+        self.assertEqual(room.get_name(), self.test_file_data_1["name"])
+        self.assertEqual(room.get_short_description(),
+                         self.test_file_data_1["short_description"])
+        self.assertEqual(room.get_long_description(),
+                         self.test_file_data_1["long_description"])
+        self.assertFalse(room.get_visited())
+        self.assertEqual(len(room.get_doors()),
+                         len(self.test_file_data_1["doors"]))
+        self.assertEqual(len(room.get_items()),
+                         len(self.test_file_data_1["items"]))
+
+    def test_room_2_properties_correct(self):
+        """
+        Validates that the second Test File Room object properties (created
+        from test_file_data_2) contain the expected information.
+        """
+        room_dict = load_rooms()
+        room = room_dict[self.test_file_data_2["name"]]
+        self.assertEqual(room.get_name(), self.test_file_data_2["name"])
+        self.assertEqual(room.get_short_description(),
+                         self.test_file_data_2["short_description"])
+        self.assertEqual(room.get_long_description(),
+                         self.test_file_data_2["long_description"])
+        self.assertFalse(room.get_visited())
+        self.assertEqual(len(room.get_doors()),
+                         len(self.test_file_data_2["doors"]))
+        self.assertEqual(len(room.get_items()),
+                         len(self.test_file_data_2["items"]))
+
+    def test_room_1_item_data_correct(self):
+        """
+        Validates that the first Test File Room object's Item objects
+        (created from test_file_data_1) contain the expected information.
+        """
+        room_dict = load_rooms()
+        result_items = room_dict[self.test_file_data_1["name"]].get_items()
+        expected_items = self.test_file_data_1["items"]
+
+        for item_name in expected_items.keys():
+            self.assertEqual(result_items[item_name].get_name(), item_name)
+            self.assertEqual(result_items[item_name].get_description(),
+                             expected_items[item_name]["description"])
+            self.assertEqual(result_items[item_name].is_takeable(),
+                             expected_items[item_name]["takeable"])
+
+    def test_room_2_item_data_correct(self):
+        """
+        Validates that the second Test File Room object's Item objects
+        (created from test_file_data_2) contain the expected information.
+        """
+        room_dict = load_rooms()
+        result_items = room_dict[self.test_file_data_2["name"]].get_items()
+        expected_items = self.test_file_data_2["items"]
+
+        for item_name in expected_items.keys():
+            self.assertEqual(result_items[item_name].get_name(), item_name)
+            self.assertEqual(result_items[item_name].get_description(),
+                             expected_items[item_name]["description"])
+            self.assertEqual(result_items[item_name].is_takeable(),
+                             expected_items[item_name]["takeable"])
+
+    def test_room_1_door_data_correct(self):
+        """
+        Validates that the first Test File Room object's Door objects
+        (created from test_file_data_1) contain the expected information.
+        """
+        room_dict = load_rooms()
+        result_doors = room_dict[self.test_file_data_1["name"]].get_doors()
+        expected_doors = self.test_file_data_1["doors"]
+
+        for door_name in expected_doors.keys():
+            self.assertEqual(result_doors[door_name].get_name(), door_name)
+            self.assertEqual(result_doors[door_name].get_description(),
+                             expected_doors[door_name]["description"])
+            self.assertEqual(result_doors[door_name].get_direction(),
+                             expected_doors[door_name]["direction"])
+            self.assertEqual(result_doors[door_name].get_destination(),
+                             expected_doors[door_name]["destination"])
+            self.assertEqual(result_doors[door_name].get_key(),
+                             expected_doors[door_name]["key"])
+            self.assertEqual(result_doors[door_name].get_lock_status(),
+                             bool(expected_doors[door_name]["key"]))
+
+    def test_room_2_door_data_correct(self):
+        """
+        Validates that the second Test File Room object's Door objects
+        (created from test_file_data_2) contain the expected information.
+        """
+        room_dict = load_rooms()
+        result_doors = room_dict[self.test_file_data_2["name"]].get_doors()
+        expected_doors = self.test_file_data_2["doors"]
+
+        for door_name in expected_doors.keys():
+            self.assertEqual(result_doors[door_name].get_name(), door_name)
+            self.assertEqual(result_doors[door_name].get_description(),
+                             expected_doors[door_name]["description"])
+            self.assertEqual(result_doors[door_name].get_direction(),
+                             expected_doors[door_name]["direction"])
+            self.assertEqual(result_doors[door_name].get_destination(),
+                             expected_doors[door_name]["destination"])
+            self.assertEqual(result_doors[door_name].get_key(),
+                             expected_doors[door_name]["key"])
+            self.assertEqual(result_doors[door_name].get_lock_status(),
+                             bool(expected_doors[door_name]["key"]))
