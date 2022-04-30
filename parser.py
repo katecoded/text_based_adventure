@@ -9,7 +9,7 @@ examine_actions = ["lookat", "examine"]
 other_actions = ["combine"]
 
 all_available_actions = non_interactive_actions + pickup_actions + \
-                        movement_actions + eat_actions + drop_actions\
+                        movement_actions + eat_actions + drop_actions + \
                         examine_actions + other_actions
 prepositions = ["in", "at", "to", "with", "toward", "towards", "on", "into",
                 "onto"]
