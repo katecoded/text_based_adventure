@@ -3,12 +3,13 @@
 non_interactive_actions = ["inventory", "help", "look", "savegame", "loadgame"]
 pickup_actions = ["take", "grab", "get", "pickup"]
 movement_actions = ["go", "move", "travel"]
+drop_actions = ["drop", "remove"]
 eat_actions = ["eat", "consume"]
 examine_actions = ["lookat", "examine"]
 other_actions = ["combine"]
 
 all_available_actions = non_interactive_actions + pickup_actions + \
-                        movement_actions + eat_actions + \
+                        movement_actions + eat_actions + drop_actions + \
                         examine_actions + other_actions
 prepositions = ["in", "at", "to", "with", "toward", "towards", "on", "into",
                 "onto"]
@@ -65,7 +66,6 @@ def logic_splitter(token_list):
             sentence_part += word + " "
     if sentence_part != "":
         object_preposition_list.append(sentence_part.strip())
-    print(object_preposition_list)
     return action, object_preposition_list
 
 
@@ -84,6 +84,9 @@ def parser(input, gamestate):
     # Attempts to add item to inventory
     elif len(str_list) > 0 and action in pickup_actions:
         return take_handler(gamestate, str_list[0])
+    # Attempts to drop item in inventory
+    elif len(str_list) > 0 and action in drop_actions:
+        return drop_handler(gamestate, str_list[0])
     # Attempts to go through door specified by user
     elif len(str_list) > 0 and action in movement_actions:
         return movement_handler(gamestate, str_list[0], True)
@@ -145,12 +148,12 @@ def movement_handler(gamestate, direction, known_status):
         directions.append(doors[door].get_direction().lower())
     # If user entered a valid cardinal direction, perform movement and return message
     if direction in directions:
-        perform_movement(gamestate, door_name_list[directions.index(direction)])
-        return "You have moved through the " + direction + " door"
+        description = perform_movement(gamestate, door_name_list[directions.index(direction)])
+        return "You have moved through the " + direction + " door\n" + description
     # If user entered a valid door name, perform movement and return message
     elif direction in lower_door_name_list:
-        perform_movement(gamestate, door_name_list[lower_door_name_list.index(direction)])
-        return "You have moved through the " + direction
+        description = perform_movement(gamestate, door_name_list[lower_door_name_list.index(direction)])
+        return "You have moved through the " + direction + "\n" + description
     # If user has used a move command but indicated an invalid direction
     elif known_status:
         return "You cannot move in that direction"
@@ -166,6 +169,12 @@ def perform_movement(gamestate, door_name):
     doors = gamestate.get_current_room().get_doors()
     new_room = doors[door_name].get_destination()
     gamestate.set_current_room(new_room)
+    new_room = gamestate.get_current_room()
+    if new_room.get_visited():
+        return new_room.get_short_description() + "\n" + \
+               new_room.get_doors_and_items_description()
+    new_room.set_visited()
+    return new_room.get_long_description() + "\n" + new_room.get_doors_and_items_description()
 
 
 def examine_handler(gamestate, obj_name):
@@ -210,3 +219,18 @@ def take_handler(gamestate, obj_name):
 
     # If the item was not in the room or could not be taken
     return "That object cannot be taken"
+
+
+def drop_handler(gamestate, obj_name):
+    """
+    Tries to drop an item if it item exists in the inventory
+    The item will be removed from the inventory and added to the current room
+    """
+    item = gamestate.get_item_by_name(obj_name)
+    if item is not None:
+        gamestate.get_current_room().add_item(item)
+        gamestate.remove_item_from_inventory(obj_name)
+        return "You have dropped " + obj_name + " from your inventory"
+
+    # If the item is not in your inventory
+    return "You do not have " + obj_name + " in your inventory"

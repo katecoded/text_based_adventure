@@ -116,6 +116,25 @@ class GameTestCase(unittest.TestCase):
         game3 = Game(title, authors, all_rooms, kitchen_room._name, inventory)
         self.assertEqual(game3.get_inventory(), inventory)
 
+    def test_get_item_in_inventory(self):
+        """
+        Tests that player's current inventory is correctly returned
+        """
+        title = "Game3"
+        authors = "author 1, author 2"
+        kitchen_room = Room("Kitchen", "a quaint kitchen",
+                            "a kitchen full of pots and pans",
+                            self.door_dict, self.room1_item_dict)
+        bathroom = Room("Bathroom", "it's quite luxurious for a bathroom",
+                        "a bathroom where jewels come out of the faucets...",
+                        self.door_dict, self.room2_item_dict)
+        all_rooms = {"Kitchen": kitchen_room,
+                     "Bathroom": bathroom}
+        inventory = {self.item2.get_name(): self.item2}
+
+        game3 = Game(title, authors, all_rooms, kitchen_room.get_name(), inventory)
+        self.assertEqual(game3.get_item_by_name(self.item2.get_name()), self.item2)
+
     def test_set_current_room(self):
         """
         Tests that player's new current room is correctly updated
