@@ -148,7 +148,10 @@ class TestParser(TestCase):
         move using a cardinal direction
         """
         message = parser("move north", self.game)
-        self.assertEqual(message, "You have moved through the north door")
+        cur_room = self.game.get_current_room()
+        self.assertEqual(message, "You have moved through the north door\n" +
+                         cur_room.get_long_description() + "\n" +
+                         cur_room.get_doors_and_items_description())
 
     def test_movement_message_door(self):
         """
@@ -156,7 +159,10 @@ class TestParser(TestCase):
         move using a door name
         """
         message = parser("go red door", self.game)
-        self.assertEqual(message, "You have moved through the red door")
+        cur_room = self.game.get_current_room()
+        self.assertEqual(message, "You have moved through the red door\n" +
+                         cur_room.get_long_description() + "\n" +
+                         cur_room.get_doors_and_items_description())
 
     def test_movement_direction(self):
         """
@@ -185,6 +191,18 @@ class TestParser(TestCase):
         parser("go south", self.game)
         cur_room = self.game.get_current_room()
         self.assertEqual(cur_room.get_name(), "Starting Room")
+        
+    def test_multiple_movement_description(self):
+        """
+        Tests that game properly gives description for visited room
+        after movement
+        """
+        parser("go red door", self.game)
+        message = parser("go south", self.game)
+        cur_room = self.game.get_current_room()
+        self.assertEqual(message, "You have moved through the south door\n" +
+                         cur_room.get_short_description() + "\n" +
+                         cur_room.get_doors_and_items_description())
 
     def test_movement_without_move_command(self):
         """
