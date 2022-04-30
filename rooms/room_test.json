@@ -21,10 +21,12 @@
 		"brass key": {
 			"description": "A rusty brass key.",
 			"takeable": true
+			"type": "key"
 		},
 		"fuzzy armchair": {
 			"description": "A blue armchair covered in fuzz. It looks untouched.",
 			"takeable": false
+			"type": "decor"
 		}
 	}
 }
