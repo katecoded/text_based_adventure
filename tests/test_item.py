@@ -56,7 +56,7 @@ class ItemTestCase(unittest.TestCase):
         type = "decor"
         item = Item(name, description, takeable, type)
         self.assertFalse(item.is_takeable())
-        
+
     def test_get_type(self):
         """
         Validates that get_type returns the correct value for item type
