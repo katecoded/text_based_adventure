@@ -205,6 +205,7 @@ def take_handler(gamestate, obj_name):
     if item is not None:
         if item.is_takeable():
             gamestate.add_item_to_inventory(item.get_name(), item)
+            current_room.remove_item(item)
             return item.get_name() + " is now in your inventory"
 
     # If the item was not in the room or could not be taken
