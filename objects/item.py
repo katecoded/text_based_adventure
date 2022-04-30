@@ -5,7 +5,7 @@ class Item:
     tracking if the Item can be picked up.
     """
 
-    def __init__(self, name, description, takeable, type):
+    def __init__(self, name, description, takeable, type="default"):
         """
         Initializes an Item with a name, a description,
         and a takeable Boolean.
