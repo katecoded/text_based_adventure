@@ -59,7 +59,7 @@ class LoadRoomsTestCase(unittest.TestCase):
                 }
             }
         }
-        with open("rooms/room_test_1.json", "w+") as room_test_1:
+        with open("rooms/room_test_1.json", "w") as room_test_1:
             json.dump(cls.test_file_data_1, room_test_1)
 
         # create the second JSON test file
@@ -78,7 +78,7 @@ class LoadRoomsTestCase(unittest.TestCase):
             },
             "items": {}
         }
-        with open("rooms/room_test_2.json", "w+") as room_test_2:
+        with open("rooms/room_test_2.json", "w") as room_test_2:
             json.dump(cls.test_file_data_2, room_test_2)
 
     @classmethod
