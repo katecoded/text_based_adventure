@@ -67,7 +67,7 @@ class ItemTestCase(unittest.TestCase):
         takeable = True
         type = "food"
         item = Item(name, description, takeable, type)
-        self.assertEqual(item.get_type, "food")
+        self.assertEqual(item.get_type(), "food")
 
 
 if __name__ == "__main__":
