@@ -56,6 +56,18 @@ class ItemTestCase(unittest.TestCase):
         type = "decor"
         item = Item(name, description, takeable, type)
         self.assertFalse(item.is_takeable())
+        
+    def test_get_type(self):
+        """
+        Validates that get_type returns the correct value for item type
+        """
+        name = "old french fry"
+        description = "An old french fry you found in your pocket." \
+                      "You don't know how long it's been there."
+        takeable = True
+        type = "food"
+        item = Item(name, description, takeable, type)
+        self.assertEqual(item.get_type, "food")
 
 
 if __name__ == "__main__":
