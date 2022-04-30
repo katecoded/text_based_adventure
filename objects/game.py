@@ -70,7 +70,6 @@ class Game:
         """
         self._current_room = new_room_key
 
-
     def get_item_by_name(self, item_key):
         """
         Returns the Item object from the inventory dictionary of Items
@@ -82,7 +81,6 @@ class Game:
             return self._inventory[item_key]
         else:
             return None
-
 
     def add_item_to_inventory(self, new_item_key, new_item):
         """
