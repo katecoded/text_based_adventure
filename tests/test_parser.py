@@ -191,7 +191,7 @@ class TestParser(TestCase):
         parser("go south", self.game)
         cur_room = self.game.get_current_room()
         self.assertEqual(cur_room.get_name(), "Starting Room")
-        
+
     def test_multiple_movement_description(self):
         """
         Tests that game properly gives description for visited room
