@@ -65,7 +65,6 @@ def logic_splitter(token_list):
             sentence_part += word + " "
     if sentence_part != "":
         object_preposition_list.append(sentence_part.strip())
-    print(object_preposition_list)
     return action, object_preposition_list
 
 
@@ -130,7 +129,7 @@ def non_interactive_command_handler(command, gamestate):
         current_room = gamestate.get_current_room()
         return current_room.get_long_description()
 
-
+      
 def movement_handler(gamestate, direction, known_status):
     """
     Handler that processes and performs movement actions
@@ -145,12 +144,12 @@ def movement_handler(gamestate, direction, known_status):
         directions.append(doors[door].get_direction().lower())
     # If user entered a valid cardinal direction, perform movement and return message
     if direction in directions:
-        perform_movement(gamestate, door_name_list[directions.index(direction)])
-        return "You have moved through the " + direction + " door"
+        description = perform_movement(gamestate, door_name_list[directions.index(direction)])
+        return "You have moved through the " + direction + " door\n" + description
     # If user entered a valid door name, perform movement and return message
     elif direction in lower_door_name_list:
-        perform_movement(gamestate, door_name_list[lower_door_name_list.index(direction)])
-        return "You have moved through the " + direction
+        description = perform_movement(gamestate, door_name_list[lower_door_name_list.index(direction)])
+        return "You have moved through the " + direction + "\n" + description
     # If user has used a move command but indicated an invalid direction
     elif known_status:
         return "You cannot move in that direction"
@@ -166,6 +165,12 @@ def perform_movement(gamestate, door_name):
     doors = gamestate.get_current_room().get_doors()
     new_room = doors[door_name].get_destination()
     gamestate.set_current_room(new_room)
+    new_room = gamestate.get_current_room()
+    if new_room.get_visited():
+        return new_room.get_short_description() + "\n" + \
+               new_room.get_doors_and_items_description()
+    new_room.set_visited()
+    return new_room.get_long_description() + "\n" + new_room.get_doors_and_items_description()
 
 
 def examine_handler(gamestate, obj_name):
