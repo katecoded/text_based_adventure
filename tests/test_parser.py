@@ -143,6 +143,16 @@ class TestParser(TestCase):
         self.assertEqual(message, "The following items are in your inventory: "
                                   "Crooked Candlestick, Sussy Coffee Cup")
 
+    def test_drop_item(self):
+        """
+        Tests that item is dropped properly after drop command
+        """
+        self.game.add_item_to_inventory(self.item_4.get_name(), self.item_4)
+        message = parser("drop flashlight", self.game)
+        self.assertEqual(message, "You have dropped " + self.item_4.get_name() +
+                         " from your inventory")
+        self.assertNotIn(self.item_4.get_name(), self.game.get_inventory())
+
     def test_movement_message_direction(self):
         """
         Tests that game properly returns movement message given user tries to
