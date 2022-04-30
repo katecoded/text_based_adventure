@@ -6,6 +6,14 @@ from objects.item import Item
 from objects.door import Door
 
 
+def validate_schema(json_data):
+    """
+    Returns True if the json_data matches the schema,
+    False otherwise.
+    """
+    pass
+
+
 def create_object_dictionary(object_data, object_type):
     """
     Takes a dictionary of data for either items or doors
