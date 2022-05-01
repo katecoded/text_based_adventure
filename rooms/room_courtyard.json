@@ -10,7 +10,7 @@
 			"description": "A stone corridor with an eerie light. You cannot see what is on the other side."
 		},
 		"stone staircase": {
-			"destination": "Unknown",
+			"destination": "Astronomy Room",
 			"direction": "west",
 			"key": "",
 			"description": "Though crumbling at the edges, the steps appear sturdy enough to traverse."
