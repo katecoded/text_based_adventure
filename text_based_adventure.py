@@ -40,7 +40,7 @@ def starting_room(game):
     object as visited.
     """
     print(game.get_current_room().get_name())
-    print(game.get_current_room().get_long_description(), "\n")
+    print(game.get_current_room().get_long_description())
     print(game.get_current_room().get_doors_and_items_description())
     game.get_current_room().set_visited()
 
