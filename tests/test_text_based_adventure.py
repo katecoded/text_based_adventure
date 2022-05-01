@@ -1,7 +1,7 @@
 import unittest
 import os
 
-from text_based_adventure import main, set_up_game
+from text_based_adventure import set_up_game
 from objects.room import Room
 from objects.door import Door
 from objects.item import Item
