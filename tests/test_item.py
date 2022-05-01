@@ -12,7 +12,8 @@ class ItemTestCase(unittest.TestCase):
         name = "silver key"
         description = "A silver key, tarnished with age."
         takeable = True
-        item = Item(name, description, takeable)
+        type = "key"
+        item = Item(name, description, takeable, type)
         self.assertEqual(item.get_name(), name)
 
     def test_get_description(self):
@@ -24,7 +25,8 @@ class ItemTestCase(unittest.TestCase):
         description = "An old chair made of wrinkled and cracked " \
                       "leather. It gives off a musty odor."
         takeable = False
-        item = Item(name, description, takeable)
+        type = "decor"
+        item = Item(name, description, takeable, type)
         self.assertEqual(item.get_description(), description)
 
     def test_is_takeable_true(self):
@@ -37,7 +39,8 @@ class ItemTestCase(unittest.TestCase):
                       "at you curiously. A nametag shows that " \
                       "its name is Steve."
         takeable = True
-        item = Item(name, description, takeable)
+        type = "decor"
+        item = Item(name, description, takeable, type)
         self.assertTrue(item.is_takeable())
 
     def test_is_takeable_false(self):
@@ -50,8 +53,21 @@ class ItemTestCase(unittest.TestCase):
                       "pineapples. An odd assortment of fruit " \
                       "(also mostly pineapples) sits on top."
         takeable = False
-        item = Item(name, description, takeable)
+        type = "decor"
+        item = Item(name, description, takeable, type)
         self.assertFalse(item.is_takeable())
+
+    def test_get_type(self):
+        """
+        Validates that get_type returns the correct value for item type
+        """
+        name = "old french fry"
+        description = "An old french fry you found in your pocket." \
+                      "You don't know how long it's been there."
+        takeable = True
+        type = "food"
+        item = Item(name, description, takeable, type)
+        self.assertEqual(item.get_type(), "food")
 
 
 if __name__ == "__main__":

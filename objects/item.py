@@ -5,7 +5,7 @@ class Item:
     tracking if the Item can be picked up.
     """
 
-    def __init__(self, name, description, takeable):
+    def __init__(self, name, description, takeable, type="default"):
         """
         Initializes an Item with a name, a description,
         and a takeable Boolean.
@@ -17,6 +17,7 @@ class Item:
         self._name = name
         self._description = description
         self._takeable = takeable
+        self._type = type
 
     def get_name(self):
         """
@@ -36,3 +37,9 @@ class Item:
         be put in the player's inventory).
         """
         return self._takeable
+
+    def get_type(self):
+        """
+        Returns the Item type.
+        """
+        return self._type

@@ -70,6 +70,7 @@ class TestParser(TestCase):
         self.room_dict = {self.room_1.get_name(): self.room_1,
                           self.room_2.get_name(): self.room_2}
         self.game = Game("Test", "Great Old Ones", self.room_dict, "Starting Room", {})
+        self.game.get_current_room().set_visited()
 
     def test_take_command(self):
         message = parser("take flashlight", self.game)
@@ -142,13 +143,26 @@ class TestParser(TestCase):
         self.assertEqual(message, "The following items are in your inventory: "
                                   "Crooked Candlestick, Sussy Coffee Cup")
 
+    def test_drop_item(self):
+        """
+        Tests that item is dropped properly after drop command
+        """
+        self.game.add_item_to_inventory(self.item_4.get_name(), self.item_4)
+        message = parser("drop flashlight", self.game)
+        self.assertEqual(message, "You have dropped " + self.item_4.get_name() +
+                         " from your inventory")
+        self.assertNotIn(self.item_4.get_name(), self.game.get_inventory())
+
     def test_movement_message_direction(self):
         """
         Tests that game properly returns movement message given user tries to
         move using a cardinal direction
         """
         message = parser("move north", self.game)
-        self.assertEqual(message, "You have moved through the north door")
+        cur_room = self.game.get_current_room()
+        self.assertEqual(message, "You have moved through the north door\n" +
+                         cur_room.get_long_description() + "\n" +
+                         cur_room.get_doors_and_items_description())
 
     def test_movement_message_door(self):
         """
@@ -156,7 +170,10 @@ class TestParser(TestCase):
         move using a door name
         """
         message = parser("go red door", self.game)
-        self.assertEqual(message, "You have moved through the red door")
+        cur_room = self.game.get_current_room()
+        self.assertEqual(message, "You have moved through the red door\n" +
+                         cur_room.get_long_description() + "\n" +
+                         cur_room.get_doors_and_items_description())
 
     def test_movement_direction(self):
         """
@@ -185,6 +202,18 @@ class TestParser(TestCase):
         parser("go south", self.game)
         cur_room = self.game.get_current_room()
         self.assertEqual(cur_room.get_name(), "Starting Room")
+
+    def test_multiple_movement_description(self):
+        """
+        Tests that game properly gives description for visited room
+        after movement
+        """
+        parser("go red door", self.game)
+        message = parser("go south", self.game)
+        cur_room = self.game.get_current_room()
+        self.assertEqual(message, "You have moved through the south door\n" +
+                         cur_room.get_short_description() + "\n" +
+                         cur_room.get_doors_and_items_description())
 
     def test_movement_without_move_command(self):
         """
