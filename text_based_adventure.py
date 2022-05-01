@@ -16,7 +16,7 @@ def set_up_game():
     authors = ["Apoorva Magadi", "Fedor Titov",
                "Mason Stiller", "Katelyn Lindsey"]
     random.shuffle(authors)
-    starting_location = "Frog Room"
+    starting_location = "Courtyard"
 
     return Game(title, authors, load_rooms(), starting_location, {})
 
