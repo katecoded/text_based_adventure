@@ -4,7 +4,7 @@ non_interactive_actions = ["inventory", "help", "look", "savegame", "loadgame"]
 pickup_actions = ["take", "grab", "get", "pickup"]
 movement_actions = ["go", "move", "travel"]
 drop_actions = ["drop", "remove"]
-eat_actions = ["eat", "consume"]
+eat_actions = ["eat", "consume", "drink"]
 examine_actions = ["lookat", "examine"]
 other_actions = ["combine"]
 
@@ -196,8 +196,8 @@ def examine_handler(gamestate, obj_name):
             return door.get_description()
         else:
             # if it is an item in the player's inventory
-            if obj_name in gamestate.get_inventory():
-                item = gamestate.get_inventory()[obj_name]
+            item = gamestate.get_item_by_name(obj_name)
+            if item is not None:
                 return item.get_description()
     # if the object is not found in the room or inventory
     return "That object isn't here"
@@ -234,3 +234,29 @@ def drop_handler(gamestate, obj_name):
 
     # If the item is not in your inventory
     return "You do not have " + obj_name + " in your inventory"
+
+
+def eat_handler(gamestate, obj_name):
+  """
+  Tries to consume the item if it is of food type and is in the
+  inventory or current room
+  """
+  # if the item is in the current room
+  current_room = gamestate.get_current_room()
+  item = current_room.get_item_by_name(obj_name)
+  if item is not None:
+      if item.get_type() == "food":
+          current_room.remove_item(item)
+          return "You have consumed " + item.get_name()
+      return "You can't eat that object"
+  else:
+      # if the item is in the player's inventory
+      item = gamestate.get_item_by_name(obj_name)
+      if item is not None:
+          if item.get_type() == "food":
+              gamestate.remove_item_from_inventory(obj_name)
+              return "You have consumed " + item.get_name()
+          return "You can't eat that object"
+  return "No such object found"
+  
+      
