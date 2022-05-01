@@ -27,7 +27,8 @@ def create_object_dictionary(object_data, object_type):
     for name in object_data.keys():
         if object_type == "item":
             result_dict[name] = Item(name, object_data[name]["description"],
-                                     object_data[name]["takeable"])
+                                     object_data[name]["takeable"],
+                                     object_data[name]["type"])
         else:
             result_dict[name] = Door(name, object_data[name]["destination"],
                                      object_data[name]["direction"],
