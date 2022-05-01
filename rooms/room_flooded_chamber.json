@@ -1,0 +1,29 @@
+"name": "Flooded Chamber",
+	"short_description": "As you move down the corridor you notice it is flooded with a few inches of water, you eventually reach a small dark chamber with it's floor completely submerged.",
+	"long_description": "The chamber is very dark aside from one torch. For the most part the floor looks like a shiny black mirror reflecting the torch light on its surface. You squint and spot a crack in the wall where the water is slowly trickling in. In one corner a patch of dirt sticks up above the water's surface. A the top of this mound you see a single blue flower.",
+	"doors": {
+		"dark corridor": {
+			"destination": "Courtyard",
+			"direction": "west",
+			"key": "",
+			"description": "A stone corridor with an eerie light. You cannot see what is on the other side."
+		},
+	},
+	"items": {
+		"wall": {
+			"description": "The stream from the wall is slow but constant. Must be from some underground reservoir.",
+			"takeable": false,
+			"type": "default"
+		},
+		"flower": {
+			"description": "You've never seen a flower like this. It's petals have a bit of a shimmer to them. You wonder how it grew without sunlight.",
+			"takeable": true,
+			"type": "default"
+		},
+		"torch": {
+			"description": "The torch on the wall burns as if it has just been lit. There is no sign of who lit it, but it could come in handy for corridors chambers like this.",
+			"takeable": true,
+			"type": "default"
+		}
+	}
+}
