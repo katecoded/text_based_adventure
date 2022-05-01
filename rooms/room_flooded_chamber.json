@@ -8,7 +8,7 @@
 			"direction": "west",
 			"key": "",
 			"description": "A stone corridor with an eerie light. You cannot see what is on the other side."
-		},
+		}
 	},
 	"items": {
 		"wall": {
