@@ -1,0 +1,35 @@
+{
+	"name": "Astronomy Room",
+	"short_description": "Charts of constellations and telescopes of various sizes fill the room. Clearly, someone has been busy at work mapping the night sky.",
+	"long_description": "The room is littered with charts of constellations, many of which look hand-drawn. Numerous telescopes of various sizes inhabit the room and there is a blackboard covered in calculations, and furiously written notes. Whoever frequented this room was clearly on a mission to map the night sky in as much detail as possible. But why?",
+	"doors": {
+		"stone staircase": {
+			"destination": "Courtyard",
+			"direction": "east",
+			"key": "",
+			"description": "Though crumbling at the edges, the steps appear sturdy enough to traverse."
+		}
+	},
+	"items": {
+		"small telescope": {
+			"description": "This telescope is light-weight and folds up compactly. It appears to be in good shape.",
+			"takeable": true,
+			"type": "default"
+		},
+		"scroll of runes": {
+			"description": "This weathered-looking scroll was lying amongst the piles of astronomy charts. It is filled with strange symbols you've never seen before. They look like runes of some sort.",
+			"takeable": true,
+			"type": "default"
+		},
+		"pile of astronomy charts": {
+			"description": "Just one among many piles of astronomy charts that fill the room. Most of the charts are hand-drawn with notes scrawled on the edges.",
+			"takeable": false,
+			"type": "default"
+		},
+		"solar system diorama": {
+			"description": "A diorama of the solar system sits in the middle of the room. It is extensive and includes not only the planets but their neighboring moons as well. What's interesting is that the celestial bodies actually seem to be slowly moving in their orbits.",
+			"takeable": false,
+			"type": "default"
+		}
+	}
+}
