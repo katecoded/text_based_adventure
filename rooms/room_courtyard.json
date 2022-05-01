@@ -4,7 +4,7 @@
 	"long_description": "The courtyard is full of moss-covered rubble. Glowing mushrooms, both big and small, grow in clusters in cracks on the floor, and vines have grown over the rusty gate that must have once been the castle's entrance. A cold breeze sweeps through, and you shudder, looking up at the towering stones from the parts of the castle that remain standing. You wonder what this place is.",
 	"doors": {
 		"dark corridor": {
-			"destination": "Unknown",
+			"destination": "Flooded Chamber",
 			"direction": "east",
 			"key": "",
 			"description": "A stone corridor with an eerie light. You cannot see what is on the other side."
