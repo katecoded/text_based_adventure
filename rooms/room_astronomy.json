@@ -5,7 +5,7 @@
 	"doors": {
 		"stone staircase": {
 			"destination": "Courtyard",
-			"direction": "west",
+			"direction": "east",
 			"key": "",
 			"description": "Though crumbling at the edges, the steps appear sturdy enough to traverse."
 		}
