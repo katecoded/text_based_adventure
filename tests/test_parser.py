@@ -92,14 +92,6 @@ class TestParser(TestCase):
         item_desc = self.game.get_current_room().get_item_by_name("leather boot").get_description()
         self.assertEqual(message, item_desc)
 
-    def test7(self):
-        message = parser("savegame", self.game)
-        self.assertEqual(message, "Saves the current game state after asking for confirmation")
-
-    def test8(self):
-        message = parser("loadgame", self.game)
-        self.assertEqual(message, "Loads last game save after asking for confirmation")
-
     def test_empty_user_input(self):
         """
         Test that empty user input is properly recognized
