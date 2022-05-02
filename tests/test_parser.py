@@ -84,7 +84,8 @@ class TestParser(TestCase):
 
     def test_look_command(self):
         message = parser("look", self.game)
-        self.assertEqual(message, self.game.get_current_room().get_long_description())
+        self.assertEqual(message, self.game.get_current_room().get_long_description() + "\n" +
+                         self.game.get_current_room().get_doors_and_items_description())
 
     def test_examine_command(self):
         message = parser("look at leather boot", self.game)
@@ -111,7 +112,7 @@ class TestParser(TestCase):
         Test that help command prints proper message
         """
         message = "The following is a list of allowed commands:\nHelp\nInventory\nGo\n" \
-                  "Take\nLook\nLook At\nGo\nSavefile\nLoadfile\n" \
+                  "Take\nDrop\nLook\nLook At\nGo\nUse\nOpen\nSavefile\nLoadfile\n" \
                   "Certain synonyms such as \"Pick Up\" or \"Move\" will also work"
         parser_output = parser("help", self.game)
         self.assertEqual(message, parser_output)
