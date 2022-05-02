@@ -136,7 +136,8 @@ def non_interactive_command_handler(command, gamestate):
         # returns long description of room
         current_room = gamestate.get_current_room()
         return current_room.get_long_description() + "\n" + \
-               current_room.get_doors_and_items_description()
+            current_room.get_doors_and_items_description()
+
 
 def movement_handler(gamestate, direction, known_status):
     """
