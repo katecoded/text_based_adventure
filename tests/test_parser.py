@@ -1,6 +1,6 @@
 import unittest
 from unittest import TestCase
-from parser import parser
+from tba_parser import parser
 from objects.game import Game
 from objects.item import Item
 from objects.room import Room
