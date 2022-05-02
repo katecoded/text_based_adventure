@@ -127,10 +127,10 @@ def non_interactive_command_handler(command, gamestate):
                "Certain synonyms such as \"Pick Up\" or \"Move\" will also work"
     # Saves current game-state to a file
     elif command == "savegame":
-        return "Saves the current game state after asking for confirmation"
+        return "Not functional yet, sorry for the inconvenience"
     # Loads gamestate from a file
     elif command == "loadgame":
-        return "Loads last game save after asking for confirmation"
+        return "Not functional yet, sorry for the inconvenience"
     # Gives long description of current room
     elif command == "look":
         # returns long description of room
