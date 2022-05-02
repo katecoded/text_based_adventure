@@ -104,7 +104,7 @@ class TestParser(TestCase):
         """
         Test that help command prints proper message
         """
-        message = "The following is a list of allowed commands:\nHelp\nInventory\nGo\n" \
+        message = "The following is a list of allowed commands:\nHelp\nInventory\n" \
                   "Take\nDrop\nLook\nLook At\nExamine\nGo\nUse\nOpen\nUnlock\nSavegame\nLoadgame\n" \
                   "Certain synonyms such as \"Pick Up\" or \"Move\" will also work"
         parser_output = parser("help", self.game)
