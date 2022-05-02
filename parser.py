@@ -4,15 +4,18 @@ non_interactive_actions = ["inventory", "help", "look", "savegame", "loadgame"]
 pickup_actions = ["take", "grab", "get", "pickup"]
 movement_actions = ["go", "move", "travel"]
 drop_actions = ["drop", "remove"]
+open_actions = ["open", "unlock"]
+use_actions = ["use", "utilize"]
 eat_actions = ["eat", "consume"]
 examine_actions = ["lookat", "examine"]
 other_actions = ["combine"]
 
 all_available_actions = non_interactive_actions + pickup_actions + \
                         movement_actions + eat_actions + drop_actions + \
+                        use_actions + open_actions + \
                         examine_actions + other_actions
-prepositions = ["in", "at", "to", "with", "toward", "towards", "on", "into",
-                "onto"]
+prepositions = ["on", "upon", "at", "to", "with", "using"]
+# prepositions = ["in", "at", "to", "with", "toward", "towards", "on", "into", "onto"]
 # directions = ["north", "south", "east", "west"]  # up/down?
 
 
@@ -95,9 +98,10 @@ def parser(input, gamestate):
     # Gives description of possible item in room or inventory
     elif len(str_list) > 0 and action in examine_actions:
         return examine_handler(gamestate, str_list[0])
-    # Attempts to combine two objects
-    elif len(str_list) > 2 and action == "combine" and str_list[1] == "with":
-        return "Attempts to combine " + str_list[0] + " with " + str_list[2]
+    # Attempts to use an item on an object or open a door with object
+    elif len(str_list) > 2 and str_list[1] in prepositions and \
+            (action in use_actions or action in open_actions):
+        return use_open_splitter(gamestate, action, str_list)
     else:
         return "Sorry I don't understand how to do that"
 
@@ -119,19 +123,20 @@ def non_interactive_command_handler(command, gamestate):
     # Returns vocabulary of usable actions
     elif command == "help":
         return "The following is a list of allowed commands:\nHelp\nInventory\nGo\n" \
-               "Take\nLook\nLook At\nGo\nSavefile\nLoadfile\n" \
+               "Take\nDrop\nLook\nLook At\nGo\nUse\nOpen\nSavefile\nLoadfile\n" \
                "Certain synonyms such as \"Pick Up\" or \"Move\" will also work"
     # Saves current game-state to a file
     elif command == "savegame":
-        return "Saves the current game state after asking for confirmation"
+        return "Not functional yet, sorry for the inconvenience"
     # Loads gamestate from a file
     elif command == "loadgame":
-        return "Loads last game save after asking for confirmation"
+        return "Not functional yet, sorry for the inconvenience"
     # Gives long description of current room
     elif command == "look":
         # returns long description of room
         current_room = gamestate.get_current_room()
-        return current_room.get_long_description()
+        return current_room.get_long_description() + "\n" + \
+            current_room.get_doors_and_items_description()
 
 
 def movement_handler(gamestate, direction, known_status):
@@ -146,28 +151,37 @@ def movement_handler(gamestate, direction, known_status):
     for door in door_name_list:
         lower_door_name_list.append(door.lower())
         directions.append(doors[door].get_direction().lower())
-    # If user entered a valid cardinal direction, perform movement and return message
+
+    # If user entered a valid cardinal direction and it is unlocked, perform movement and return message
     if direction in directions:
-        description = perform_movement(gamestate, door_name_list[directions.index(direction)])
-        return "You have moved through the " + direction + " door\n" + description
-    # If user entered a valid door name, perform movement and return message
+        door = doors[door_name_list[directions.index(direction)]]
+        if not door.get_lock_status():
+            description = perform_movement(gamestate, door)
+            return "You have moved through the " + direction + " door\n" + description
+        return "This door is locked"
+
+    # If user entered a valid door name and it is unlocked, perform movement and return message
     elif direction in lower_door_name_list:
-        description = perform_movement(gamestate, door_name_list[lower_door_name_list.index(direction)])
-        return "You have moved through the " + direction + "\n" + description
+        door = doors[door_name_list[lower_door_name_list.index(direction)]]
+        if not door.get_lock_status():
+            description = perform_movement(gamestate, door)
+            return "You have moved through the " + direction + "\n" + description
+        return "This door is locked"
+
     # If user has used a move command but indicated an invalid direction
     elif known_status:
         return "You cannot move in that direction"
+
     # If user has not entered a valid command and not entered a movement direction
     return "I don't know how to " + direction
 
 
-def perform_movement(gamestate, door_name):
+def perform_movement(gamestate, door):
     """
     Moves the player through the indicated door and changes the current
     room the player is in
     """
-    doors = gamestate.get_current_room().get_doors()
-    new_room = doors[door_name].get_destination()
+    new_room = door.get_destination()
     gamestate.set_current_room(new_room)
     new_room = gamestate.get_current_room()
     if new_room.get_visited():
@@ -234,3 +248,71 @@ def drop_handler(gamestate, obj_name):
 
     # If the item is not in your inventory
     return "You do not have " + obj_name + " in your inventory"
+
+
+def use_open_splitter(gamestate, action, str_list):
+    """
+    Handles input for both open actions and use actions.
+    Note: use actions have a format of use x on y,
+    while open actions have a format of open y with x
+    Both formats are appropriate for doors, but use actions can be
+    to have one object on another (potentially in future)
+    """
+    open_prepositions = ["with", "using"]
+    use_prepositions = ["on", "upon"]
+    cur_room = gamestate.get_current_room()
+
+    # format for open actions is open y with/using x
+    if action in open_actions and str_list[1] in open_prepositions:
+        door = cur_room.get_door_by_name(str_list[0])
+        key = gamestate.get_item_by_name(str_list[2])
+        # Only call open_hander() if door is door, key is item with key property
+        if door is not None and key is not None and key.get_type() == "key":
+            return open_handler(key, door)
+        elif door is None:
+            return "There is no door with the name " + str_list[0] + " here"
+        return "You do not have a " + str_list[2] + " in your inventory"
+
+    # format for use actions is use x on/upon y
+    elif str_list[1] in use_prepositions:
+        item = gamestate.get_item_by_name(str_list[0])
+        # Use commands might be done on either doors or other objects, so it
+        # will search for both doors or items of that name in the room
+        use_on_door = cur_room.get_door_by_name(str_list[2])
+        use_on_item = cur_room.get_item_by_name(str_list[2])
+
+        # Only call open_hander() if item is item with key property and the subject on
+        # which it acts is a door
+        if item is not None and use_on_door is not None and item.get_type() == "key":
+            return open_handler(item, use_on_door)
+        # If both item and subject on which it acts are items call use_handler()
+        elif item is not None and use_on_item is not None:
+            return use_handler(item, use_on_item)
+        elif item is None:
+            return "You do not have a " + str_list[0] + " in your inventory"
+        return "There is nothing with the name" + str_list[2] + " here"
+
+    return "I don't understand how to do that"
+
+
+def open_handler(key, door):
+    """
+    Tries to unlock door using key
+    param key: item object with key property
+    param door: door object
+    """
+    # Open door only if key is appropriate for door and door is unlocked
+    if door.get_key() == key.get_name() and door.get_lock_status():
+        door.unlock_door()
+        return "The door has been unlocked"
+    # If key doesn't fit in door
+    elif not door.get_key() == key.get_name():
+        return "This key doesn't fit in this door"
+    return "The door is already unlocked"
+
+
+def use_handler(item, use_on_item):
+    """
+    Will handle any use actions not involving doors
+    """
+    return "You cannot use " + item.get_name() + " on " + use_on_item.get_name()

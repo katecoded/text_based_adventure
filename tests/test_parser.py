@@ -30,11 +30,13 @@ class TestParser(TestCase):
                            "sucked into it...", True)
         self.item_6 = Item("leather boot",
                            "Yup, just an old, dusty-looking leather boot.", True)
+        self.item_7 = Item("key", "A key for testing locks.", True, "key")
+        self.item_8 = Item("fake key", "A fake key for testing locks.", True, "key")
 
-        self.door_1 = Door("One Door", "Rome", "North", False, "All doors lead to Rome")
-        self.door_2 = Door("Two Door", "Rome", "East", False, "All doors lead to Rome")
-        self.door_3 = Door("Red Door", "Rome", "South", False, "All doors lead to Rome")
-        self.door_4 = Door("Blue Door", "Rome", "West", False, "All doors lead to Rome")
+        self.door_1 = Door("one door", "Rome", "north", "", "All doors lead to Rome")
+        self.door_2 = Door("two door", "Rome", "east", "key", "All doors lead to Rome")
+        self.door_3 = Door("red door", "Rome", "south", "", "All doors lead to Rome")
+        self.door_4 = Door("blue door", "Rome", "west", "", "All doors lead to Rome")
         self.room_1_door_dict = {self.door_1.get_name(): self.door_1,
                                  self.door_2.get_name(): self.door_2,
                                  self.door_3.get_name(): self.door_3,
@@ -50,17 +52,17 @@ class TestParser(TestCase):
                            "the corners stands a simple wooden table with items of interest on "
                            "it. You may take the things on the table, but not the table itself.",
                            self.room_1_door_dict, self.room_1_item_dict)
-        self.door_5 = Door("Rome Door", "Rome", "North", False, "All doors lead to Rome")
-        self.door_6 = Door("Also Rome Door", "Rome", "East", False, "All doors lead to Rome")
-        self.door_7 = Door("Still Rome Door", "Rome", "West", False, "All doors lead to Rome")
-        self.door_8 = Door("Not Rome Door?!", "Starting Room", "South", False,
+        self.door_5 = Door("rome door", "Rome", "north", False, "All doors lead to Rome")
+        self.door_6 = Door("also rome door", "Rome", "east", False, "All doors lead to Rome")
+        self.door_7 = Door("still rome door", "Rome", "west", False, "All doors lead to Rome")
+        self.door_8 = Door("not rome door?!", "Starting Room", "south", False,
                            "You found the one door that doesn't lead to Rome. Unfortunately "
                            "it just goes back to the start")
         self.room_2_door_dict = {self.door_5.get_name(): self.door_5,
                                  self.door_6.get_name(): self.door_6,
                                  self.door_7.get_name(): self.door_7,
                                  self.door_8.get_name(): self.door_8}
-        self.room_2 = Room("Rome", "Alan, please at details",
+        self.room_2 = Room("Rome", "Alan, please add details",
                            "To your surprise you have arrived at the ancient city of Rome. How a "
                            "whole city fits in one tiny room is a question that you cannot even "
                            "begin to answer. However, you very quickly realize that since this is "
@@ -82,24 +84,13 @@ class TestParser(TestCase):
 
     def test_look_command(self):
         message = parser("look", self.game)
-        self.assertEqual(message, self.game.get_current_room().get_long_description())
+        self.assertEqual(message, self.game.get_current_room().get_long_description() + "\n" +
+                         self.game.get_current_room().get_doors_and_items_description())
 
     def test_examine_command(self):
         message = parser("look at leather boot", self.game)
         item_desc = self.game.get_current_room().get_item_by_name("leather boot").get_description()
         self.assertEqual(message, item_desc)
-
-    def test4(self):
-        message = parser("combine gem with staff", self.game)
-        self.assertEqual(message, "Attempts to combine gem with staff")
-
-    def test7(self):
-        message = parser("savegame", self.game)
-        self.assertEqual(message, "Saves the current game state after asking for confirmation")
-
-    def test8(self):
-        message = parser("loadgame", self.game)
-        self.assertEqual(message, "Loads last game save after asking for confirmation")
 
     def test_empty_user_input(self):
         """
@@ -113,7 +104,7 @@ class TestParser(TestCase):
         Test that help command prints proper message
         """
         message = "The following is a list of allowed commands:\nHelp\nInventory\nGo\n" \
-                  "Take\nLook\nLook At\nGo\nSavefile\nLoadfile\n" \
+                  "Take\nDrop\nLook\nLook At\nGo\nUse\nOpen\nSavefile\nLoadfile\n" \
                   "Certain synonyms such as \"Pick Up\" or \"Move\" will also work"
         parser_output = parser("help", self.game)
         self.assertEqual(message, parser_output)
@@ -234,12 +225,96 @@ class TestParser(TestCase):
         cur_room = self.game.get_current_room()
         self.assertEqual(cur_room.get_name(), "Starting Room")
 
+    def test_move_locked_door(self):
+        """
+        Tests that game properly prevents you from moving throught locked
+        door
+        """
+        message = parser("east", self.game)
+        cur_room = self.game.get_current_room()
+        self.assertEqual(message, "This door is locked")
+        self.assertEqual(cur_room.get_name(), "Starting Room")
+
     def test_invalid_movement_direction(self):
         """
         Tests that game properly rejects movement in illegal directions
         """
         message = parser("go sideways", self.game)
         self.assertEqual(message, "You cannot move in that direction")
+
+    def test_unlock_door(self):
+        """
+        Tests that game properly unlocks door using key
+        """
+        self.game.add_item_to_inventory(self.item_7.get_name(), self.item_7)
+        message = parser("open two door with key", self.game)
+        self.assertEqual(message, "The door has been unlocked")
+        self.assertFalse(self.door_2.get_lock_status())
+
+    def test_move_through_unlocked_door(self):
+        """
+        Tests that game properly allows you to move through door only after it's
+        unlocked
+        """
+        parser("east", self.game)
+        self.game.add_item_to_inventory(self.item_7.get_name(), self.item_7)
+        parser("use key on two door", self.game)
+        parser("two door", self.game)
+        cur_room = self.game.get_current_room()
+        self.assertEqual(cur_room.get_name(), "Rome")
+
+    def test_unlock_unlocked_door(self):
+        """
+        Tests that game properly rejects trying to open an open door
+        """
+        self.game.add_item_to_inventory(self.item_7.get_name(), self.item_7)
+        parser("use key on two door", self.game)
+        message = parser("unlock two door using key", self.game)
+        self.assertEqual(message, "The door is already unlocked")
+        self.assertFalse(self.door_2.get_lock_status())
+
+    def test_wrong_key(self):
+        """
+        Tests that game properly rejects trying to open door with wrong key
+        """
+        self.game.add_item_to_inventory(self.item_8.get_name(), self.item_8)
+        message = parser("utilize fake key upon two door", self.game)
+        self.assertEqual(message, "This key doesn't fit in this door")
+        self.assertTrue(self.door_2.get_lock_status())
+
+    def test_missing_key(self):
+        """
+        Tests that game properly rejects opening lock with no key
+        """
+        message = parser("open two door with key", self.game)
+        self.assertEqual(message, "You do not have a key in your inventory")
+        self.assertTrue(self.door_2.get_lock_status())
+
+    def test_unlock_wrong_door(self):
+        """
+        Tests that game properly rejects opening lock with wrong key
+        """
+        self.game.add_item_to_inventory(self.item_7.get_name(), self.item_7)
+        message = parser("open one door with key", self.game)
+        self.assertEqual(message, "This key doesn't fit in this door")
+        self.assertFalse(self.door_1.get_lock_status())
+
+    def test_unlock_non_existent_door(self):
+        """
+        Tests that game properly unlocks door using key
+        """
+        self.game.add_item_to_inventory(self.item_7.get_name(), self.item_7)
+        message = parser("open three door with key", self.game)
+        self.assertEqual(message, "There is no door with the name three door here")
+
+    def illegal_use(self):
+        """
+        Tests that game properly rejects an improper use action
+        At this stage it's anything other than opening door
+        """
+        self.game.add_item_to_inventory(self.item_7.get_name(), self.item_7)
+        message = parser("use key on table", self.game)
+        self.assertEqual(message, "You cannot use key + on table")
 
     def test_invalid_command(self):
         """
