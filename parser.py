@@ -99,8 +99,8 @@ def parser(input, gamestate):
     elif len(str_list) > 0 and action in examine_actions:
         return examine_handler(gamestate, str_list[0])
     # Attempts to use an item on an object or open a door with object
-    elif len(str_list) > 2 and str_list[1] in prepositions and 
-    (action in use_actions or action in open_actions):
+    elif len(str_list) > 2 and str_list[1] in prepositions and \
+            (action in use_actions or action in open_actions):
         return use_open_splitter(gamestate, action, str_list)
     else:
         return "Sorry I don't understand how to do that"
