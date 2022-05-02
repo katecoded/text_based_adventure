@@ -84,8 +84,9 @@ class TestParser(TestCase):
 
     def test_look_command(self):
         message = parser("look", self.game)
-        self.assertEqual(message, self.game.get_current_room().get_long_description() + "\n" +
-                         self.game.get_current_room().get_doors_and_items_description())
+        self.assertEqual(message, self.game.get_current_room().get_name()
+                         + "\n" + self.game.get_current_room().get_long_description()
+                         + "\n" + self.game.get_current_room().get_doors_and_items_description())
 
     def test_examine_command(self):
         message = parser("look at leather boot", self.game)
@@ -104,7 +105,7 @@ class TestParser(TestCase):
         Test that help command prints proper message
         """
         message = "The following is a list of allowed commands:\nHelp\nInventory\nGo\n" \
-                  "Take\nDrop\nLook\nLook At\nGo\nUse\nOpen\nSavefile\nLoadfile\n" \
+                  "Take\nDrop\nLook\nLook At\nExamine\nGo\nUse\nOpen\nUnlock\nSavegame\nLoadgame\n" \
                   "Certain synonyms such as \"Pick Up\" or \"Move\" will also work"
         parser_output = parser("help", self.game)
         self.assertEqual(message, parser_output)
@@ -151,7 +152,8 @@ class TestParser(TestCase):
         """
         message = parser("move north", self.game)
         cur_room = self.game.get_current_room()
-        self.assertEqual(message, "You have moved through the north door\n" +
+        self.assertEqual(message, "You have moved through the north door\n\n" +
+                         cur_room.get_name() + "\n" +
                          cur_room.get_long_description() + "\n" +
                          cur_room.get_doors_and_items_description())
 
@@ -162,7 +164,8 @@ class TestParser(TestCase):
         """
         message = parser("go red door", self.game)
         cur_room = self.game.get_current_room()
-        self.assertEqual(message, "You have moved through the red door\n" +
+        self.assertEqual(message, "You have moved through the red door\n\n" +
+                         cur_room.get_name() + "\n" +
                          cur_room.get_long_description() + "\n" +
                          cur_room.get_doors_and_items_description())
 
@@ -202,7 +205,8 @@ class TestParser(TestCase):
         parser("go red door", self.game)
         message = parser("go south", self.game)
         cur_room = self.game.get_current_room()
-        self.assertEqual(message, "You have moved through the south door\n" +
+        self.assertEqual(message, "You have moved through the south door\n\n" +
+                         cur_room.get_name() + "\n" +
                          cur_room.get_short_description() + "\n" +
                          cur_room.get_doors_and_items_description())
 

@@ -123,7 +123,7 @@ def non_interactive_command_handler(command, gamestate):
     # Returns vocabulary of usable actions
     elif command == "help":
         return "The following is a list of allowed commands:\nHelp\nInventory\nGo\n" \
-               "Take\nDrop\nLook\nLook At\nGo\nUse\nOpen\nSavefile\nLoadfile\n" \
+               "Take\nDrop\nLook\nLook At\nExamine\nGo\nUse\nOpen\nUnlock\nSavegame\nLoadgame\n" \
                "Certain synonyms such as \"Pick Up\" or \"Move\" will also work"
     # Saves current game-state to a file
     elif command == "savegame":
@@ -135,7 +135,8 @@ def non_interactive_command_handler(command, gamestate):
     elif command == "look":
         # returns long description of room
         current_room = gamestate.get_current_room()
-        return current_room.get_long_description() + "\n" + \
+        return current_room.get_name() + "\n" +\
+            current_room.get_long_description() + "\n" +\
             current_room.get_doors_and_items_description()
 
 
@@ -157,7 +158,7 @@ def movement_handler(gamestate, direction, known_status):
         door = doors[door_name_list[directions.index(direction)]]
         if not door.get_lock_status():
             description = perform_movement(gamestate, door)
-            return "You have moved through the " + direction + " door\n" + description
+            return "You have moved through the " + direction + " door\n\n" + description
         return "This door is locked"
 
     # If user entered a valid door name and it is unlocked, perform movement and return message
@@ -165,7 +166,7 @@ def movement_handler(gamestate, direction, known_status):
         door = doors[door_name_list[lower_door_name_list.index(direction)]]
         if not door.get_lock_status():
             description = perform_movement(gamestate, door)
-            return "You have moved through the " + direction + "\n" + description
+            return "You have moved through the " + direction + "\n\n" + description
         return "This door is locked"
 
     # If user has used a move command but indicated an invalid direction
@@ -185,10 +186,11 @@ def perform_movement(gamestate, door):
     gamestate.set_current_room(new_room)
     new_room = gamestate.get_current_room()
     if new_room.get_visited():
-        return new_room.get_short_description() + "\n" + \
-               new_room.get_doors_and_items_description()
+        return new_room.get_name() + "\n" + new_room.get_short_description()\
+               + "\n" + new_room.get_doors_and_items_description()
     new_room.set_visited()
-    return new_room.get_long_description() + "\n" + new_room.get_doors_and_items_description()
+    return new_room.get_name() + "\n" + new_room.get_long_description()\
+        + "\n" + new_room.get_doors_and_items_description()
 
 
 def examine_handler(gamestate, obj_name):
