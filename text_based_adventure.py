@@ -1,7 +1,7 @@
 import random
 from objects.game import Game
 from load_rooms import load_rooms
-from parser import parser
+from tba_parser import parser
 
 
 def set_up_game():
