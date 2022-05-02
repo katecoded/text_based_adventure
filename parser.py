@@ -99,8 +99,8 @@ def parser(input, gamestate):
     elif len(str_list) > 0 and action in examine_actions:
         return examine_handler(gamestate, str_list[0])
     # Attempts to use an item on an object or open a door with object
-    elif len(str_list) > 2  and str_list[1] in prepositions and \
-        (action in use_actions or action in open_actions):
+    elif len(str_list) > 2 and str_list[1] in prepositions and 
+    (action in use_actions or action in open_actions):
         return use_open_splitter(gamestate, action, str_list)
     else:
         return "Sorry I don't understand how to do that"
@@ -175,7 +175,6 @@ def movement_handler(gamestate, direction, known_status):
     return "I don't know how to " + direction
 
 
-
 def perform_movement(gamestate, door):
     """
     Moves the player through the indicated door and changes the current
@@ -248,8 +247,7 @@ def drop_handler(gamestate, obj_name):
 
     # If the item is not in your inventory
     return "You do not have " + obj_name + " in your inventory"
-  
- 
+
 
 def use_open_splitter(gamestate, action, str_list):
     """
@@ -262,7 +260,7 @@ def use_open_splitter(gamestate, action, str_list):
     open_prepositions = ["with", "using"]
     use_prepositions = ["on", "upon"]
     cur_room = gamestate.get_current_room()
-    
+
     # format for open actions is open y with/using x
     if action in open_actions and str_list[1] in open_prepositions:
         door = cur_room.get_door_by_name(str_list[0])
@@ -273,7 +271,7 @@ def use_open_splitter(gamestate, action, str_list):
         elif door is None:
             return "There is no door with the name " + str_list[0] + " here"
         return "You do not have a " + str_list[2] + " in your inventory"
-    
+
     # format for use actions is use x on/upon y
     elif str_list[1] in use_prepositions:
         item = gamestate.get_item_by_name(str_list[0])
@@ -281,7 +279,7 @@ def use_open_splitter(gamestate, action, str_list):
         # will search for both doors or items of that name in the room
         use_on_door = cur_room.get_door_by_name(str_list[2])
         use_on_item = cur_room.get_item_by_name(str_list[2])
-        
+
         # Only call open_hander() if item is item with key property and the subject on
         # which it acts is a door
         if item is not None and use_on_door is not None and item.get_type() == "key":
@@ -292,7 +290,7 @@ def use_open_splitter(gamestate, action, str_list):
         elif item is None:
             return "You do not have a " + str_list[0] + " in your inventory"
         return "There is nothing with the name" + str_list[2] + " here"
-    
+
     return "I don't understand how to do that"
 
 
