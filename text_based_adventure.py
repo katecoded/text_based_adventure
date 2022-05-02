@@ -67,16 +67,24 @@ def main():
     while running:
 
         # get the command from the user
-        user_command = input("> ")
+        user_command = input("\n> ")
 
         # if that command is to end the game, exit the game
-        if user_command.strip() in ["exit", "exit game", "end", "end game"]:
+        if user_command.lower().strip() in\
+                ["exit", "exit game", "end", "end game"]:
             running = False
             continue
 
         # otherwise, pass that command on to the parser and output
         # the results
         print(parser(user_command, game))
+
+        # if the current location is the exit room, thank the user
+        # and exit the game (demo only)
+        if game.get_current_room().get_name() == "Exit":
+            print("That concludes the demo for The Whimsical Castle. "
+                  "Thank you for playing!")
+            running = False
 
 
 if __name__ == "__main__":
