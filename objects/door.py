@@ -49,5 +49,5 @@ class Door:
         if self._locked:
             self._locked = False
 
-        if not self._locked:
+        elif not self._locked:
             self._locked = True
