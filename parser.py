@@ -123,7 +123,7 @@ def non_interactive_command_handler(command, gamestate):
     # Returns vocabulary of usable actions
     elif command == "help":
         return "The following is a list of allowed commands:\nHelp\nInventory\nGo\n" \
-               "Take\nLook\nLook At\nGo\nSavefile\nLoadfile\n" \
+               "Take\nDrop\nLook\nLook At\nGo\nUse\nOpen\nSavefile\nLoadfile\n" \
                "Certain synonyms such as \"Pick Up\" or \"Move\" will also work"
     # Saves current game-state to a file
     elif command == "savegame":
@@ -135,8 +135,8 @@ def non_interactive_command_handler(command, gamestate):
     elif command == "look":
         # returns long description of room
         current_room = gamestate.get_current_room()
-        return current_room.get_long_description()
-
+        return current_room.get_long_description() + "\n" + \
+               current_room.get_doors_and_items_description()
 
 def movement_handler(gamestate, direction, known_status):
     """
