@@ -22,6 +22,10 @@ class LoadRoomsTestCase(unittest.TestCase):
         if "tests" in os.getcwd():
             os.chdir("..")
 
+        # check for existence of saves directory and create it if necessary
+        if not os.path.isdir(os.path.abspath("saves")):
+            os.mkdir("saves")
+
         # create the first JSON test file
         cls.test_file_data_1 = {
             "name": "Test File Bob's Room",
