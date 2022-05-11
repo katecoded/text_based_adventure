@@ -263,13 +263,14 @@ class LoadRoomsTestCase(unittest.TestCase):
         }
         with open("rooms/room_wrong.json", "w") as room_wrong:
             json.dump(room_data, room_wrong)
+
         with self.assertRaises(jsonschema.ValidationError):
             load_rooms()
         os.remove("rooms/room_wrong.json")
 
-    def test_json_validation_missing_room_property(self):
+    def test_json_validation_missing_name_property(self):
         """
-        Validates that a room file with a missing room property
+        Validates that a room file with a missing name property
         causes a ValidationError.
         """
         # create room file with missing property
@@ -277,6 +278,367 @@ class LoadRoomsTestCase(unittest.TestCase):
             "short_description": "There are dogs everywhere.",
             "long_description": "There are dogs everywhere.",
             "doors": {},
+            "items": {}
+        }
+        with open("rooms/room_wrong.json", "w") as room_wrong:
+            json.dump(room_data, room_wrong)
+        with self.assertRaises(jsonschema.ValidationError):
+            load_rooms()
+        os.remove("rooms/room_wrong.json")
+
+    def test_json_validation_missing_short_description_property(self):
+        """
+        Validates that a room file with a missing short_description
+        property causes a ValidationError.
+        """
+        # create room file with missing property
+        room_data = {
+            "name": "Wizards",
+            "long_description": "You find yourself in a void. It would be "
+                                "lonely if not for all of the angry wizards "
+                                "surrounding you. You hope they don't turn "
+                                "you into a frog.",
+            "doors": {},
+            "items": {}
+        }
+        with open("rooms/room_wrong.json", "w") as room_wrong:
+            json.dump(room_data, room_wrong)
+        with self.assertRaises(jsonschema.ValidationError):
+            load_rooms()
+        os.remove("rooms/room_wrong.json")
+
+    def test_json_validation_missing_long_description_property(self):
+        """
+        Validates that a room file with a missing long_description
+        property causes a ValidationError.
+        """
+        # create room file with missing property
+        room_data = {
+            "name": "Wizards",
+            "short_description": "Despite the void surrounding you, you "
+                                 "cannot help but be distracted by all of the "
+                                 "wizards.",
+            "doors": {},
+            "items": {}
+        }
+        with open("rooms/room_wrong.json", "w") as room_wrong:
+            json.dump(room_data, room_wrong)
+
+        with self.assertRaises(jsonschema.ValidationError):
+            load_rooms()
+        os.remove("rooms/room_wrong.json")
+
+    def test_json_validation_missing_doors_property(self):
+        """
+        Validates that a room file with a missing doors
+        property causes a ValidationError.
+        """
+        # create room file with missing property
+        room_data = {
+            "name": "Wizards",
+            "short_description": "Despite the void surrounding you, you "
+                                 "cannot help but be distracted by all of the "
+                                 "wizards.",
+            "long_description": "You find yourself in a void. It would be "
+                                "lonely if not for all of the angry wizards "
+                                "surrounding you. You hope they don't turn "
+                                "you into a frog.",
+            "items": {}
+        }
+        with open("rooms/room_wrong.json", "w") as room_wrong:
+            json.dump(room_data, room_wrong)
+        with self.assertRaises(jsonschema.ValidationError):
+            load_rooms()
+        os.remove("rooms/room_wrong.json")
+
+    def test_json_validation_missing_items_property(self):
+        """
+        Validates that a room file with a missing items
+        property causes a ValidationError.
+        """
+        # create room file with missing property
+        room_data = {
+            "name": "Wizards",
+            "short_description": "Despite the void surrounding you, you "
+                                 "cannot help but be distracted by all of the "
+                                 "wizards.",
+            "long_description": "You find yourself in a void. It would be "
+                                "lonely if not for all of the angry wizards "
+                                "surrounding you. You hope they don't turn "
+                                "you into a frog.",
+            "doors": {}
+        }
+        with open("rooms/room_wrong.json", "w") as room_wrong:
+            json.dump(room_data, room_wrong)
+        with self.assertRaises(jsonschema.ValidationError):
+            load_rooms()
+        os.remove("rooms/room_wrong.json")
+
+    def test_json_validation_extra_item_property(self):
+        """
+        Validates that a room file with an extra item
+        property causes a validation error.
+        """
+        # create room file with extra property
+        room_data = {
+            "name": "Blanket World",
+            "short_description": "Blankets drape over every surface. You "
+                                 "have never been more comfortable.",
+            "long_description": "It is difficult to tell what this room "
+                                "looks like due to the sheer number of "
+                                "blankets decorating every surface and wall. "
+                                "You have never been more comfortable.",
+            "doors": {},
+            "items": {
+                "blankets": {
+                    "description": "The blankets are soft. Most appear to "
+                                   "be made out of wool.",
+                    "takeable": False,
+                    "type": "default",
+                    "is_real": True
+                }
+            }
+        }
+        with open("rooms/room_wrong.json", "w") as room_wrong:
+            json.dump(room_data, room_wrong)
+        with self.assertRaises(jsonschema.ValidationError):
+            load_rooms()
+        os.remove("rooms/room_wrong.json")
+
+    def test_json_validation_missing_item_description_property(self):
+        """
+        Validates that a room file with a missing item description
+        property causes a validation error.
+        """
+        # create room file with missing property
+        room_data = {
+            "name": "Blanket World",
+            "short_description": "Blankets drape over every surface. You "
+                                 "have never been more comfortable.",
+            "long_description": "It is difficult to tell what this room "
+                                "looks like due to the sheer number of "
+                                "blankets decorating every surface and wall. "
+                                "You have never been more comfortable.",
+            "doors": {},
+            "items": {
+                "blankets": {
+                    "takeable": False,
+                    "type": "default"
+                }
+            }
+        }
+        with open("rooms/room_wrong.json", "w") as room_wrong:
+            json.dump(room_data, room_wrong)
+        with self.assertRaises(jsonschema.ValidationError):
+            load_rooms()
+        os.remove("rooms/room_wrong.json")
+
+    def test_json_validation_missing_item_takeable_property(self):
+        """
+        Validates that a room file with a missing item takeable
+        property causes a validation error.
+        """
+        # create room file with missing property
+        room_data = {
+            "name": "Blanket World",
+            "short_description": "Blankets drape over every surface. You "
+                                 "have never been more comfortable.",
+            "long_description": "It is difficult to tell what this room "
+                                "looks like due to the sheer number of "
+                                "blankets decorating every surface and wall. "
+                                "You have never been more comfortable.",
+            "doors": {},
+            "items": {
+                "blankets": {
+                    "description": "The blankets are soft. Most appear to "
+                                   "be made out of wool.",
+                    "type": "default"
+                }
+            }
+        }
+        with open("rooms/room_wrong.json", "w") as room_wrong:
+            json.dump(room_data, room_wrong)
+        with self.assertRaises(jsonschema.ValidationError):
+            load_rooms()
+        os.remove("rooms/room_wrong.json")
+
+    def test_json_validation_missing_item_type_property(self):
+        """
+        Validates that a room file with a missing item type
+        property causes a validation error.
+        """
+        # create room file with missing property
+        room_data = {
+            "name": "Blanket World",
+            "short_description": "Blankets drape over every surface. You "
+                                 "have never been more comfortable.",
+            "long_description": "It is difficult to tell what this room "
+                                "looks like due to the sheer number of "
+                                "blankets decorating every surface and wall. "
+                                "You have never been more comfortable.",
+            "doors": {},
+            "items": {
+                "blankets": {
+                    "description": "The blankets are soft. Most appear to "
+                                   "be made out of wool.",
+                    "takeable": False
+                }
+            }
+        }
+        with open("rooms/room_wrong.json", "w") as room_wrong:
+            json.dump(room_data, room_wrong)
+        with self.assertRaises(jsonschema.ValidationError):
+            load_rooms()
+        os.remove("rooms/room_wrong.json")
+
+    def test_json_validation_extra_door_property(self):
+        """
+        Validates that a room file with an extra door
+        property causes a validation error.
+        """
+        # create room file with extra property
+        room_data = {
+            "name": "Cord Catastrophy",
+            "short_description": "The cord management in this room is a "
+                                 "nightmare.",
+            "long_description": "Futuristic computers line desks near the "
+                                "wall. This would be cool if not for the "
+                                "nightmare of cords twisting around the "
+                                "floor. You shudder at the lack of cable "
+                                "management.",
+            "doors": {
+                "copper door": {
+                    "destination": "Test File Bob's Room",
+                    "direction": "south",
+                    "key": "",
+                    "description": "Made entirely out of copper, the door "
+                                   "is cool to the touch.",
+                    "is_open": "yes"
+                }
+            },
+            "items": {}
+        }
+        with open("rooms/room_wrong.json", "w") as room_wrong:
+            json.dump(room_data, room_wrong)
+        with self.assertRaises(jsonschema.ValidationError):
+            load_rooms()
+        os.remove("rooms/room_wrong.json")
+
+    def test_json_validation_missing_door_destination_property(self):
+        """
+        Validates that a room file with a missing door destination
+        property causes a validation error.
+        """
+        # create room file with missing property
+        room_data = {
+            "name": "Cord Catastrophy",
+            "short_description": "The cord management in this room is a "
+                                 "nightmare.",
+            "long_description": "Futuristic computers line desks near the "
+                                "wall. This would be cool if not for the "
+                                "nightmare of cords twisting around the "
+                                "floor. You shudder at the lack of cable "
+                                "management.",
+            "doors": {
+                "copper door": {
+                    "direction": "south",
+                    "key": "",
+                    "description": "Made entirely out of copper, the door "
+                                   "is cool to the touch."
+                }
+            },
+            "items": {}
+        }
+        with open("rooms/room_wrong.json", "w") as room_wrong:
+            json.dump(room_data, room_wrong)
+        with self.assertRaises(jsonschema.ValidationError):
+            load_rooms()
+        os.remove("rooms/room_wrong.json")
+
+    def test_json_validation_missing_door_direction_property(self):
+        """
+        Validates that a room file with a missing door direction
+        property causes a validation error.
+        """
+        # create room file with missing property
+        room_data = {
+            "name": "Cord Catastrophy",
+            "short_description": "The cord management in this room is a "
+                                 "nightmare.",
+            "long_description": "Futuristic computers line desks near the "
+                                "wall. This would be cool if not for the "
+                                "nightmare of cords twisting around the "
+                                "floor. You shudder at the lack of cable "
+                                "management.",
+            "doors": {
+                "copper door": {
+                    "destination": "Test File Bob's Room",
+                    "key": "",
+                    "description": "Made entirely out of copper, the door "
+                                   "is cool to the touch."
+                }
+            },
+            "items": {}
+        }
+        with open("rooms/room_wrong.json", "w") as room_wrong:
+            json.dump(room_data, room_wrong)
+        with self.assertRaises(jsonschema.ValidationError):
+            load_rooms()
+        os.remove("rooms/room_wrong.json")
+
+    def test_json_validation_missing_door_key_property(self):
+        """
+        Validates that a room file with a missing door key
+        property causes a validation error.
+        """
+        # create room file with missing property
+        room_data = {
+            "name": "Cord Catastrophy",
+            "short_description": "The cord management in this room is a "
+                                 "nightmare.",
+            "long_description": "Futuristic computers line desks near the "
+                                "wall. This would be cool if not for the "
+                                "nightmare of cords twisting around the "
+                                "floor. You shudder at the lack of cable "
+                                "management.",
+            "doors": {
+                "copper door": {
+                    "destination": "Test File Bob's Room",
+                    "direction": "south",
+                    "description": "Made entirely out of copper, the door "
+                                   "is cool to the touch."
+                }
+            },
+            "items": {}
+        }
+        with open("rooms/room_wrong.json", "w") as room_wrong:
+            json.dump(room_data, room_wrong)
+        with self.assertRaises(jsonschema.ValidationError):
+            load_rooms()
+        os.remove("rooms/room_wrong.json")
+
+    def test_json_validation_missing_door_description_property(self):
+        """
+        Validates that a room file with a missing door description
+        property causes a validation error.
+        """
+        # create room file with missing property
+        room_data = {
+            "name": "Cord Catastrophy",
+            "short_description": "The cord management in this room is a "
+                                 "nightmare.",
+            "long_description": "Futuristic computers line desks near the "
+                                "wall. This would be cool if not for the "
+                                "nightmare of cords twisting around the "
+                                "floor. You shudder at the lack of cable "
+                                "management.",
+            "doors": {
+                "copper door": {
+                    "destination": "Test File Bob's Room",
+                    "direction": "south",
+                    "key": ""
+                }
+            },
             "items": {}
         }
         with open("rooms/room_wrong.json", "w") as room_wrong:

@@ -30,6 +30,7 @@ def validate_schema(json_data):
                         "key": {"type": "string"},
                         "description": {"type": "string"}
                     },
+                    "additionalProperties": False,
                     "required": ["destination", "direction", "key",
                                  "description"]
                 }
@@ -43,6 +44,7 @@ def validate_schema(json_data):
                         "takeable": {"type": "boolean"},
                         "type": {"type": "string"}
                     },
+                    "additionalProperties": False,
                     "required": ["description", "takeable", "type"]
                 },
             }
