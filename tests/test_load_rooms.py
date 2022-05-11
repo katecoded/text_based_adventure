@@ -1,6 +1,7 @@
 import unittest
 import json
 import os
+import jsonschema
 
 from objects.room import Room
 from objects.item import Item
@@ -245,3 +246,41 @@ class LoadRoomsTestCase(unittest.TestCase):
                              expected_doors[door_name]["key"])
             self.assertEqual(result_doors[door_name].get_lock_status(),
                              bool(expected_doors[door_name]["key"]))
+
+    def test_json_validation_extra_room_property(self):
+        """
+        Validates that a room file with an extra room property
+        causes a ValidationError.
+        """
+        # create room file with extra property
+        room_data = {
+            "name": "Frogs",
+            "short_description": "There are frogs everywhere.",
+            "long_description": "There are frogs everywhere.",
+            "doors": {},
+            "items": {},
+            "frogs": "frogs"
+        }
+        with open("rooms/room_wrong.json", "w") as room_wrong:
+            json.dump(room_data, room_wrong)
+        with self.assertRaises(jsonschema.ValidationError):
+            load_rooms()
+        os.remove("rooms/room_wrong.json")
+
+    def test_json_validation_missing_room_property(self):
+        """
+        Validates that a room file with a missing room property
+        causes a ValidationError.
+        """
+        # create room file with missing property
+        room_data = {
+            "short_description": "There are dogs everywhere.",
+            "long_description": "There are dogs everywhere.",
+            "doors": {},
+            "items": {}
+        }
+        with open("rooms/room_wrong.json", "w") as room_wrong:
+            json.dump(room_data, room_wrong)
+        with self.assertRaises(jsonschema.ValidationError):
+            load_rooms()
+        os.remove("rooms/room_wrong.json")
