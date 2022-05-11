@@ -256,27 +256,27 @@ def drop_handler(gamestate, obj_name):
 
 
 def eat_handler(gamestate, obj_name):
-  """
-  Tries to consume the item if it is of food type and is in the
-  inventory or current room
-  """
-  # if the item is in the current room
-  current_room = gamestate.get_current_room()
-  item = current_room.get_item_by_name(obj_name)
-  if item is not None:
-      if item.get_type() == "food":
-          current_room.remove_item(item)
-          return "You have consumed " + item.get_name()
-      return "You can't eat that object"
-  else:
-      # if the item is in the player's inventory
-      item = gamestate.get_item_by_name(obj_name)
-      if item is not None:
-          if item.get_type() == "food":
-              gamestate.remove_item_from_inventory(obj_name)
-              return "You have consumed " + item.get_name()
-          return "You can't eat that object"
-  return "No such object found"
+    """
+    Tries to consume the item if it is of food type and is in the
+    inventory or current room
+    """
+    # if the item is in the current room
+    current_room = gamestate.get_current_room()
+    item = current_room.get_item_by_name(obj_name)
+    if item is not None:
+        if item.get_type() == "food":
+            current_room.remove_item(item)
+            return "You have consumed " + item.get_name()
+        return "You can't eat that object"
+    else:
+        # if the item is in the player's inventory
+        item = gamestate.get_item_by_name(obj_name)
+        if item is not None:
+            if item.get_type() == "food":
+                gamestate.remove_item_from_inventory(obj_name)
+                return "You have consumed " + item.get_name()
+            return "You can't eat that object"
+    return "No such object found"
 
 
 def use_open_splitter(gamestate, action, str_list):
