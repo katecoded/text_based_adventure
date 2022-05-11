@@ -6,7 +6,7 @@ movement_actions = ["go", "move", "travel"]
 drop_actions = ["drop", "remove"]
 open_actions = ["open", "unlock"]
 use_actions = ["use", "utilize"]
-eat_actions = ["eat", "consume"]
+eat_actions = ["eat", "consume", "drink"]
 examine_actions = ["lookat", "examine"]
 other_actions = ["combine"]
 
@@ -90,6 +90,9 @@ def parser(input, gamestate):
     # Attempts to drop item in inventory
     elif len(str_list) > 0 and action in drop_actions:
         return drop_handler(gamestate, str_list[0])
+    # Attempts to have the player consume the item
+    elif len(str_list) > 0 and action in eat_actions:
+        return eat_handler(gamestate, str_list[0])
     # Attempts to go through door specified by user
     elif len(str_list) > 0 and action in movement_actions:
         return movement_handler(gamestate, str_list[0], True)
@@ -250,6 +253,30 @@ def drop_handler(gamestate, obj_name):
 
     # If the item is not in your inventory
     return "You do not have " + obj_name + " in your inventory"
+
+
+def eat_handler(gamestate, obj_name):
+  """
+  Tries to consume the item if it is of food type and is in the
+  inventory or current room
+  """
+  # if the item is in the current room
+  current_room = gamestate.get_current_room()
+  item = current_room.get_item_by_name(obj_name)
+  if item is not None:
+      if item.get_type() == "food":
+          current_room.remove_item(item)
+          return "You have consumed " + item.get_name()
+      return "You can't eat that object"
+  else:
+      # if the item is in the player's inventory
+      item = gamestate.get_item_by_name(obj_name)
+      if item is not None:
+          if item.get_type() == "food":
+              gamestate.remove_item_from_inventory(obj_name)
+              return "You have consumed " + item.get_name()
+          return "You can't eat that object"
+  return "No such object found"
 
 
 def use_open_splitter(gamestate, action, str_list):
