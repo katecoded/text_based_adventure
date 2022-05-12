@@ -82,25 +82,34 @@ def create_object_dictionary(object_data, object_type):
     return result_dict
 
 
-def load_rooms():
+def load_rooms(directory="rooms"):
     """
-    Finds all room JSON files in the rooms folder and
-    turns them into Room objects. All the items and doors
-    in the file are also turned into Item objects and Door
-    objects, respectively.
+    Finds all room JSON files in the given folder (rooms is
+    the default) and turns them into Room objects.
+    All the items and doors in the file are also turned into
+    Item objects and Door objects, respectively.
     Returns a dictionary of all the Room objects with
     their names as keys.
+    :directory: A String directory name.
     """
     room_dict = {}
 
-    # get list of all JSON files in rooms folder.
-    room_files = os.listdir(os.path.abspath("rooms"))
+    # throw error if directory is not rooms or saves directory
+    if directory != "rooms" and directory != "saves":
+        raise Exception("Directory must be rooms or saves")
+
+    # get list of all files in the given folder.
+    room_files = os.listdir(os.path.abspath(directory))
 
     # iterate through each file of room data
     for file in room_files:
 
+        # skip non-JSON files
+        if not file.endswith(".json"):
+            continue
+
         # get the relative path to the room data file and open it
-        file_path = "rooms/" + file
+        file_path = directory + "/" + file
         with open(file_path) as room_json:
 
             # load and validate room data
