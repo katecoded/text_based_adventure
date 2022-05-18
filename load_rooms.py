@@ -1,5 +1,6 @@
 import json
 import os
+import jsonschema
 
 from objects.room import Room
 from objects.item import Item
@@ -8,10 +9,53 @@ from objects.door import Door
 
 def validate_schema(json_data):
     """
-    Returns True if the json_data matches the schema,
-    False otherwise.
+    Raises a ValidationError if any of the given json_data
+    does not match the room schema.
     """
-    pass
+
+    # create the schema to compare the room files to
+    room_schema = {
+        "type": "object",
+        "properties": {
+            "name": {"type": "string"},
+            "short_description": {"type": "string"},
+            "long_description": {"type": "string"},
+            "doors": {
+                "type": "object",
+                "additionalProperties": {
+                    "type": "object",
+                    "properties": {
+                        "destination": {"type": "string"},
+                        "direction": {"type": "string"},
+                        "key": {"type": "string"},
+                        "description": {"type": "string"}
+                    },
+                    "additionalProperties": False,
+                    "required": ["destination", "direction", "key",
+                                 "description"]
+                }
+            },
+            "items": {
+                "type": "object",
+                "additionalProperties": {
+                    "type": "object",
+                    "properties": {
+                        "description": {"type": "string"},
+                        "takeable": {"type": "boolean"},
+                        "type": {"type": "string"}
+                    },
+                    "additionalProperties": False,
+                    "required": ["description", "takeable", "type"]
+                },
+            }
+        },
+        "additionalProperties": False,
+        "required": ["name", "short_description", "long_description",
+                     "doors", "items"]
+    }
+
+    # validate the data against the schema
+    jsonschema.validate(json_data, room_schema)
 
 
 def create_object_dictionary(object_data, object_type):
@@ -68,7 +112,9 @@ def load_rooms(directory="rooms"):
         file_path = directory + "/" + file
         with open(file_path) as room_json:
 
+            # load and validate room data
             room_data = json.load(room_json)
+            validate_schema(room_data)
 
             # create Item object and Room object dictionaries
             items = create_object_dictionary(room_data["items"], "item")
