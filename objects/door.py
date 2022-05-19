@@ -3,7 +3,7 @@ class Door:
     Represents a door leading to a room in a text based adventure game.
     """
 
-    def __init__(self, name, destination, direction, key, desc):
+    def __init__(self, name, destination, direction, key, locked, desc):
         """
         Initializes door object with a name, a destination, a direction, a key status, a lock status and a description.
         """
@@ -12,10 +12,7 @@ class Door:
         self._destination = destination
         self._direction = direction
         self._key = key
-        if self._key:
-            self._locked = True
-        else:
-            self._locked = False
+        self._locked = locked
         self._desc = desc
 
     def get_name(self):

@@ -39,6 +39,7 @@ class LoadRoomsTestCase(unittest.TestCase):
                     "destination": "Unknown Room",
                     "direction": "west",
                     "key": "Unknown",
+                    "locked": True,
                     "description": "A door so broken that it is shattered "
                                    "to pieces in most places. It is unclear "
                                    "where it leads - not that you could "
@@ -48,6 +49,7 @@ class LoadRoomsTestCase(unittest.TestCase):
                     "destination": "Test File Hallway",
                     "direction": "north",
                     "key": "",
+                    "locked": False,
                     "description": "The door is covered in scratch "
                                    "marks. This is very concerning."
                 }
@@ -87,6 +89,7 @@ class LoadRoomsTestCase(unittest.TestCase):
                     "destination": "Test File Bob's Room",
                     "direction": "east",
                     "key": "",
+                    "locked": False,
                     "description": "A door so squeaky it could wake the "
                                    "dead"
                 }
@@ -361,7 +364,7 @@ class LoadRoomsTestCase(unittest.TestCase):
             self.assertEqual(result_doors[door_name].get_key(),
                              expected_doors[door_name]["key"])
             self.assertEqual(result_doors[door_name].get_lock_status(),
-                             bool(expected_doors[door_name]["key"]))
+                             expected_doors[door_name]["locked"])
 
     def test_room_2_door_data_correct(self):
         """
@@ -383,7 +386,7 @@ class LoadRoomsTestCase(unittest.TestCase):
             self.assertEqual(result_doors[door_name].get_key(),
                              expected_doors[door_name]["key"])
             self.assertEqual(result_doors[door_name].get_lock_status(),
-                             bool(expected_doors[door_name]["key"]))
+                             expected_doors[door_name]["locked"])
 
     def test_room_1_door_data_correct_saves_dir(self):
         """
@@ -406,7 +409,7 @@ class LoadRoomsTestCase(unittest.TestCase):
             self.assertEqual(result_doors[door_name].get_key(),
                              expected_doors[door_name]["key"])
             self.assertEqual(result_doors[door_name].get_lock_status(),
-                             bool(expected_doors[door_name]["key"]))
+                             expected_doors[door_name]["locked"])
 
     def test_room_2_door_data_correct_saves_dir(self):
         """
@@ -429,7 +432,7 @@ class LoadRoomsTestCase(unittest.TestCase):
             self.assertEqual(result_doors[door_name].get_key(),
                              expected_doors[door_name]["key"])
             self.assertEqual(result_doors[door_name].get_lock_status(),
-                             bool(expected_doors[door_name]["key"]))
+                             expected_doors[door_name]["locked"])
 
     def test_try_not_allowed_directory(self):
         """
@@ -703,6 +706,7 @@ class LoadRoomsTestCase(unittest.TestCase):
                     "destination": "Test File Bob's Room",
                     "direction": "south",
                     "key": "",
+                    "locked": False,
                     "description": "Made entirely out of copper, the door "
                                    "is cool to the touch.",
                     "is_open": "yes"
@@ -735,6 +739,7 @@ class LoadRoomsTestCase(unittest.TestCase):
                 "copper door": {
                     "direction": "south",
                     "key": "",
+                    "locked": False,
                     "description": "Made entirely out of copper, the door "
                                    "is cool to the touch."
                 }
@@ -766,6 +771,7 @@ class LoadRoomsTestCase(unittest.TestCase):
                 "copper door": {
                     "destination": "Test File Bob's Room",
                     "key": "",
+                    "locked": False,
                     "description": "Made entirely out of copper, the door "
                                    "is cool to the touch."
                 }
@@ -797,6 +803,39 @@ class LoadRoomsTestCase(unittest.TestCase):
                 "copper door": {
                     "destination": "Test File Bob's Room",
                     "direction": "south",
+                    "locked": False,
+                    "description": "Made entirely out of copper, the door "
+                                   "is cool to the touch."
+                }
+            },
+            "items": {}
+        }
+        with open("rooms/room_wrong.json", "w") as room_wrong:
+            json.dump(room_data, room_wrong)
+        with self.assertRaises(jsonschema.ValidationError):
+            load_rooms()
+        os.remove("rooms/room_wrong.json")
+
+    def test_json_validation_missing_door_locked_property(self):
+        """
+        Validates that a room file with a missing door locked
+        property causes a validation error.
+        """
+        # create room file with missing property
+        room_data = {
+            "name": "Cord Catastrophy",
+            "short_description": "The cord management in this room is a "
+                                 "nightmare.",
+            "long_description": "Futuristic computers line desks near the "
+                                "wall. This would be cool if not for the "
+                                "nightmare of cords twisting around the "
+                                "floor. You shudder at the lack of cable "
+                                "management.",
+            "doors": {
+                "copper door": {
+                    "destination": "Test File Bob's Room",
+                    "direction": "south",
+                    "key": "",
                     "description": "Made entirely out of copper, the door "
                                    "is cool to the touch."
                 }
@@ -828,7 +867,8 @@ class LoadRoomsTestCase(unittest.TestCase):
                 "copper door": {
                     "destination": "Test File Bob's Room",
                     "direction": "south",
-                    "key": ""
+                    "key": "",
+                    "locked": False
                 }
             },
             "items": {}

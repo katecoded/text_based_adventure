@@ -7,12 +7,14 @@
 			"destination": "Courtyard",
 			"direction": "east",
 			"key": "",
+			"locked": false,
 			"description": "Though crumbling at the edges, the steps appear sturdy enough to traverse."
 		},
 		"oak door": {
 			"destination": "Exit",
 			"direction": "north",
 			"key": "ivory key",
+			"locked": true,
 			"description": "The wooden door is cracked with age. It has an ivory keyhole."
 		}
 	},

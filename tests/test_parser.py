@@ -33,10 +33,10 @@ class TestParser(TestCase):
         self.item_7 = Item("key", "A key for testing locks.", True, "key")
         self.item_8 = Item("fake key", "A fake key for testing locks.", True, "key")
 
-        self.door_1 = Door("one door", "Rome", "north", "", "All doors lead to Rome")
-        self.door_2 = Door("two door", "Rome", "east", "key", "All doors lead to Rome")
-        self.door_3 = Door("red door", "Rome", "south", "", "All doors lead to Rome")
-        self.door_4 = Door("blue door", "Rome", "west", "", "All doors lead to Rome")
+        self.door_1 = Door("one door", "Rome", "north", "", False, "All doors lead to Rome")
+        self.door_2 = Door("two door", "Rome", "east", "key", True, "All doors lead to Rome")
+        self.door_3 = Door("red door", "Rome", "south", "", False, "All doors lead to Rome")
+        self.door_4 = Door("blue door", "Rome", "west", "", False, "All doors lead to Rome")
         self.room_1_door_dict = {self.door_1.get_name(): self.door_1,
                                  self.door_2.get_name(): self.door_2,
                                  self.door_3.get_name(): self.door_3,
@@ -52,10 +52,10 @@ class TestParser(TestCase):
                            "the corners stands a simple wooden table with items of interest on "
                            "it. You may take the things on the table, but not the table itself.",
                            self.room_1_door_dict, self.room_1_item_dict)
-        self.door_5 = Door("rome door", "Rome", "north", False, "All doors lead to Rome")
-        self.door_6 = Door("also rome door", "Rome", "east", False, "All doors lead to Rome")
-        self.door_7 = Door("still rome door", "Rome", "west", False, "All doors lead to Rome")
-        self.door_8 = Door("not rome door?!", "Starting Room", "south", False,
+        self.door_5 = Door("rome door", "Rome", "north", "", False, "All doors lead to Rome")
+        self.door_6 = Door("also rome door", "Rome", "east", "", False, "All doors lead to Rome")
+        self.door_7 = Door("still rome door", "Rome", "west", "", False, "All doors lead to Rome")
+        self.door_8 = Door("not rome door?!", "Starting Room", "south", "", False,
                            "You found the one door that doesn't lead to Rome. Unfortunately "
                            "it just goes back to the start")
         self.room_2_door_dict = {self.door_5.get_name(): self.door_5,
