@@ -1,0 +1,20 @@
+{
+    "name": "Underground Passage",
+    "short_description": "The damp stone passage echos with a constant dripping noise.",
+    "long_description": "The damp stone passage is dim save for a few cracks in the ceiling letting in the day's sunlight. A constant dripping sound echos throughout the passage. ",
+    "doors": {
+        "trapdoor": {
+            "destination": "Flooded Chamber",
+			"direction": "south",
+			"key": "",
+			"description": "An old wooden trapdoor with an iron handle accessible by a series of stone steps. It is rusted and cracked with age."
+		}
+    },
+    "items": {
+        "rusty sword": {
+            "description": "The remains of what was once likely a beautiful sword, rusted with age. The metal is engraved with strange symbols.",
+            "takeable": false,
+            "type": "default"
+        }
+    }
+}

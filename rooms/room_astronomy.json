@@ -5,9 +5,15 @@
 	"doors": {
 		"stone staircase": {
 			"destination": "Courtyard",
-			"direction": "east",
+			"direction": "west",
 			"key": "",
 			"description": "Though crumbling at the edges, the steps appear sturdy enough to traverse."
+		},
+		"ornate doorway": {
+			"destination": "Wizard's Study",
+			"direction": "east",
+			"key": "",
+			"description": "The open doorway is surrounded by ornate golden patterns inlaid with gemstones. The doorway itself seems to shimmer slightly."
 		},
 		"oak door": {
 			"destination": "Exit",

@@ -1,0 +1,35 @@
+{
+    "name": "Wizard's Study",
+    "short_description": "Strange books and papers are scattered across the desk, while your attention is commanded by the small dragon curled up in front of the cold fireplace.",
+    "long_description": "Strange rune-covered books and scattered papers cover the large desk, while an assortment of shelves are stocked full of flasks of various sizes with labels that are difficult to read. Though most of your attention is drawn to the small figure of what appears to be a dragon curled up in front of the cold fireplace.",
+    "doors": {
+        "ornate doorway": {
+            "destination": "Astronomy Room",
+            "direction": "west",
+            "key": "",
+            "description": "The open doorway is surrounded by ornate golden patterns inlaid with gemstones. The doorway itself seems to shimmer slightly."
+        }
+    },
+    "items": {
+        "dragon": {
+            "description": "A small winged dragon with multicolored scales. It is sleeping peacefully.",
+            "takeable": false,
+            "type": "creature"
+        },
+        "scattered papers": {
+            "description": "The majority of the papers seem to indicate various potion recipes.",
+            "takeable": false,
+            "type": "default"
+        },
+        "crystal sphere": {
+            "description": "When you look into the crystal, it appears to constantly shift between various images with little coherency. You step away dizzily.",
+            "takeable": false,
+            "type": "default"
+        },
+        "golden trinket": {
+            "description": "A golden trinket that would be like a key if it were not for its distinctly swirled shape at the end. You wonder what, if anything, it could unlock.",
+            "takeable": true,
+            "type": "key"
+        }
+    }
+}

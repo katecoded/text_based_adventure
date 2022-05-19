@@ -5,9 +5,15 @@
 	"doors": {
 		"dark corridor": {
 			"destination": "Courtyard",
-			"direction": "west",
+			"direction": "east",
 			"key": "",
 			"description": "A stone corridor with an eerie light. You cannot see what is on the other side."
+		},
+		"trapdoor": {
+			"destination": "Underground Passage",
+			"direction": "north",
+			"key": "golden trinket",
+			"description": "The cracked wooden trapdoor is raised far enough from the ground that it has avoided much of the room's moisture. The iron handle, rusted with age, has a golden indentation in a curious swirling pattern - perhaps for an equally curiously shaped key."
 		}
 	},
 	"items": {
