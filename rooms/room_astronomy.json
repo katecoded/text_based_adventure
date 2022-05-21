@@ -14,6 +14,7 @@
 			"destination": "Wizard's Study",
 			"direction": "east",
 			"key": "",
+			"locked": false,
 			"description": "The open doorway is surrounded by ornate golden patterns inlaid with gemstones. The doorway itself seems to shimmer slightly."
 		},
 		"oak door": {
