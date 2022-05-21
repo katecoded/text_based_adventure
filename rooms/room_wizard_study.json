@@ -27,8 +27,8 @@
             "takeable": false,
             "type": "default"
         },
-        "golden trinket": {
-            "description": "A golden trinket that would be like a key if it were not for its distinctly swirled shape at the end. You wonder what, if anything, it could unlock.",
+        "iron key": {
+            "description": "Shimmering with golden light, the iron key has a distinctly swirled shape at the end. You wonder what, if anything, it could unlock.",
             "takeable": true,
             "type": "key"
         }

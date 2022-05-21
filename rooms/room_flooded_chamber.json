@@ -13,9 +13,9 @@
 		"trapdoor": {
 			"destination": "Underground Passage",
 			"direction": "north",
-			"key": "golden trinket",
+			"key": "iron key",
 			"locked": true,
-			"description": "The cracked wooden trapdoor is raised far enough from the ground that it has avoided much of the room's moisture. The iron handle, rusted with age, has a golden indentation in a curious swirling pattern - perhaps for an equally curiously shaped key."
+			"description": "The cracked wooden trapdoor is raised far enough from the ground that it has avoided much of the room's moisture. The iron handle, rusted with age, is set in an equally-rusted iron plate with a strangely swirled keyhole."
 		}
 	},
 	"items": {
