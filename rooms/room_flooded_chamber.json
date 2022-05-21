@@ -7,6 +7,7 @@
 			"destination": "Courtyard",
 			"direction": "east",
 			"key": "",
+			"locked": false,
 			"description": "A stone corridor with an eerie light. You cannot see what is on the other side."
 		},
 		"trapdoor": {

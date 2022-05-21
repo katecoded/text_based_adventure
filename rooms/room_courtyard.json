@@ -7,12 +7,14 @@
 			"destination": "Flooded Chamber",
 			"direction": "west",
 			"key": "",
+			"locked": false,
 			"description": "A stone corridor with an eerie light. You cannot see what is on the other side."
 		},
 		"stone staircase": {
 			"destination": "Astronomy Room",
 			"direction": "east",
 			"key": "",
+			"locked": false,
 			"description": "Though crumbling at the edges, the steps appear sturdy enough to traverse."
 		}
 	},
