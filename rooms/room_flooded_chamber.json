@@ -5,10 +5,17 @@
 	"doors": {
 		"dark corridor": {
 			"destination": "Courtyard",
-			"direction": "west",
+			"direction": "east",
 			"key": "",
 			"locked": false,
 			"description": "A stone corridor with an eerie light. You cannot see what is on the other side."
+		},
+		"trapdoor": {
+			"destination": "Underground Passage",
+			"direction": "north",
+			"key": "iron key",
+			"locked": true,
+			"description": "The cracked wooden trapdoor is raised far enough from the ground that it has avoided much of the room's moisture. The iron handle, rusted with age, is set in an equally-rusted iron plate with a strangely swirled keyhole."
 		}
 	},
 	"items": {

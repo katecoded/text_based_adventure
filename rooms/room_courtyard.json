@@ -5,14 +5,14 @@
 	"doors": {
 		"dark corridor": {
 			"destination": "Flooded Chamber",
-			"direction": "east",
+			"direction": "west",
 			"key": "",
 			"locked": false,
 			"description": "A stone corridor with an eerie light. You cannot see what is on the other side."
 		},
 		"stone staircase": {
 			"destination": "Astronomy Room",
-			"direction": "west",
+			"direction": "east",
 			"key": "",
 			"locked": false,
 			"description": "Though crumbling at the edges, the steps appear sturdy enough to traverse."
