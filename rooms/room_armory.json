@@ -9,7 +9,14 @@
             "key": "",
             "locked": false,
             "description": "The wood shimmers with an otherworldly light and is engraved with strange patterns. Though cracked in a few places, it appears otherwise untouched."
-        }
+        },
+        "yellow door": {
+			"destination": "Armory",
+			"direction": "north",
+			"key": "",
+			"locked": false,
+			"description": "This warm yellow door seems friendly enough."
+		}
     },
     "items": {
         "ghost": {
