@@ -8,7 +8,7 @@ class Game:
     """
 
     def __init__(self, title, authors, all_rooms, current_room, inventory,
-                legal_use={}, combined_items={}):
+                 legal_use={}, combined_items={}):
         """
         Initializes a game with a title, authors, dictionary of rooms, and
         the player's current room and inventory.
