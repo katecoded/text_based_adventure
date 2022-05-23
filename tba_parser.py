@@ -1,5 +1,6 @@
 from objects.item import Item
 from objects.door import Door
+import random
 # from objects.game import Game
 
 non_interactive_actions = ["inventory", "help", "look", "savegame", "loadgame"]
