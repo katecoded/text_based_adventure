@@ -153,8 +153,8 @@ def interactive_command_handler(action, str_list, gamestate):
     elif len(str_list) > 0 and action in use_actions:
         return use_handler(str_list[0], None, gamestate)
     return "Sorry I don't understand how to do that"
-      
-      
+
+
 def movement_handler(gamestate, direction, known_status):
     """
     Handler that processes and performs movement actions
@@ -390,4 +390,3 @@ def combine_handler(gamestate, str_list):
                    " into " + new_item.get_name()
         return "You cannot combine those items"
     return "I don't understand how to do that"
-  
