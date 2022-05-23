@@ -328,10 +328,10 @@ def use_open_splitter(gamestate, action, str_list):
             return open_handler(item, use_on_door)
         # If both item and subject on which it acts are items call use_handler()
         elif item is not None and use_on_item is not None:
-            return use_handler(item, use_on_item)
+            return use_handler(item.get_name(), use_on_item.get_name(), gamestate)
         elif item is None:
             return "You do not have a " + str_list[0] + " in your inventory"
-        return "There is nothing with the name" + str_list[2] + " here"
+        return "There is nothing with the name " + str_list[2] + " here"
 
     return "I don't understand how to do that"
 
