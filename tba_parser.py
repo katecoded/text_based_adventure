@@ -8,12 +8,12 @@ open_actions = ["open", "unlock"]
 use_actions = ["use", "utilize"]
 eat_actions = ["eat", "consume", "drink"]
 examine_actions = ["lookat", "examine"]
-other_actions = ["combine"]
+combine_actions = ["combine"]
 
 all_available_actions = non_interactive_actions + pickup_actions + \
                         movement_actions + eat_actions + drop_actions + \
                         use_actions + open_actions + \
-                        examine_actions + other_actions
+                        examine_actions + combine_actions
 prepositions = ["on", "upon", "at", "to", "with", "using"]
 # prepositions = ["in", "at", "to", "with", "toward", "towards", "on", "into", "onto"]
 # directions = ["north", "south", "east", "west"]  # up/down?
@@ -84,29 +84,8 @@ def parser(input, gamestate):
     # Sends to helper that deals with actions that don't affect gamestate
     elif action in non_interactive_actions:
         return non_interactive_command_handler(action, gamestate)
-    # Attempts to add item to inventory
-    elif len(str_list) > 0 and action in pickup_actions:
-        return take_handler(gamestate, str_list[0])
-    # Attempts to drop item in inventory
-    elif len(str_list) > 0 and action in drop_actions:
-        return drop_handler(gamestate, str_list[0])
-    # Attempts to have the player consume the item
-    elif len(str_list) > 0 and action in eat_actions:
-        return eat_handler(gamestate, str_list[0])
-    # Attempts to go through door specified by user
-    elif len(str_list) > 0 and action in movement_actions:
-        return movement_handler(gamestate, str_list[0], True)
-    elif len(str_list) > 0 and action == "unknown":
-        return movement_handler(gamestate, str_list[0], False)
-    # Gives description of possible item in room or inventory
-    elif len(str_list) > 0 and action in examine_actions:
-        return examine_handler(gamestate, str_list[0])
-    # Attempts to use an item on an object or open a door with object
-    elif len(str_list) > 2 and str_list[1] in prepositions and \
-            (action in use_actions or action in open_actions):
-        return use_open_splitter(gamestate, action, str_list)
     else:
-        return "Sorry I don't understand how to do that"
+        return interactive_command_handler(action, str_list, gamestate)
 
 
 def non_interactive_command_handler(command, gamestate):
@@ -143,6 +122,36 @@ def non_interactive_command_handler(command, gamestate):
             current_room.get_doors_and_items_description()
 
 
+def interactive_command_handler(command, str_list, gamestate):
+    # Attempts to add item to inventory
+    elif len(str_list) > 0 and action in pickup_actions:
+        return take_handler(gamestate, str_list[0])
+    # Attempts to drop item in inventory
+    elif len(str_list) > 0 and action in drop_actions:
+        return drop_handler(gamestate, str_list[0])
+    # Attempts to have the player consume the item
+    elif len(str_list) > 0 and action in eat_actions:
+        return eat_handler(gamestate, str_list[0])
+    # Attempts to go through door specified by user
+    elif len(str_list) > 0 and action in movement_actions:
+        return movement_handler(gamestate, str_list[0], True)
+    elif len(str_list) > 0 and action == "unknown":
+        return movement_handler(gamestate, str_list[0], False)
+    # Gives description of possible item in room or inventory
+    elif len(str_list) > 0 and action in examine_actions:
+        return examine_handler(gamestate, str_list[0])
+    # Attempts to use an item on an object or open a door with object
+    elif len(str_list) > 2 and str_list[1] in prepositions and \
+            (action in use_actions or action in open_actions):
+        return use_open_splitter(gamestate, action, str_list)
+    elif len(str_list) > 2 and str_list[1] in prepositions and \
+            action in combine_actions:
+        return combine_handler(gamestate, str_list)
+    elif len(str_list) > 0 and action in use_actions:
+        return use_handler(str_list[0], None, gamestate)
+    return "Sorry I don't understand how to do that"
+      
+      
 def movement_handler(gamestate, direction, known_status):
     """
     Handler that processes and performs movement actions
@@ -340,8 +349,42 @@ def open_handler(key, door):
     return "The door is already unlocked"
 
 
-def use_handler(item, use_on_item):
+def use_handler(item, use_on_item, gamestate):
     """
     Will handle any use actions not involving doors
     """
-    return "You cannot use " + item.get_name() + " on " + use_on_item.get_name()
+    (message, hidden) = gamestate.get_use_info((item, use_on_item))
+    if message is not None:
+        if hidden is not None:
+            cur_room = gamestate.get_current_room()
+            hidden_object = cur_room.get_hidden_object_by_name(hidden)
+            if hidden_object is not None:
+                cur_room.remove_hidden(hidden_object)
+                if isinstance(hidden_object, Item):
+                    cur_room.add_item(hidden_object)
+                if isinstance(hidden_object, Door):
+                    cur_room.add_door(hidden_object)
+        return random.choice(message)
+    return "You cannot use " + item + " on " + use_on_item
+
+
+def combine_handler(gamestate, str_list):
+    if str_list[1] == "with":
+        inv_1 = gamestate.get_item_by_name(str_list[0])
+        inv_2 = gamestate.get_item_by_name(str_list[2])
+        if inv_1 is None:
+            return str_list[0] + " is not in your inventory"
+        if inv_2 is None:
+            return str_list[2] + " is not in your inventory"
+        new_item = gamestate.get_combined_item_info((str_list[0], str_list[2]))
+        if new_item is None:
+            new_item = gamestate.get_combined_item_info((str_list[2], str_list[0]))
+        if new_item is not None:
+            gamestate.remove_item_from_inventory(str_list[0])
+            gamestate.remove_item_from_inventory(str_list[2])
+            gamestate.add_item_to_inventory(new_item.get_name(), new_item)
+            return "You have combined " + str_list[0] + " and " + str_list[2] + \
+                   " into " + new_item.get_name()
+        return "You cannot combine those items"
+    return "I don't understand how to do that"
+  
