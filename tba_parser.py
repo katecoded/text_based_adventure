@@ -1,3 +1,5 @@
+from objects.item import Item
+from objects.door import Door
 # from objects.game import Game
 
 non_interactive_actions = ["inventory", "help", "look", "savegame", "loadgame"]
@@ -122,7 +124,7 @@ def non_interactive_command_handler(command, gamestate):
             current_room.get_doors_and_items_description()
 
 
-def interactive_command_handler(command, str_list, gamestate):
+def interactive_command_handler(action, str_list, gamestate):
     # Attempts to add item to inventory
     if len(str_list) > 0 and action in pickup_actions:
         return take_handler(gamestate, str_list[0])
