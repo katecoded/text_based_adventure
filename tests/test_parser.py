@@ -13,12 +13,12 @@ class TestParser(TestCase):
         """
         Sets up a test game instance
         """
-        self.item_1 = Item("Crooked Candlestick", "A candlestick that paradoxically curves down"
+        self.item_1 = Item("crooked candlestick", "A candlestick that paradoxically curves down"
                                                   "ward. How is this supposed to be used?", True)
-        self.item_2 = Item("Sussy Coffee Cup", "A ceramic cup with the words \"Talk to me "
+        self.item_2 = Item("sussy coffee cup", "A ceramic cup with the words \"Talk to me "
                                                "tomorrow\" emblazoned on the side. There is "
                                                "nothing suspicious about it...", True)
-        self.item_3 = Item("Table", "It's a simple wooden table. There are items you make take "
+        self.item_3 = Item("table", "It's a simple wooden table. There are items you make take "
                                     "on the table. No, you may not take the table.", False)
         self.item_4 = Item("flashlight",
                            "Ah, this flashlight might help in case you ever get"
