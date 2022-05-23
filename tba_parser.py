@@ -124,7 +124,7 @@ def non_interactive_command_handler(command, gamestate):
 
 def interactive_command_handler(command, str_list, gamestate):
     # Attempts to add item to inventory
-    elif len(str_list) > 0 and action in pickup_actions:
+    if len(str_list) > 0 and action in pickup_actions:
         return take_handler(gamestate, str_list[0])
     # Attempts to drop item in inventory
     elif len(str_list) > 0 and action in drop_actions:
