@@ -201,7 +201,6 @@ class Room:
             del self._doors[door.get_name()]
             return True
         return False
-    
 
     def remove_hidden(self, object):
         """
