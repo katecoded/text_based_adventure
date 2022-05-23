@@ -142,7 +142,7 @@ class TestParser(TestCase):
         """
         self.game.add_item_to_inventory(self.item_2.get_name(), self.item_2)
         message = parser("inventory", self.game)
-        self.assertEqual(message, "The following items are in your inventory: Sussy Coffee Cup")
+        self.assertEqual(message, "The following items are in your inventory: sussy coffee cup")
 
     def test_two_item_inventory(self):
         """
@@ -152,7 +152,7 @@ class TestParser(TestCase):
         self.game.add_item_to_inventory(self.item_2.get_name(), self.item_2)
         message = parser("inventory", self.game)
         self.assertEqual(message, "The following items are in your inventory: "
-                                  "Crooked Candlestick, Sussy Coffee Cup")
+                                  "crooked candlestick, sussy coffee cup")
 
     def test_drop_item(self):
         """
