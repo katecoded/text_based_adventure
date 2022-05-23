@@ -84,7 +84,7 @@ class TestParser(TestCase):
         self.use_dict = {("flashlight", "table"): (["As you shine the flashlight upon the table, "
                                                     "you can't help but think it changed in some "
                                                     "small, imperceptible way"], "super table"),
-                        ("8-ball", None): (self.eight_ball_list, None)}
+                         ("8-ball", None): (self.eight_ball_list, None)}
         self.item_99 = Item("flashlight in a boot", "It's a flashlight... stuck... into a... boot... "
                                                     "Yeaaah I really shouldn't be writing this after a "
                                                     "few drinks", True)
