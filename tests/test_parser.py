@@ -50,11 +50,12 @@ class TestParser(TestCase):
                                  self.item_4.get_name(): self.item_4,
                                  self.item_5.get_name(): self.item_5,
                                  self.item_6.get_name(): self.item_6}
+        self.hidden_dict = {self.item_9.get_name(): self.item_9}
         self.room_1 = Room("Starting Room", "A Barren room with stuff on the table",
                            "A barren concrete room that serves as a starting point. In one of "
                            "the corners stands a simple wooden table with items of interest on "
                            "it. You may take the things on the table, but not the table itself.",
-                           self.room_1_door_dict, self.room_1_item_dict)
+                           self.room_1_door_dict, self.room_1_item_dict, self.hidden_dict)
         self.door_5 = Door("rome door", "Rome", "north", "", False, "All doors lead to Rome")
         self.door_6 = Door("also rome door", "Rome", "east", "", False, "All doors lead to Rome")
         self.door_7 = Door("still rome door", "Rome", "west", "", False, "All doors lead to Rome")
