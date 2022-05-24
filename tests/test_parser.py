@@ -13,12 +13,12 @@ class TestParser(TestCase):
         """
         Sets up a test game instance
         """
-        self.item_1 = Item("Crooked Candlestick", "A candlestick that paradoxically curves down"
+        self.item_1 = Item("crooked candlestick", "A candlestick that paradoxically curves down"
                                                   "ward. How is this supposed to be used?", True)
-        self.item_2 = Item("Sussy Coffee Cup", "A ceramic cup with the words \"Talk to me "
+        self.item_2 = Item("sussy coffee cup", "A ceramic cup with the words \"Talk to me "
                                                "tomorrow\" emblazoned on the side. There is "
                                                "nothing suspicious about it...", True)
-        self.item_3 = Item("Table", "It's a simple wooden table. There are items you make take "
+        self.item_3 = Item("table", "It's a simple wooden table. There are items you make take "
                                     "on the table. No, you may not take the table.", False)
         self.item_4 = Item("flashlight",
                            "Ah, this flashlight might help in case you ever get"
@@ -32,7 +32,10 @@ class TestParser(TestCase):
                            "Yup, just an old, dusty-looking leather boot.", True)
         self.item_7 = Item("key", "A key for testing locks.", True, "key")
         self.item_8 = Item("fake key", "A fake key for testing locks.", True, "key")
-
+        self.item_9 = Item("super table", "It's a special wooden table. Looking at it fills"
+                                          "you with confidence. There are items you make take "
+                                          "on the table. No, you may not take the table.", False)
+        self.item_10 = Item("8-ball", "A magic 8-ball that tells the future.", True)
         self.door_1 = Door("one door", "Rome", "north", "", False, "All doors lead to Rome")
         self.door_2 = Door("two door", "Rome", "east", "key", True, "All doors lead to Rome")
         self.door_3 = Door("red door", "Rome", "south", "", False, "All doors lead to Rome")
@@ -47,11 +50,12 @@ class TestParser(TestCase):
                                  self.item_4.get_name(): self.item_4,
                                  self.item_5.get_name(): self.item_5,
                                  self.item_6.get_name(): self.item_6}
+        self.hidden_dict = {self.item_9.get_name(): self.item_9}
         self.room_1 = Room("Starting Room", "A Barren room with stuff on the table",
                            "A barren concrete room that serves as a starting point. In one of "
                            "the corners stands a simple wooden table with items of interest on "
                            "it. You may take the things on the table, but not the table itself.",
-                           self.room_1_door_dict, self.room_1_item_dict)
+                           self.room_1_door_dict, self.room_1_item_dict, self.hidden_dict)
         self.door_5 = Door("rome door", "Rome", "north", "", False, "All doors lead to Rome")
         self.door_6 = Door("also rome door", "Rome", "east", "", False, "All doors lead to Rome")
         self.door_7 = Door("still rome door", "Rome", "west", "", False, "All doors lead to Rome")
@@ -71,7 +75,23 @@ class TestParser(TestCase):
                            "Rome. Shame.", self.room_2_door_dict, {})
         self.room_dict = {self.room_1.get_name(): self.room_1,
                           self.room_2.get_name(): self.room_2}
-        self.game = Game("Test", "Great Old Ones", self.room_dict, "Starting Room", {})
+        self.eight_ball_list = ["It is certain.", "It it's decidedly so.", "Without a doubt.",
+                                "Yes definitely.", "You may rely on it.", "As I see it, yes.",
+                                "Most likely.", "Outlook good.", "Yes.", "Signs point to yes.",
+                                "Reply hazy, try again", "Ask again later.", "Better not tell you now.",
+                                "Cannot predict now.", "Concentrate and ask again.",
+                                "Don't count on it.", "My reply is no.", "My sources say no.",
+                                "Outlook not so good.", "Very doubtful."]
+        self.use_dict = {("flashlight", "table"): (["As you shine the flashlight upon the table, "
+                                                    "you can't help but think it changed in some "
+                                                    "small, imperceptible way"], "super table"),
+                         ("8-ball", None): (self.eight_ball_list, None)}
+        self.item_99 = Item("flashlight in a boot", "It's a flashlight... stuck... into a... boot... "
+                                                    "Yeaaah I really shouldn't be writing this after a "
+                                                    "few drinks", True)
+        self.combine_dict = {("flashlight", "leather boot"): self.item_99}
+        self.game = Game("Test", "Great Old Ones", self.room_dict, "Starting Room", {}, self.use_dict,
+                         self.combine_dict)
         self.game.get_current_room().set_visited()
 
     def test_take_command(self):
@@ -123,7 +143,7 @@ class TestParser(TestCase):
         """
         self.game.add_item_to_inventory(self.item_2.get_name(), self.item_2)
         message = parser("inventory", self.game)
-        self.assertEqual(message, "The following items are in your inventory: Sussy Coffee Cup")
+        self.assertEqual(message, "The following items are in your inventory: sussy coffee cup")
 
     def test_two_item_inventory(self):
         """
@@ -133,7 +153,7 @@ class TestParser(TestCase):
         self.game.add_item_to_inventory(self.item_2.get_name(), self.item_2)
         message = parser("inventory", self.game)
         self.assertEqual(message, "The following items are in your inventory: "
-                                  "Crooked Candlestick, Sussy Coffee Cup")
+                                  "crooked candlestick, sussy coffee cup")
 
     def test_drop_item(self):
         """
@@ -319,6 +339,54 @@ class TestParser(TestCase):
         self.game.add_item_to_inventory(self.item_7.get_name(), self.item_7)
         message = parser("use key on table", self.game)
         self.assertEqual(message, "You cannot use key + on table")
+
+    def test_proper_use(self):
+        """
+        Tests that game properly rejects an improper use action
+        At this stage it's anything other than opening door
+        """
+        self.game.add_item_to_inventory(self.item_4.get_name(), self.item_4)
+        message = parser("use flashlight on table", self.game)
+        self.assertEqual("As you shine the flashlight upon the table, you can't help but "
+                         "think it changed in some small, imperceptible way", message)
+        self.assertIn("super table", self.game.get_current_room().get_items())
+
+    def test_multiple_message_use(self):
+        self.game.add_item_to_inventory(self.item_10.get_name(), self.item_10)
+        message = parser("use 8-ball", self.game)
+        self.assertIn(message, self.eight_ball_list)
+
+    def test_combine_test(self):
+        self.game.add_item_to_inventory(self.item_4.get_name(), self.item_4)
+        self.game.add_item_to_inventory(self.item_6.get_name(), self.item_6)
+        message = parser("combine flashlight with leather boot", self.game)
+        self.assertEqual("You have combined flashlight and leather boot into "
+                         "flashlight in a boot", message)
+        self.assertIn("flashlight in a boot", self.game.get_inventory())
+
+    def test_combine_test_alt(self):
+        self.game.add_item_to_inventory(self.item_4.get_name(), self.item_4)
+        self.game.add_item_to_inventory(self.item_6.get_name(), self.item_6)
+        message = parser("combine leather boot with flashlight", self.game)
+        self.assertEqual("You have combined leather boot and flashlight into "
+                         "flashlight in a boot", message)
+        self.assertIn("flashlight in a boot", self.game.get_inventory())
+
+    def test_combine_missing_item(self):
+        self.game.add_item_to_inventory(self.item_4.get_name(), self.item_4)
+        message = parser("combine flashlight with leather boot", self.game)
+        self.assertEqual("leather boot is not in your inventory", message)
+
+    def test_combine_missing_item_alt(self):
+        self.game.add_item_to_inventory(self.item_6.get_name(), self.item_6)
+        message = parser("combine flashlight with leather boot", self.game)
+        self.assertEqual("flashlight is not in your inventory", message)
+
+    def test_combine_invalid_items(self):
+        self.game.add_item_to_inventory(self.item_4.get_name(), self.item_4)
+        self.game.add_item_to_inventory(self.item_5.get_name(), self.item_5)
+        message = parser("combine flashlight with hand mirror", self.game)
+        self.assertEqual("You cannot combine those items", message)
 
     def test_invalid_command(self):
         """

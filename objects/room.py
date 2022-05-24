@@ -8,7 +8,7 @@ class Room:
     """
 
     def __init__(self, name, short_description, long_description, doors,
-                 items):
+                 items, hidden_objects={}):
         """
         Initializes a Room with a name, a short_description,
         a long_description, a visited Boolean set to False,
@@ -18,6 +18,7 @@ class Room:
         :long_description: A String long description (a paragraph).
         :doors: A dictionary of Door objects.
         :items: A dictionary of Item objects.
+        :hidden_objects: A dictionary of hidden Door and Item objects
         """
         self._name = name
         self._short_description = short_description
@@ -25,6 +26,7 @@ class Room:
         self._visited = False
         self._doors = doors
         self._items = items
+        self._hidden_objects = hidden_objects
 
     def get_name(self):
         """
@@ -107,6 +109,12 @@ class Room:
         """
         return self._items
 
+    def get_hidden_objects(self):
+        """
+        Returns the dictionary of hidden Objects in the Room.
+        """
+        return self._hidden_objects
+
     def get_door_by_name(self, name):
         """
         Returns the Door object from the Room's dictionary of Doors
@@ -127,6 +135,17 @@ class Room:
         """
         if name in self._items:
             return self._items[name]
+        return None
+
+    def get_hidden_object_by_name(self, name):
+        """
+        Returns the Item or Door object from the Room's dictionary of hidden
+        Objects with the given name if it exists. If it does not exist,
+        None is returned.
+        :name: A String name.
+        """
+        if name in self._hidden_objects:
+            return self._hidden_objects[name]
         return None
 
     def set_visited(self):
@@ -180,5 +199,14 @@ class Room:
         """
         if door.get_name() in self._doors:
             del self._doors[door.get_name()]
+            return True
+        return False
+
+    def remove_hidden(self, object):
+        """
+        Removes object from the hidden item dictionary
+        """
+        if object.get_name() in self._hidden_objects:
+            del self._hidden_objects[object.get_name()]
             return True
         return False
