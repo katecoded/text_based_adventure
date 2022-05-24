@@ -109,7 +109,7 @@ def non_interactive_command_handler(command, gamestate):
     # Returns vocabulary of usable actions
     elif command == "help":
         return "The following is a list of allowed commands:\nHelp\nInventory\n" \
-               "Take\nDrop\nLook\nLook At\nExamine\nGo\nUse\nOpen\nUnlock\nSavegame\nLoadgame\n" \
+               "Take\nDrop\nLook\nLook At\nGo\nUse\nOpen\nUnlock\nSavegame\nLoadgame\n" \
                "Certain synonyms such as \"Pick Up\" or \"Move\" will also work"
     # Saves current game-state to a file
     elif command == "savegame":
