@@ -12,11 +12,12 @@ use_actions = ["use", "utilize"]
 eat_actions = ["eat", "consume", "drink"]
 examine_actions = ["lookat", "examine"]
 combine_actions = ["combine"]
+talk_actions = ["talk", "speak"]
 
 all_available_actions = non_interactive_actions + pickup_actions + \
                         movement_actions + eat_actions + drop_actions + \
                         use_actions + open_actions + \
-                        examine_actions + combine_actions
+                        examine_actions + combine_actions + talk_actions
 prepositions = ["on", "upon", "at", "to", "with", "using"]
 # prepositions = ["in", "at", "to", "with", "toward", "towards", "on", "into", "onto"]
 # directions = ["north", "south", "east", "west"]  # up/down?
@@ -152,6 +153,8 @@ def interactive_command_handler(action, str_list, gamestate):
         return combine_handler(gamestate, str_list)
     elif len(str_list) > 0 and action in use_actions:
         return use_handler(str_list[0], None, gamestate)
+    elif len(str_list) > 0 and action in talk_actions:
+        return talk_handler(gamestate, str_list[0])
     return "Sorry I don't understand how to do that"
 
 
@@ -390,3 +393,36 @@ def combine_handler(gamestate, str_list):
                    " into " + new_item.get_name()
         return "You cannot combine those items"
     return "I don't understand how to do that"
+
+
+def talk_handler(gamestate, creature_name):
+    current_room = gamestate.get_current_room()
+    item = current_room.get_item_by_name(creature_name)
+    if item is not None:
+        if creature_name == "blue-haired fairy":
+            if item.get_description() == "This tiny blue-haired fairy is sighing in apparent disappointment.":
+                print("Blue-haired Fairy: 'I'm supposed to be in charge of making a blackberry cobbler. But I can't find any blackberries in here anywhere - I've looked a dozen times! Do you have any blackberries by chance?'")
+                print("Choose a response:")
+                print("1. 'I have some blackberries!'")
+                print("2. 'Sorry, I don't have any blackberries.'")
+                loop = True
+
+                while loop:
+                    choice = input("> ")
+                    if choice == "1":
+                        print("You: 'I have some blackberries!'")
+                        print("Blue-haired Fairy: 'Oh, that's great! Just give them to me and I'll get that cobbler started.'")
+                        loop = False
+                    elif choice == "2":
+                        print("You: 'Sorry, I don't have any blackberries right now.'")
+                        print("Blue-haired Fairy: 'That's alright. Come tell me if you find any!'")
+                        loop = False
+                    else:
+                        print("Not a valid choice. Try again.")
+
+            elif item.get_description() == "The tiny blue-haired fairy is busy working on a blackberry cobbler.":
+                print("Blue-haired Fairy: 'This blackberry cobbler is coming along well! Thank you for your help!'")
+
+            return ""
+    return "You can't talk to " + creature_name
+
