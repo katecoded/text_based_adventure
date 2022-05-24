@@ -404,7 +404,7 @@ def talk_handler(gamestate, creature_name):
                 print("Blue-haired Fairy: 'I'm supposed to be in charge of making a blackberry cobbler. But I can't find any blackberries in here anywhere - I've looked a dozen times! Do you have any blackberries by chance?'")
                 print("Choose a response:")
                 print("1. 'I have some blackberries!'")
-                print("2. 'Sorry, I don't have any blackberries.'")
+                print("2. 'Sorry, I don't have any blackberries right now.'")
                 loop = True
 
                 while loop:
