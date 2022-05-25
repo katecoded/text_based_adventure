@@ -292,7 +292,7 @@ def eat_handler(gamestate, obj_name):
             if item.get_type() == "food":
                 gamestate.remove_item_from_inventory(obj_name)
                 return "You have consumed the " + item.get_name()
-            return "You can't eat the " item.get_name()
+            return "You can't eat the " + item.get_name()
     return "That item isn't here"
 
 
