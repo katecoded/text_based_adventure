@@ -403,7 +403,7 @@ def talk_handler(gamestate, creature_name):
     if item is not None:
         if creature_name == "blue-haired fairy":
             if item.get_description() == "This tiny blue-haired fairy is sighing in apparent disappointment.":
-                print("Blue-haired Fairy: 'I'm supposed to be in charge of making a blackberry cobbler." 
+                print("Blue-haired Fairy: 'I'm supposed to be in charge of making a blackberry cobbler."
                       "But I can't find any blackberries in here anywhere - I've looked a dozen "
                       "times! Do you have any blackberries by chance?'")
                 print("Choose a response:")
