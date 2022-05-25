@@ -12,11 +12,13 @@ use_actions = ["use", "utilize"]
 eat_actions = ["eat", "consume", "drink"]
 examine_actions = ["lookat", "examine"]
 combine_actions = ["combine"]
+talk_actions = ["talk", "speak"]
 
+inventory_actions = pickup_actions + drop_actions
 all_available_actions = non_interactive_actions + pickup_actions + \
-                        movement_actions + eat_actions + drop_actions + \
+                        movement_actions + inventory_actions + \
                         use_actions + open_actions + \
-                        examine_actions + combine_actions
+                        examine_actions + combine_actions + talk_actions
 prepositions = ["on", "upon", "at", "to", "with", "using"]
 # prepositions = ["in", "at", "to", "with", "toward", "towards", "on", "into", "onto"]
 # directions = ["north", "south", "east", "west"]  # up/down?
@@ -126,12 +128,9 @@ def non_interactive_command_handler(command, gamestate):
 
 
 def interactive_command_handler(action, str_list, gamestate):
-    # Attempts to add item to inventory
-    if len(str_list) > 0 and action in pickup_actions:
-        return take_handler(gamestate, str_list[0])
-    # Attempts to drop item in inventory
-    elif len(str_list) > 0 and action in drop_actions:
-        return drop_handler(gamestate, str_list[0])
+    # Attempts to add or remove item to/from inventory
+    if len(str_list) > 0 and action in inventory_actions:
+        return inventory_handler(gamestate, action, str_list[0])
     # Attempts to have the player consume the item
     elif len(str_list) > 0 and action in eat_actions:
         return eat_handler(gamestate, str_list[0])
@@ -152,6 +151,8 @@ def interactive_command_handler(action, str_list, gamestate):
         return combine_handler(gamestate, str_list)
     elif len(str_list) > 0 and action in use_actions:
         return use_handler(str_list[0], None, gamestate)
+    elif len(str_list) > 0 and action in talk_actions:
+        return talk_handler(gamestate, str_list[0])
     return "Sorry I don't understand how to do that"
 
 
@@ -234,37 +235,36 @@ def examine_handler(gamestate, obj_name):
     return "That object isn't here"
 
 
-def take_handler(gamestate, obj_name):
+def inventory_handler(gamestate, action, obj_name):
     """
-    Takes and puts given object in inventory if it is
-    in the current room and takeable.
+    Handles picking up and dropping items
     """
-    # Add the item into inventory
     current_room = gamestate.get_current_room()
-    item = current_room.get_item_by_name(obj_name)
-    if item is not None:
-        if item.is_takeable():
-            gamestate.add_item_to_inventory(item.get_name(), item)
-            current_room.remove_item(item)
-            return item.get_name() + " is now in your inventory"
 
-    # If the item was not in the room or could not be taken
-    return "That object cannot be taken"
+    # If action is a pickup action, tries to pick up item
+    if action in pickup_actions:
+        # Add the item into inventory
+        item = current_room.get_item_by_name(obj_name)
+        if item is not None:
+            if item.is_takeable():
+                gamestate.add_item_to_inventory(item.get_name(), item)
+                current_room.remove_item(item)
+                return item.get_name() + " is now in your inventory"
 
+            # If the item was not in the room or could not be taken
+            return "That object cannot be taken"
+        return "There is no object with that name here"
 
-def drop_handler(gamestate, obj_name):
-    """
-    Tries to drop an item if it item exists in the inventory
-    The item will be removed from the inventory and added to the current room
-    """
-    item = gamestate.get_item_by_name(obj_name)
-    if item is not None:
-        gamestate.get_current_room().add_item(item)
-        gamestate.remove_item_from_inventory(obj_name)
-        return "You have dropped " + obj_name + " from your inventory"
+    # Otherwise the action is a drop item, so tries to drop it
+    else:
+        item = gamestate.get_item_by_name(obj_name)
+        if item is not None:
+            gamestate.get_current_room().add_item(item)
+            gamestate.remove_item_from_inventory(obj_name)
+            return "You have dropped " + obj_name + " from your inventory"
 
-    # If the item is not in your inventory
-    return "You do not have " + obj_name + " in your inventory"
+        # If the item is not in your inventory
+        return "You do not have " + obj_name + " in your inventory"
 
 
 def eat_handler(gamestate, obj_name):
@@ -390,3 +390,46 @@ def combine_handler(gamestate, str_list):
                    " into " + new_item.get_name()
         return "You cannot combine those items"
     return "I don't understand how to do that"
+
+
+def talk_handler(gamestate, creature_name):
+    current_room = gamestate.get_current_room()
+    item = current_room.get_item_by_name(creature_name)
+    if item is not None:
+        if creature_name == "blue-haired fairy":
+            if item.get_description() == "This tiny blue-haired fairy is sighing in apparent disappointment.":
+                print("Blue-haired Fairy: 'I'm supposed to be in charge of making a blackberry cobbler."
+                      "But I can't find any blackberries in here anywhere - I've looked a dozen "
+                      "times! Do you have any blackberries by chance?'")
+                print("Choose a response:")
+                print("1. 'I have some blackberries!'")
+                print("2. 'Sorry, I don't have any blackberries right now.'")
+                loop = True
+
+                while loop:
+                    choice = input("> ")
+                    if choice == "1":
+                        print("You: 'I have some blackberries!'")
+                        print("Blue-haired Fairy: 'Oh, that's great! Just give them to me and I'll get that cobbler started.'")
+                        loop = False
+                    elif choice == "2":
+                        print("You: 'Sorry, I don't have any blackberries right now.'")
+                        print("Blue-haired Fairy: 'That's alright. Come tell me if you find any!'")
+                        loop = False
+                    else:
+                        print("Not a valid choice. Try again.")
+
+            elif item.get_description() == "The tiny blue-haired fairy is busy working on a blackberry cobbler.":
+                print("Blue-haired Fairy: 'This blackberry cobbler is coming along well! Thank you for your help!'")
+
+            return ""
+    else:
+        # if it is a creature in the player's inventory (like a ghost)
+        if gamestate.get_item_by_name(creature_name) is not None:
+            return "You can't talk to " + creature_name
+
+        # if it is an item that is not in the room or inventory
+        return creature_name + " is not here"
+
+    # if it is an item in the room, but can't be spoken to
+    return "You can't talk to " + creature_name
