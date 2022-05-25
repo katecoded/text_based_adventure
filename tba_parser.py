@@ -403,7 +403,9 @@ def talk_handler(gamestate, creature_name):
     if item is not None:
         if creature_name == "blue-haired fairy":
             if item.get_description() == "This tiny blue-haired fairy is sighing in apparent disappointment.":
-                print("Blue-haired Fairy: 'I'm supposed to be in charge of making a blackberry cobbler. But I can't find any blackberries in here anywhere - I've looked a dozen times! Do you have any blackberries by chance?'")
+                print("Blue-haired Fairy: 'I'm supposed to be in charge of making a blackberry cobbler." 
+                      "But I can't find any blackberries in here anywhere - I've looked a dozen "
+                      "times! Do you have any blackberries by chance?'")
                 print("Choose a response:")
                 print("1. 'I have some blackberries!'")
                 print("2. 'Sorry, I don't have any blackberries right now.'")
@@ -430,10 +432,9 @@ def talk_handler(gamestate, creature_name):
         # if it is a creature in the player's inventory (like a ghost)
         if gamestate.get_item_by_name(creature_name) is not None:
             return "You can't talk to " + creature_name
-            
+
         # if it is an item that is not in the room or inventory
         return creature_name + " is not here"
 
     # if it is an item in the room, but can't be spoken to
     return "You can't talk to " + creature_name
-
