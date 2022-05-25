@@ -128,7 +128,7 @@ def non_interactive_command_handler(command, gamestate):
 
 
 def interactive_command_handler(action, str_list, gamestate):
-    # Attempts to add item to inventory
+    # Attempts to add or remove item to/from inventory
     if len(str_list) > 0 and action in inventory_actions:
         return inventory_handler(gamestate, action, str_list[0])
     # Attempts to have the player consume the item
@@ -240,6 +240,8 @@ def inventory_handler(gamestate, action, obj_name):
     Handles picking up and dropping items
     """
     current_room = gamestate.get_current_room()
+    
+    # If action is a pickup action, tries to pick up item
     if action in pickup_actions:
         # Add the item into inventory
         item = current_room.get_item_by_name(obj_name)
@@ -252,6 +254,8 @@ def inventory_handler(gamestate, action, obj_name):
             # If the item was not in the room or could not be taken
             return "That object cannot be taken"
         return "There is no object with that name here"
+      
+    # Otherwise the action is a drop item, so tries to drop it
     else:
         item = gamestate.get_item_by_name(obj_name)
         if item is not None:
@@ -261,39 +265,6 @@ def inventory_handler(gamestate, action, obj_name):
 
         # If the item is not in your inventory
         return "You do not have " + obj_name + " in your inventory"
-
-
-def take_handler(gamestate, obj_name):
-    """
-    Takes and puts given object in inventory if it is
-    in the current room and takeable.
-    """
-    # Add the item into inventory
-    current_room = gamestate.get_current_room()
-    item = current_room.get_item_by_name(obj_name)
-    if item is not None:
-        if item.is_takeable():
-            gamestate.add_item_to_inventory(item.get_name(), item)
-            current_room.remove_item(item)
-            return item.get_name() + " is now in your inventory"
-
-    # If the item was not in the room or could not be taken
-    return "That object cannot be taken"
-
-
-def drop_handler(gamestate, obj_name):
-    """
-    Tries to drop an item if it item exists in the inventory
-    The item will be removed from the inventory and added to the current room
-    """
-    item = gamestate.get_item_by_name(obj_name)
-    if item is not None:
-        gamestate.get_current_room().add_item(item)
-        gamestate.remove_item_from_inventory(obj_name)
-        return "You have dropped " + obj_name + " from your inventory"
-
-    # If the item is not in your inventory
-    return "You do not have " + obj_name + " in your inventory"
 
 
 def eat_handler(gamestate, obj_name):
