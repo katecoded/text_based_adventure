@@ -152,6 +152,8 @@ def interactive_command_handler(action, str_list, gamestate):
         return combine_handler(gamestate, str_list)
     elif len(str_list) > 0 and action in use_actions:
         return use_handler(str_list[0], None, gamestate)
+    elif len(str_list) > 0 and action in talk_actions:
+        return talk_handler(gamestate, str_list[0])
     return "Sorry I don't understand how to do that"
 
 
@@ -390,3 +392,46 @@ def combine_handler(gamestate, str_list):
                    " into " + new_item.get_name()
         return "You cannot combine those items"
     return "I don't understand how to do that"
+
+  
+def talk_handler(gamestate, creature_name):
+    current_room = gamestate.get_current_room()
+    item = current_room.get_item_by_name(creature_name)
+    if item is not None:
+        if creature_name == "blue-haired fairy":
+            if item.get_description() == "This tiny blue-haired fairy is sighing in apparent disappointment.":
+                print("Blue-haired Fairy: 'I'm supposed to be in charge of making a blackberry cobbler."
+                      "But I can't find any blackberries in here anywhere - I've looked a dozen "
+                      "times! Do you have any blackberries by chance?'")
+                print("Choose a response:")
+                print("1. 'I have some blackberries!'")
+                print("2. 'Sorry, I don't have any blackberries right now.'")
+                loop = True
+
+                while loop:
+                    choice = input("> ")
+                    if choice == "1":
+                        print("You: 'I have some blackberries!'")
+                        print("Blue-haired Fairy: 'Oh, that's great! Just give them to me and I'll get that cobbler started.'")
+                        loop = False
+                    elif choice == "2":
+                        print("You: 'Sorry, I don't have any blackberries right now.'")
+                        print("Blue-haired Fairy: 'That's alright. Come tell me if you find any!'")
+                        loop = False
+                    else:
+                        print("Not a valid choice. Try again.")
+
+            elif item.get_description() == "The tiny blue-haired fairy is busy working on a blackberry cobbler.":
+                print("Blue-haired Fairy: 'This blackberry cobbler is coming along well! Thank you for your help!'")
+
+            return ""
+    else:
+        # if it is a creature in the player's inventory (like a ghost)
+        if gamestate.get_item_by_name(creature_name) is not None:
+            return "You can't talk to " + creature_name
+
+        # if it is an item that is not in the room or inventory
+        return creature_name + " is not here"
+
+    # if it is an item in the room, but can't be spoken to
+    return "You can't talk to " + creature_name
