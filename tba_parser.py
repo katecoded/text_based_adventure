@@ -14,8 +14,9 @@ examine_actions = ["lookat", "examine"]
 combine_actions = ["combine"]
 talk_actions = ["talk", "speak"]
 
+inventory_actions = pickup_actions + drop_actions
 all_available_actions = non_interactive_actions + pickup_actions + \
-                        movement_actions + eat_actions + drop_actions + \
+                        movement_actions + inventory_actions + \
                         use_actions + open_actions + \
                         examine_actions + combine_actions + talk_actions
 prepositions = ["on", "upon", "at", "to", "with", "using"]
@@ -128,11 +129,8 @@ def non_interactive_command_handler(command, gamestate):
 
 def interactive_command_handler(action, str_list, gamestate):
     # Attempts to add item to inventory
-    if len(str_list) > 0 and action in pickup_actions:
-        return take_handler(gamestate, str_list[0])
-    # Attempts to drop item in inventory
-    elif len(str_list) > 0 and action in drop_actions:
-        return drop_handler(gamestate, str_list[0])
+    if len(str_list) > 0 and action in inventory_actions:
+        return inventory_handler(gamestate, action, str_list[0])
     # Attempts to have the player consume the item
     elif len(str_list) > 0 and action in eat_actions:
         return eat_handler(gamestate, str_list[0])
@@ -236,7 +234,35 @@ def examine_handler(gamestate, obj_name):
     # if the object is not found in the room or inventory
     return "That object isn't here"
 
+  
+def inventory_handler(gamestate, action, obj_name):
+    """
+    Handles picking up and dropping items
+    """
+    current_room = gamestate.get_current_room()
+    if action in pickup_actions:
+        # Add the item into inventory
+        item = current_room.get_item_by_name(obj_name)
+        if item is not None:
+            if item.is_takeable():
+                gamestate.add_item_to_inventory(item.get_name(), item)
+                current_room.remove_item(item)
+                return item.get_name() + " is now in your inventory"
 
+            # If the item was not in the room or could not be taken
+            return "That object cannot be taken"
+        return "There is no object with that name here"
+    else: 
+        item = gamestate.get_item_by_name(obj_name)
+        if item is not None:
+            gamestate.get_current_room().add_item(item)
+            gamestate.remove_item_from_inventory(obj_name)
+            return "You have dropped " + obj_name + " from your inventory"
+
+        # If the item is not in your inventory
+        return "You do not have " + obj_name + " in your inventory"
+
+      
 def take_handler(gamestate, obj_name):
     """
     Takes and puts given object in inventory if it is
@@ -394,7 +420,7 @@ def combine_handler(gamestate, str_list):
         return "You cannot combine those items"
     return "I don't understand how to do that"
 
-  
+
 def talk_handler(gamestate, creature_name):
     current_room = gamestate.get_current_room()
     item = current_room.get_item_by_name(creature_name)
