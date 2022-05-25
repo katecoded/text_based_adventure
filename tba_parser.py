@@ -240,7 +240,7 @@ def inventory_handler(gamestate, action, obj_name):
     Handles picking up and dropping items
     """
     current_room = gamestate.get_current_room()
-    
+
     # If action is a pickup action, tries to pick up item
     if action in pickup_actions:
         # Add the item into inventory
@@ -254,7 +254,7 @@ def inventory_handler(gamestate, action, obj_name):
             # If the item was not in the room or could not be taken
             return "That object cannot be taken"
         return "There is no object with that name here"
-      
+
     # Otherwise the action is a drop item, so tries to drop it
     else:
         item = gamestate.get_item_by_name(obj_name)
