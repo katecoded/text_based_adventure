@@ -79,10 +79,11 @@ def main():
         # the results
         print(parser(user_command, game))
 
-        # if the current location is the exit room, thank the user
-        # and exit the game (demo only)
-        if game.get_current_room().get_name() == "Exit":
-            print("That concludes the demo for The Whimsical Castle. "
+        # if the diary is in the user's inventory, that triggers the
+        # end of the game
+        if "diary" in game.get_inventory():
+            print("\nEpilogue.\n"
+                  "That concludes The Whimsical Castle. "
                   "Thank you for playing!")
             running = False
 

@@ -1,0 +1,18 @@
+{
+    "name": "Tower",
+    "short_description": "Almost every wal in this room is full of shelves with books and various trinkets. A cramped bed and small desk are pushed against opposing walls.",
+    "long_description": "The tower interior could almost be mistaken for a library if not for the bed crammed against one wall. Almost every other wall is filled with bookshelves with many kicks of books and trinkets with no discernible organizational system. The only other free wall has a single window with a small desk, the surface covered with quills and various pieces of paper.",
+    "doors": {},
+    "items": {
+        "diary": {
+            "description": "A vaguely familiar-looking diary is open to a scrawled page. You have an overwhelming urge to read the entire thing - but do you dare to take it?",
+            "takeable": true,
+            "type": "default"
+        },
+        "small window": {
+            "description": "From this vantage point, you can see the entire rest of the castle, including the courtyard you awoke in. It all seems so far away now.",
+            "takeable": false,
+            "type": "default"
+        }
+    }
+}

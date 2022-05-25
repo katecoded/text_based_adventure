@@ -1,0 +1,36 @@
+{
+    "name": "Mushroom Forest",
+    "short_description": "Glowing mushrooms fill the room with an almost eerie light, though the space is largely overtaken by the giant mushroom in its center. You feel oddly uneasy in this place.",
+    "long_description": "Glittering waterfalls run over the stone brick walls into a stream running through what appears to be a mushroom forest. Glowing mushrooms, from small to taller than you, fill the room with an almost eerie light. None however are as large as the giant mushroom in the center of the room, easily as wide as a large tree. You feel oddly uneasy in this place.",
+    "doors": {
+        "glass door": {
+            "destination": "Watcher's Void",
+            "direction": "east",
+            "key": "",
+            "locked": false,
+            "description": "Made of frosted glass, the door is etched with depictions of various plants. It is cool to the touch."
+        }
+    },
+    "items": {
+        "giant mushroom": {
+            "description": "The giant mushroom is so large that it grows above a large opening in the ceiling, allowing sunlight to spill into the room. It gives off a strange energy.",
+            "takeable": false,
+            "type": "default"
+        },
+        "waterfalls": {
+            "description": "The water is crystal clear, though you puzzle over its source. It seems to appear out of thin air, as if created by the bricks themselves.",
+            "takeable": false,
+            "type": "default"
+        },
+        "blackberry bushes": {
+            "description": "A blackberry bush grows in a corner among other types of berry bushes, the only plant other than mushrooms here. You can see clusters of blackberries.",
+            "takeable": false,
+            "type": "default"
+        },
+        "blackberries": {
+            "description": "A single cluster of ripe blackberries grown in the berry bushes tucked away in the mushroom forest. Your mouth waters.",
+            "takeable": true,
+            "type": "food"
+        }
+    }
+}
