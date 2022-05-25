@@ -110,7 +110,7 @@ def non_interactive_command_handler(command, gamestate):
     # Returns vocabulary of usable actions
     elif command == "help":
         return "The following is a list of allowed commands:\nHelp\nInventory\n" \
-               "Take\nDrop\nLook\nLook At\nExamine\nGo\nUse\nOpen\nUnlock\nSavegame\nLoadgame\n" \
+               "Take\nDrop\nLook\nLook At\nGo\nUse\nOpen\nUnlock\nSavegame\nLoadgame\n" \
                "Certain synonyms such as \"Pick Up\" or \"Move\" will also work"
     # Saves current game-state to a file
     elif command == "savegame":
@@ -232,7 +232,7 @@ def examine_handler(gamestate, obj_name):
                 item = gamestate.get_inventory()[obj_name]
                 return item.get_description()
     # if the object is not found in the room or inventory
-    return "That object isn't here"
+    return "That item isn't here"
 
 
 def inventory_handler(gamestate, action, obj_name):
@@ -251,9 +251,9 @@ def inventory_handler(gamestate, action, obj_name):
                 current_room.remove_item(item)
                 return item.get_name() + " is now in your inventory"
 
-            # If the item was not in the room or could not be taken
-            return "That object cannot be taken"
-        return "There is no object with that name here"
+            # If the item was could not be taken
+            return "That item cannot be taken"
+        return "There is no item with that name here"
 
     # Otherwise the action is a drop item, so tries to drop it
     else:
@@ -278,17 +278,17 @@ def eat_handler(gamestate, obj_name):
     if item is not None:
         if item.get_type() == "food":
             current_room.remove_item(item)
-            return "You have consumed " + item.get_name()
-        return "You can't eat that object"
+            return "You have consumed the " + item.get_name()
+        return "You can't eat the " + item.get_name()
     else:
         # if the item is in the player's inventory
         item = gamestate.get_item_by_name(obj_name)
         if item is not None:
             if item.get_type() == "food":
                 gamestate.remove_item_from_inventory(obj_name)
-                return "You have consumed " + item.get_name()
-            return "You can't eat that object"
-    return "No such object found"
+                return "You have consumed the " + item.get_name()
+            return "You can't eat the " + item.get_name()
+    return "There is no item with that name here"
 
 
 def use_open_splitter(gamestate, action, str_list):
