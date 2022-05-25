@@ -12,11 +12,12 @@ use_actions = ["use", "utilize"]
 eat_actions = ["eat", "consume", "drink"]
 examine_actions = ["lookat", "examine"]
 combine_actions = ["combine"]
+talk_actions = ["talk", "speak"]
 
 all_available_actions = non_interactive_actions + pickup_actions + \
                         movement_actions + eat_actions + drop_actions + \
                         use_actions + open_actions + \
-                        examine_actions + combine_actions
+                        examine_actions + combine_actions + talk_actions
 prepositions = ["on", "upon", "at", "to", "with", "using"]
 # prepositions = ["in", "at", "to", "with", "toward", "towards", "on", "into", "onto"]
 # directions = ["north", "south", "east", "west"]  # up/down?
