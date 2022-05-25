@@ -16,6 +16,13 @@
             "key": "",
             "locked":  true,
             "description": "The window at the top of the door is too high to see much other than the flickering of firelight on a bricked ceiling. The door has no discernible handle or keyhole."
+        },
+        "glass door": {
+            "destination": "Mushroom Forest",
+            "direction": "west",
+            "key": "",
+            "locked": false,
+            "description": "Made of frosted glass, the door is etched with depictions of various plants. It is cool to the touch."
         }
     },
     "items": {
