@@ -234,7 +234,7 @@ def examine_handler(gamestate, obj_name):
     # if the object is not found in the room or inventory
     return "That object isn't here"
 
-  
+
 def inventory_handler(gamestate, action, obj_name):
     """
     Handles picking up and dropping items
@@ -252,7 +252,7 @@ def inventory_handler(gamestate, action, obj_name):
             # If the item was not in the room or could not be taken
             return "That object cannot be taken"
         return "There is no object with that name here"
-    else: 
+    else:
         item = gamestate.get_item_by_name(obj_name)
         if item is not None:
             gamestate.get_current_room().add_item(item)
@@ -262,7 +262,7 @@ def inventory_handler(gamestate, action, obj_name):
         # If the item is not in your inventory
         return "You do not have " + obj_name + " in your inventory"
 
-      
+
 def take_handler(gamestate, obj_name):
     """
     Takes and puts given object in inventory if it is
