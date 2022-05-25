@@ -234,7 +234,7 @@ def examine_handler(gamestate, obj_name):
                 item = gamestate.get_inventory()[obj_name]
                 return item.get_description()
     # if the object is not found in the room or inventory
-    return "That object isn't here"
+    return "That item isn't here"
 
 
 def take_handler(gamestate, obj_name):
@@ -251,8 +251,10 @@ def take_handler(gamestate, obj_name):
             current_room.remove_item(item)
             return item.get_name() + " is now in your inventory"
 
-    # If the item was not in the room or could not be taken
-    return "That object cannot be taken"
+        # If the item could not be taken
+        return "That item cannot be taken"
+    # if the item was not in the room
+    return "That item isn't here"
 
 
 def drop_handler(gamestate, obj_name):
@@ -281,17 +283,17 @@ def eat_handler(gamestate, obj_name):
     if item is not None:
         if item.get_type() == "food":
             current_room.remove_item(item)
-            return "You have consumed " + item.get_name()
-        return "You can't eat that object"
+            return "You have consumed the " + item.get_name()
+        return "You can't eat the " + item.get_name()
     else:
         # if the item is in the player's inventory
         item = gamestate.get_item_by_name(obj_name)
         if item is not None:
             if item.get_type() == "food":
                 gamestate.remove_item_from_inventory(obj_name)
-                return "You have consumed " + item.get_name()
-            return "You can't eat that object"
-    return "No such object found"
+                return "You have consumed the " + item.get_name()
+            return "You can't eat the " item.get_name()
+    return "That item isn't here"
 
 
 def use_open_splitter(gamestate, action, str_list):
@@ -424,5 +426,14 @@ def talk_handler(gamestate, creature_name):
                 print("Blue-haired Fairy: 'This blackberry cobbler is coming along well! Thank you for your help!'")
 
             return ""
+    else:
+        # if it is a creature in the player's inventory (like a ghost)
+        if gamestate.get_item_by_name(creature_name) is not None:
+            return "You can't talk to " + creature_name
+            
+        # if it is an item that is not in the room or inventory
+        return creature_name + " is not here"
+
+    # if it is an item in the room, but can't be spoken to
     return "You can't talk to " + creature_name
 
