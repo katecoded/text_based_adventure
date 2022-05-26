@@ -85,6 +85,7 @@ def create_object_dictionary(object_data, object_type):
             door = Door(name, object_data[name]["destination"],
                         object_data[name]["direction"],
                         object_data[name]["key"],
+                        object_data[name]["locked"],
                         object_data[name]["description"])
             if "hidden" in object_data[name] and object_data[name]["hidden"]:
                 hidden_dict[name] = door
