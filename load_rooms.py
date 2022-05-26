@@ -29,7 +29,7 @@ def validate_schema(json_data):
                         "direction": {"type": "string"},
                         "key": {"type": "string"},
                         "locked": {"type": "boolean"},
-                        "description": {"type": "string"}
+                        "description": {"type": "string"},
                         "hidden": {"type": "boolean"}
                     },
                     "additionalProperties": False,
@@ -44,7 +44,7 @@ def validate_schema(json_data):
                     "properties": {
                         "description": {"type": "string"},
                         "takeable": {"type": "boolean"},
-                        "type": {"type": "string"}
+                        "type": {"type": "string"},
                         "hidden": {"type": "boolean"}
                     },
                     "additionalProperties": False,
