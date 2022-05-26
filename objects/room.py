@@ -8,7 +8,7 @@ class Room:
     """
 
     def __init__(self, name, short_description, long_description, doors,
-                 items, hidden_objects={}):
+                 items, hidden_objects=None):
         """
         Initializes a Room with a name, a short_description,
         a long_description, a visited Boolean set to False,
@@ -26,7 +26,10 @@ class Room:
         self._visited = False
         self._doors = doors
         self._items = items
-        self._hidden_objects = hidden_objects
+        if hidden_objects:
+            self._hidden_objects = hidden_objects
+        else:
+            self._hidden_objects = {}
 
     def get_name(self):
         """
