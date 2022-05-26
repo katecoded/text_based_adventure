@@ -223,7 +223,12 @@ def examine_handler(gamestate, obj_name):
         return item.get_description()
     else:
         # if it is a door in the current room
-        door = current_room.get_door_by_name(obj_name)
+        (message, hidden) = gamestate.get_use_info(("examine", item.get_name()))
+        if hidden is not None:
+            reveal_hidden(hidden, gamestate)
+            if message is not None:
+                return item.get_description() + "\n" + message
+        return item.get_description()
         if door is not None:
             return door.get_description()
         else:
@@ -359,14 +364,7 @@ def use_handler(item, use_on_item, gamestate):
     (message, hidden) = gamestate.get_use_info((item, use_on_item))
     if message is not None:
         if hidden is not None:
-            cur_room = gamestate.get_current_room()
-            hidden_object = cur_room.get_hidden_object_by_name(hidden)
-            if hidden_object is not None:
-                cur_room.remove_hidden(hidden_object)
-                if isinstance(hidden_object, Item):
-                    cur_room.add_item(hidden_object)
-                if isinstance(hidden_object, Door):
-                    cur_room.add_door(hidden_object)
+            reveal_hidden(hidden, gamestate)
         return random.choice(message)
     return "You cannot use " + item + " on " + use_on_item
 
@@ -433,3 +431,21 @@ def talk_handler(gamestate, creature_name):
 
     # if it is an item in the room, but can't be spoken to
     return "You can't talk to " + creature_name
+  
+
+def reveal_hidden(object_name, gamestate):
+    """
+    Function that takes the name of a hidden object, checks if it 
+    exists in the hidden object dictionary and reveals it if exists
+    :param object_name: name of hidden object that is revealed
+    :param gamestate: Game object housing data of current playthrough
+    :return: n/a
+    """
+    cur_room = gamestate.get_current_room()
+    hidden_object = cur_room.get_hidden_object_by_name(object_name)
+    if hidden_object is not None:
+        cur_room.remove_hidden(hidden_object)
+        if isinstance(hidden_object, Item):
+            cur_room.add_item(hidden_object)
+        if isinstance(hidden_object, Door):
+            cur_room.add_door(hidden_object)
