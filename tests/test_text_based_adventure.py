@@ -1,7 +1,10 @@
 import unittest
 import os
+import json
+from io import StringIO
+from unittest import mock
 
-from text_based_adventure import set_up_game
+from text_based_adventure import set_up_game, main, introduction, starting_room
 from objects.room import Room
 from objects.door import Door
 from objects.item import Item
@@ -19,6 +22,18 @@ class TextBasedAdventureTestCase(unittest.TestCase):
         # tests is the current working directory
         if "tests" in os.getcwd():
             os.chdir("..")
+
+        # get a list of all the room files in the game
+        room_files = os.listdir("rooms")
+
+        # make dictionary of dictionaries with room data (not actual
+        # Room objects)
+        cls.rooms = {}
+        for file in room_files:
+            with open("rooms/" + file) as room_json:
+                # chop off leading "rooms_" and ending ".json" from name
+                room_name = file[5:len(file) - 5]
+                cls.rooms[room_name] = json.load(room_json)
 
     def test_set_up_game(self):
         """
@@ -43,8 +58,76 @@ class TextBasedAdventureTestCase(unittest.TestCase):
             for door_name in doors:
                 self.assertIsInstance(doors[door_name], Door)
 
+    def test_introduction(self):
+        """
+        Validates that the introduction function outputs a String
+        introduction to the game that includes the title and authors.
+        """
+        game = set_up_game()
+        with mock.patch('sys.stdout', new_callable=StringIO) as mock_out:
+            introduction(game)
+        intro_output = mock_out.getvalue()
+        self.assertIn(game.get_title(), intro_output)
+        self.assertIn(", ".join(game.get_authors()), intro_output)
+        self.assertIsInstance(intro_output, str)
+
+    def test_starting_room(self):
+        """
+        Validates that the starting_room function outputs a String
+        containing the name and description of the starting room
+        (Courtyard).
+        """
+        game = set_up_game()
+        courtyard = self.rooms["courtyard"]
+        expected_name_and_desc = courtyard["name"] + "\n" +\
+            courtyard["long_description"] + "\n"
+
+        with mock.patch('sys.stdout', new_callable=StringIO) as mock_out:
+            starting_room(game)
+        self.assertIn(expected_name_and_desc, mock_out.getvalue())
+
     def test_exit_game(self):
         """
-        Validates that a few commands result in the expected output.
+        Validates that the words 'exit', 'exit game', 'end', and 'end game'
+        all end the program.
+        (This test validates that the main script exits and therefore does
+        not require asserts.)
         """
-        pass
+        test_inputs = ["exit", "exit game", "end", "end game"]
+        with mock.patch('sys.stdout', new_callable=StringIO):
+            with mock.patch('builtins.input', side_effect=test_inputs):
+                main()
+
+    def test_examine_items_in_courtyard(self):
+        """
+        Validates that examining every item in the courtyard returns
+        the correct descriptions.
+        """
+        courtyard = self.rooms["courtyard"]
+        test_inputs = ["examine mushrooms", "examine ivory key",
+                       "look at rusty gate", "look at tower", "exit"]
+        expected_output = courtyard["items"]["mushrooms"]["description"] +\
+            "\n" + courtyard["items"]["ivory key"]["description"] +\
+            "\n" + courtyard["items"]["rusty gate"]["description"] +\
+            "\n" + courtyard["items"]["tower"]["description"]
+
+        with mock.patch('sys.stdout', new_callable=StringIO) as mock_out:
+            with mock.patch('builtins.input', side_effect=test_inputs):
+                main()
+        self.assertIn(expected_output, mock_out.getvalue())
+
+    def test_examine_doors_in_courtyard(self):
+        """
+        Validates that examining every door in the courtyard returns
+        the correct descriptions.
+        """
+        courtyard = self.rooms["courtyard"]
+        test_inputs = ["examine dark corridor", "look at stone staircase",
+                       "end"]
+        expected_output = courtyard["doors"]["dark corridor"]["description"] \
+            + "\n" + courtyard["doors"]["stone staircase"]["description"]
+
+        with mock.patch('sys.stdout', new_callable=StringIO) as mock_out:
+            with mock.patch('builtins.input', side_effect=test_inputs):
+                main()
+        self.assertIn(expected_output, mock_out.getvalue())
