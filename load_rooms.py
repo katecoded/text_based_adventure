@@ -91,7 +91,7 @@ def create_object_dictionary(object_data, object_type):
             else:
                 result_dict[name] = door
 
-    return result_dict
+    return result_dict, hidden_dict
 
 
 def load_rooms(directory="rooms"):
