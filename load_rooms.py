@@ -68,6 +68,7 @@ def create_object_dictionary(object_data, object_type):
     specified type with the names as keys.
     """
     result_dict = {}
+    hidden_dict = {}
 
     # for each key, create a game object of the specified type and
     # add it to the dictionary
