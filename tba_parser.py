@@ -431,11 +431,11 @@ def talk_handler(gamestate, creature_name):
 
     # if it is an item in the room, but can't be spoken to
     return "You can't talk to " + creature_name
-  
+
 
 def reveal_hidden(object_name, gamestate):
     """
-    Function that takes the name of a hidden object, checks if it 
+    Function that takes the name of a hidden object, checks if it
     exists in the hidden object dictionary and reveals it if exists
     :param object_name: name of hidden object that is revealed
     :param gamestate: Game object housing data of current playthrough
