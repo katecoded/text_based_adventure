@@ -101,6 +101,47 @@ class LoadRoomsTestCase(unittest.TestCase):
         with open("saves/room_test_2.json", "w") as room_test_2:
             json.dump(cls.test_file_data_2, room_test_2)
 
+        # create the third JSON test file
+        cls.test_file_data_3 = {
+            "name": "Test Hidden Objects Room",
+            "short_description": "A room testing things hidden from plain sight.",
+            "long_description": "                                                   ",
+            "doors": {
+                "door": {
+                    "destination": "Heaven",
+                    "direction": "up",
+                    "key": "",
+                    "locked": False,
+                    "description": "And she's climbing the stairway to heaven..."
+                },
+                "hidden door": {
+                    "destination": "Hell",
+                    "direction": "down",
+                    "key": "",
+                    "locked": False,
+                    "description": "I'm on the HIGHWAY TO HELL",
+                    "hidden": True
+                }
+            },
+            "items": {
+                "psychopomp": {
+                    "description": "A what now?",
+                    "takeable": False,
+                    "type": "default"
+                },
+                "john cena": {
+                    "description": "You can't see him. Unless you read this message, that means you can",
+                    "takeable": False,
+                    "type": "default",
+                    "hidden": True
+                },
+            }
+        }
+        with open("rooms/room_test_3.json", "w") as room_test_3:
+            json.dump(cls.test_file_data_3, room_test_3)
+        with open("saves/room_test_3.json", "w") as room_test_3:
+            json.dump(cls.test_file_data_3, room_test_3)
+
         # add non-JSON file to saves folder to mimic saving inventory
         with open("saves/inventory.txt", "w") as inventory:
             inventory.write("socks, flower")
@@ -433,6 +474,39 @@ class LoadRoomsTestCase(unittest.TestCase):
                              expected_doors[door_name]["key"])
             self.assertEqual(result_doors[door_name].get_lock_status(),
                              expected_doors[door_name]["locked"])
+
+    def test_room_3_hidden_data_correct_saves_dir(self):
+        """
+        Validates that the third Test File Room object's hidden objects
+        (created from test_file_data_3) contain the expected information
+        when saves directory is specified.
+        """
+        room_dict = load_rooms("saves")
+        result_hidden = room_dict[self.test_file_data_3["name"]].get_hidden_objects()
+        expected_objects = {
+            "john cena": Item("john cena", "You can't see him. Unless you read this message, "
+                                           "that means you can", False),
+            "hidden door": Door("hidden door", "Hell", "down", "", False, "I'm on the HIGHWAY TO HELL")
+        }
+
+        self.assertIn("john cena", result_hidden)
+        self.assertIn("hidden door", result_hidden)
+        self.assertNotIn("psychopomp", result_hidden)
+        self.assertNotIn("door", result_hidden)
+        self.assertEqual(result_hidden["john cena"].get_name(),
+                         expected_objects["john cena"].get_name())
+        self.assertEqual(result_hidden["john cena"].get_description(),
+                         expected_objects["john cena"].get_description())
+        self.assertEqual(result_hidden["john cena"].is_takeable(),
+                         expected_objects["john cena"].is_takeable())
+        self.assertEqual(result_hidden["hidden door"].get_name(),
+                         expected_objects["hidden door"].get_name())
+        self.assertEqual(result_hidden["hidden door"].get_destination(),
+                         expected_objects["hidden door"].get_destination())
+        self.assertEqual(result_hidden["hidden door"].get_direction(),
+                         expected_objects["hidden door"].get_direction())
+        self.assertEqual(result_hidden["hidden door"].get_description(),
+                         expected_objects["hidden door"].get_description())
 
     def test_try_not_allowed_directory(self):
         """
