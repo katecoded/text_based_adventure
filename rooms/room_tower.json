@@ -1,6 +1,6 @@
 {
     "name": "Tower",
-    "short_description": "Almost every wal in this room is full of shelves with books and various trinkets. A cramped bed and small desk are pushed against opposing walls.",
+    "short_description": "Almost every wall in this room is full of shelves with books and various trinkets. A cramped bed and small desk are pushed against opposing walls.",
     "long_description": "The tower interior could almost be mistaken for a library if not for the bed crammed against one wall. Almost every other wall is filled with bookshelves with many kicks of books and trinkets with no discernible organizational system. The only other free wall has a single window with a small desk, the surface covered with quills and various pieces of paper.",
     "doors": {},
     "items": {
