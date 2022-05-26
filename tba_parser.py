@@ -220,15 +220,15 @@ def examine_handler(gamestate, obj_name):
     # if it is an item in the current room
     item = current_room.get_item_by_name(obj_name)
     if item is not None:
-        return item.get_description()
-    else:
-        # if it is a door in the current room
         (message, hidden) = gamestate.get_use_info(("examine", item.get_name()))
         if hidden is not None:
             reveal_hidden(hidden, gamestate)
             if message is not None:
                 return item.get_description() + "\n" + message
         return item.get_description()
+    else:
+        # if it is a door in the current room
+        door = current_room.get_door_by_name(obj_name)
         if door is not None:
             return door.get_description()
         else:
