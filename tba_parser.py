@@ -422,76 +422,82 @@ def combine_handler(gamestate, str_list):
     return "I don't understand how to do that"
 
 
+def fairy_talk_handler(item):
+    if item.get_description() == "This tiny blue-haired fairy is sighing in apparent disappointment.":
+        print("Blue-haired Fairy: 'I'm supposed to be in charge of making a blackberry cobbler."
+            " But I can't find any blackberries in here anywhere - I've looked a dozen times!"
+            " Do you have any blackberries by chance?'")
+        print("Choose a response:")
+        print("1. 'I have some blackberries!'")
+        print("2. 'Sorry, I don't have any blackberries right now.'")
+        loop = True
+
+        while loop:
+            choice = input("> ")
+            if choice == "1":
+                print("You: 'I have some blackberries!'")
+                print("Blue-haired Fairy: 'Oh, that's great! Just give them to me and I'll get that cobbler started.'")
+                loop = False
+            elif choice == "2":
+                print("You: 'Sorry, I don't have any blackberries right now.'")
+                print("Blue-haired Fairy: 'That's alright. Come tell me if you find any!'")
+                loop = False
+            else:
+                print("Not a valid choice. Try again.")
+
+    elif item.get_description() == "The tiny blue-haired fairy is busy working on a blackberry cobbler.":
+        print("Blue-haired Fairy: 'This blackberry cobbler is coming along well! Thank you for your help!'")
+
+
+def ghost_talk_handler(item):
+    if item.get_description == "This ghost looks quite annoyed about something. He" \
+                               " has a very authoritative look about him as well.":
+        print("Stern-looking Ghost: 'Have you seen Snoozes? He's supposed to be haunting this room right now "
+            "but he hasn't shown up, as usual. Honestly, when will he start taking"
+            "his haunting responsibilities seriously? Could you bring him here if you find him?'")
+        print("Choose a response:")
+        print("1. 'Who are you and who is Snoozes?'")
+        print("2. 'I've brought Snoozes with me!'")
+        print("3. 'I don't have Snoozes with me, sorry.'")
+        loop = True
+
+        while loop:
+            choice = input("> ")
+            if choice == "1":
+                print("You: 'Who are you and who is Snoozes?'")
+                print("Stern-looking Ghost: 'I'm Ghoulian, the Chief of Ghostly Staff for this castle. I make sure "
+                    "all castle-haunting duties are fulfilled without issue. Snoozes is one of our newer ghostly recruits."
+                    "He's quite lethargic. He's probably fallen asleep at some random location again.' *face-palm*"
+                    " 'Have you found him?'")
+                print("Choose a response:")
+                print("1. 'Who are you and who is Snoozes?'")
+                print("2. 'I've brought Snoozes with me!'")
+                print("3. 'I don't have Snoozes with me, sorry.'")
+            elif choice == "2":
+                print("You: 'I've brought Snoozes with me!'")
+                print("Stern-looking Ghost: 'Thank you for finding him. You can leave him here with me. I'll have a word with him"
+                    "after he manages to wake up.'")
+                loop = False
+            elif choice == "3":
+                print("You: I don't have Snoozes with me, sorry.'")
+                print("Stern-looking Ghost: 'That's alright. Just bring him here if you end up finding him.'")
+                loop = False
+            else:
+                print("Not a valid choice. Try again.")
+
+    elif item.get_description() == "The authoritative-looking Chief of Ghostly Staff " \
+                                   "seems a little less annoyed now. Maybe.":
+        print("Stern-looking Ghost: 'Thanks for bringing Snoozes to me. I'll be having a word with him after he wakes up.'")
+
+
 def talk_handler(gamestate, creature_name):
     current_room = gamestate.get_current_room()
     item = current_room.get_item_by_name(creature_name)
     if item is not None:
         if creature_name == "blue-haired fairy":
-            if item.get_description() == "This tiny blue-haired fairy is sighing in apparent disappointment.":
-                print("Blue-haired Fairy: 'I'm supposed to be in charge of making a blackberry cobbler."
-                      "But I can't find any blackberries in here anywhere - I've looked a dozen "
-                      "times! Do you have any blackberries by chance?'")
-                print("Choose a response:")
-                print("1. 'I have some blackberries!'")
-                print("2. 'Sorry, I don't have any blackberries right now.'")
-                loop = True
-
-                while loop:
-                    choice = input("> ")
-                    if choice == "1":
-                        print("You: 'I have some blackberries!'")
-                        print("Blue-haired Fairy: 'Oh, that's great! Just give them to me and I'll get that cobbler started.'")
-                        loop = False
-                    elif choice == "2":
-                        print("You: 'Sorry, I don't have any blackberries right now.'")
-                        print("Blue-haired Fairy: 'That's alright. Come tell me if you find any!'")
-                        loop = False
-                    else:
-                        print("Not a valid choice. Try again.")
-
-            elif item.get_description() == "The tiny blue-haired fairy is busy working on a blackberry cobbler.":
-                print("Blue-haired Fairy: 'This blackberry cobbler is coming along well! Thank you for your help!'")
-
+            fairy_talk_handler(item)
         elif creature_name == "stern-looking ghost":
-            if item.get_description == "This ghost looks quite annoyed about something. He" \
-                                       " has a very authoritative look about him as well.":
-                print("Stern-looking Ghost: 'Have you seen Snoozes? He's supposed to be haunting this room right now "
-                      "but he hasn't shown up, as usual. Honestly, when will he start taking"
-                      "his haunting responsibilities seriously? Could you bring him here if you find him?'")
-                print("Choose a response:")
-                print("1. 'Who are you and who is Snoozes?'")
-                print("2. 'I've brought Snoozes with me!'")
-                print("3. 'I don't have Snoozes with me, sorry.'")
-                loop = True
-
-                while loop:
-                    choice = input("> ")
-                    if choice == "1":
-                        print("You: 'Who are you and who is Snoozes?'")
-                        print("Stern-looking Ghost: 'I'm Ghoulian, the Chief of Ghostly Staff for this castle. I make sure "
-                              "all castle-haunting duties are fulfilled without issue. Snoozes is one of our newer ghostly recruits."
-                              "He's quite lethargic. He's probably fallen asleep at some random location again.' *face-palm*"
-                              " 'Have you found him?'")
-                        print("Choose a response:")
-                        print("1. 'Who are you and who is Snoozes?'")
-                        print("2. 'I've brought Snoozes with me!'")
-                        print("3. 'I don't have Snoozes with me, sorry.'")
-                    elif choice == "2":
-                        print("You: 'I've brought Snoozes with me!'")
-                        print("Stern-looking Ghost: 'Thank you for finding him. You can leave him here with me. I'll have a word with him"
-                              "after he manages to wake up.'")
-                        loop = False
-                    elif choice == "3":
-                        print("You: I don't have Snoozes with me, sorry.'")
-                        print("Stern-looking Ghost: 'That's alright. Just bring him here if you end up finding him.'")
-                        loop = False
-                    else:
-                        print("Not a valid choice. Try again.")
-                        
-            elif item.get_description() == "The authoritative-looking Chief of Ghostly Staff " \
-                                           "seems a little less annoyed now. Maybe.":
-                print("Stern-looking Ghost: 'Thanks for bringing Snoozes to me. I'll be having a word with him after he wakes up.'")
-
+            ghost_talk_handler(item)
         elif creature_name == "giant mushroom":
             print("Giant Mushroom: 'Hi there.'")
             print("Choose a response:")
