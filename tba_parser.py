@@ -210,14 +210,14 @@ def perform_movement(gamestate, door):
 
 
 def print_art(obj_name):
-    if obj_name == "tower":
-        art_file = open('tba_ascii_art/tower.txt', 'r')
-    elif obj_name == "flower":
+    # if obj_name == "tower":
+        # art_file = open('tba_ascii_art/tower.txt', 'r')
+    if obj_name == "flower":
         art_file = open('tba_ascii_art/blue_flower.txt', 'r')
     elif obj_name == "solar system diorama":
         art_file = open('tba_ascii_art/planet.txt', 'r')
-    elif obj_name == "mushrooms":
-        art_file = open('tba_ascii_art/mushrooms.txt', 'r')
+    # elif obj_name == "mushrooms":
+        # art_file = open('tba_ascii_art/mushrooms.txt', 'r')
     elif obj_name == "rusty sword":
         art_file = open('tba_ascii_art/sword.txt', 'r')
     else:
