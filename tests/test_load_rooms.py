@@ -153,8 +153,10 @@ class LoadRoomsTestCase(unittest.TestCase):
         """
         os.remove("rooms/room_test_1.json")
         os.remove("rooms/room_test_2.json")
+        os.remove("rooms/room_test_3.json")
         os.remove("saves/room_test_1.json")
         os.remove("saves/room_test_2.json")
+        os.remove("saves/room_test_3.json")
         os.remove("saves/inventory.txt")
 
     def test_load_rooms_returns_rooms(self):
@@ -199,6 +201,7 @@ class LoadRoomsTestCase(unittest.TestCase):
         room_dict = load_rooms()
         self.assertIn(self.test_file_data_1["name"], room_dict)
         self.assertIn(self.test_file_data_2["name"], room_dict)
+        self.assertIn(self.test_file_data_3["name"], room_dict)
 
     def test_load_rooms_returns_rooms_saves_dir(self):
         """
