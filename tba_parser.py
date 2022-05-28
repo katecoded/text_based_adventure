@@ -209,6 +209,27 @@ def perform_movement(gamestate, door):
         + "\n" + new_room.get_doors_and_items_description()
 
 
+def print_art(obj_name):
+    if obj_name == "tower":
+        art_file = open('tba_ascii_art/tower.txt', 'r')
+    elif obj_name == "flower":
+        art_file = open('tba_ascii_art/blue_flower.txt', 'r')
+    elif obj_name == "solar system diorama":
+        art_file = open('tba_ascii_art/planet.txt', 'r')
+    elif obj_name == "mushrooms":
+        art_file = open('tba_ascii_art/mushrooms.txt', 'r')
+    elif obj_name == "rusty sword":
+        art_file = open('tba_ascii_art/sword.txt', 'r')
+    else:
+        art_file = None
+
+    if art_file is not None:
+        art_lines = art_file.readlines()
+        for line in art_lines:
+            print(line)
+        art_file.close()
+
+
 def examine_handler(gamestate, obj_name):
     """
     Returns the description of the object that the player wants to
@@ -225,26 +246,8 @@ def examine_handler(gamestate, obj_name):
             reveal_hidden(hidden, gamestate)
             if message is not None:
                 return item.get_description() + "\n" + message
-            
-        if obj_name == "tower":
-            art_file = open('tba_ascii_art/tower.txt', 'r')
-        elif obj_name == "flower":
-            art_file = open('tba_ascii_art/blue_flower.txt', 'r')
-        elif obj_name == "solar system diorama":
-            art_file = open('tba_ascii_art/planet.txt', 'r')
-        elif obj_name == "mushrooms":
-            art_file = open('tba_ascii_art/mushrooms.txt', 'r')
-        elif obj_name == "rusty sword":
-            art_file = open('tba_ascii_art/sword.txt', 'r')
-        else:
-            art_file = None
 
-        if art_file is not None:
-            art_lines = art_file.readlines()
-            for line in art_lines:
-                print(line)
-            art_file.close()
-
+        print_art(obj_name)
         return item.get_description()
     else:
         # if it is a door in the current room
