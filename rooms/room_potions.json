@@ -27,5 +27,6 @@
 		    "takeable": false,
                     "type": "creature",
 		    "hidden": true
+	    }
 	}
 }
