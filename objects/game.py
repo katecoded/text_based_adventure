@@ -59,6 +59,12 @@ class Game:
         """
         return self._all_rooms
 
+    def set_all_rooms(self, dictionary):
+        """
+        Sets the all rooms variable to a specified dictionary.
+        """
+        self._all_rooms = dictionary
+
     def get_current_room(self):
         """
         Returns the room the player is currently in
