@@ -13,9 +13,21 @@
 	},
     "items": {
 		"teal gem": {
-          "description": "A curious teal-colored gemstone. It is a little smaller than your palm and sparkles beautifully. It has a mysterious glow.",
-          "takeable": true,
-          "type": "default"
-        }
-	}
+          		"description": "A curious teal-colored gemstone. It is a little smaller than your palm and sparkles beautifully. It has a mysterious glow.",
+          		"takeable": true,
+          		"type": "default"
+        	},
+	    "stern-looking ghost": {
+	   		"description": "This ghost looks quite annoyed about something. He has a very authoritative look about him as well.",
+		    	"takeable": false,
+                        "type": "creature"
+	    }
+	},
+    "hidden_items": {
+	    "stern-looking ghost": {
+		    "description": "The authoritative-looking Chief of Ghostly Staff seems a little less annoyed now. Maybe."
+		    "takeable": false,
+                    "type": "creature"
+	    }
+       }
 }
