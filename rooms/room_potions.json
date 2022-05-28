@@ -23,7 +23,7 @@
                         "type": "creature"
 	    }
 	},
-    "hidden_items": {
+    "hidden items": {
 	    "stern-looking ghost": {
 		    "description": "The authoritative-looking Chief of Ghostly Staff seems a little less annoyed now. Maybe.",
 		    "takeable": false,
