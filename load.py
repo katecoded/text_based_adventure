@@ -1,9 +1,6 @@
-from objects.game import Game
-from objects.room import Room
 from objects.item import Item
 import load_rooms
 import json
-import os
 
 
 def fill_inventory(held_items, gamestate):
@@ -34,5 +31,4 @@ def load_game(gamestate):
     held_items = json.load(file_2)
     fill_inventory(held_items, gamestate)
     file_2.close()
-
     return
