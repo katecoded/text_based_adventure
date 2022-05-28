@@ -1,7 +1,3 @@
-from objects.game import Game
-from objects.room import Room
-from objects.item import Item
-from objects.door import Door
 import json
 
 
@@ -47,7 +43,6 @@ def make_json(curr):
     for value in list(items.values()):
         save_item_data(room_data, value)
     json_output = json.dumps(room_data, indent=4)
-
     name = name.lower()
     name = name.replace(" ", "_")
     filepath = "saves/" + name + ".json"
@@ -73,21 +68,17 @@ def create_save(gamestate):
     with open("saves/player_loc.txt", "w") as outfile:
         outfile.write(location)
     outfile.close()
-
     rooms = gamestate.get_all_rooms()
     for value in list(rooms.values()):
         make_json(value)
-
     items = gamestate.get_inventory()
     inventory = {
 
     }
     for value in list(items.values()):
         add_player_items(inventory, value)
-
     json_output = json.dumps(inventory, indent=4)
     with open("saves/inventory.json", 'w') as outfile:
         outfile.write(json_output)
     outfile.close()
-
     return
