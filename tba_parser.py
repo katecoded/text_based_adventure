@@ -428,8 +428,8 @@ def combine_handler(gamestate, str_list):
 def fairy_talk_handler(item):
     if item.get_description() == "This tiny blue-haired fairy is sighing in apparent disappointment.":
         print("Blue-haired Fairy: 'I'm supposed to be in charge of making a blackberry cobbler."
-            " But I can't find any blackberries in here anywhere - I've looked a dozen times!"
-                " Do you have any blackberries by chance?'")
+              " But I can't find any blackberries in here anywhere - I've looked a dozen times!"
+              " Do you have any blackberries by chance?'")
         print("Choose a response:")
         print("1. 'I have some blackberries!'")
         print("2. 'Sorry, I don't have any blackberries right now.'")
@@ -456,8 +456,8 @@ def ghost_talk_handler(item):
     if item.get_description == "This ghost looks quite annoyed about something. He" \
                                " has a very authoritative look about him as well.":
         print("Stern-looking Ghost: 'Have you seen Snoozes? He's supposed to be haunting this room right now "
-            "but he hasn't shown up, as usual. Honestly, when will he start taking"
-                "his haunting responsibilities seriously? Could you bring him here if you find him?'")
+              "but he hasn't shown up, as usual. Honestly, when will he start taking"
+              "his haunting responsibilities seriously? Could you bring him here if you find him?'")
         print("Choose a response:")
         print("1. 'Who are you and who is Snoozes?'")
         print("2. 'I've brought Snoozes with me!'")
@@ -469,8 +469,8 @@ def ghost_talk_handler(item):
             if choice == "1":
                 print("You: 'Who are you and who is Snoozes?'")
                 print("Stern-looking Ghost: 'I'm Ghoulian, the Chief of Ghostly Staff for this castle. I make sure "
-                    "all castle-haunting duties are fulfilled without issue. Snoozes is one of our newer ghostly recruits."
-                        "He's quite lethargic. He's probably fallen asleep at some random location again.' *face-palm*"
+                      "all castle-haunting duties are fulfilled without issue. Snoozes is one of our newer ghostly recruits."
+                      "He's quite lethargic. He's probably fallen asleep at some random location again.' *face-palm*"
                         " 'Have you found him?'")
                 print("Choose a response:")
                 print("1. 'Who are you and who is Snoozes?'")
@@ -479,7 +479,7 @@ def ghost_talk_handler(item):
             elif choice == "2":
                 print("You: 'I've brought Snoozes with me!'")
                 print("Stern-looking Ghost: 'Thank you for finding him. You can leave him here with me. "
-                    "I'll have a word with him after he manages to wake up.'")
+                      "I'll have a word with him after he manages to wake up.'")
 
                 loop = False
             elif choice == "3":
