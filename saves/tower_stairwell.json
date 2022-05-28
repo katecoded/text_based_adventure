@@ -1,0 +1,26 @@
+{
+    "name": "Tower Stairwell",
+    "short_description": "The amount of clothing in this room would suggest this was a closet if not for the massive map spanning across the walls. A strange rune-filled circle in the center of the room hums when you get too close.",
+    "long_description": "The amount of cloaks, pointy hats, and other various clothing items and accessories hanging around the room would suggest this is just a closet if not for the map. The majority of the walls are covered with a massive map filled with points of light. In the middle of the floor, a large glowing circle created by a complex pattern of runes hums when you get too close. This place seems oddly familiar.",
+    "doors": {
+        "spiral staircase": {
+            "destination": "Tower",
+            "direction": "north",
+            "key": "",
+            "locked": false,
+            "description": "Made of stone bricks, the middle of the staircase is covered in a luxurious-feeling carpet runner that spirals up into the distance. It seems to lead to the top of the tower."
+        }
+    },
+    "items": {
+        "map": {
+            "description": "On closer inspection, you notice the points of light on the map are actually moving. You wonder what they represent.",
+            "takeable": false,
+            "type": "default"
+        },
+        "rune circle": {
+            "description": "The humming gets more intense as you get closer to the circle, and the very air seems to vibrate with some strange power. You step back, feeling unsettled.",
+            "takeable": false,
+            "type": "default"
+        }
+    }
+}
