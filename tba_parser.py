@@ -471,7 +471,7 @@ def ghost_talk_handler(item):
                 print("Stern-looking Ghost: 'I'm Ghoulian, the Chief of Ghostly Staff for this castle. I make sure "
                       "all castle-haunting duties are fulfilled without issue. Snoozes is one of our newer ghostly recruits."
                       "He's quite lethargic. He's probably fallen asleep at some random location again.' *face-palm*"
-                        " 'Have you found him?'")
+                      " 'Have you found him?'")
                 print("Choose a response:")
                 print("1. 'Who are you and who is Snoozes?'")
                 print("2. 'I've brought Snoozes with me!'")
