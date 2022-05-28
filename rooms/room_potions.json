@@ -21,13 +21,11 @@
 	   		"description": "This ghost looks quite annoyed about something. He has a very authoritative look about him as well.",
 		    	"takeable": false,
                         "type": "creature"
-	    }
-	},
-    "hidden items": {
+	    },
 	    "stern-looking ghost": {
 		    "description": "The authoritative-looking Chief of Ghostly Staff seems a little less annoyed now. Maybe.",
 		    "takeable": false,
-                    "type": "creature"
-	    }
-       }
+                    "type": "creature",
+		    "hidden": true
+	}
 }
