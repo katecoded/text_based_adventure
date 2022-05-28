@@ -1,12 +1,8 @@
 import json
 import os
-
-
 from objects.room import Room
 from objects.item import Item
 from objects.door import Door
-
-
 
 
 def create_object_dictionary(object_data, object_type):
