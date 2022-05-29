@@ -24,6 +24,12 @@
             "takeable": false,
             "type": "default"
         },
+=	"shiny sword": {
+            "description": "A beautifull sword, that seems to radiate pure light. Though it has dulled with age, you still feel a sense of power from holding it. The metal is engraved with strange symbols that shimmer a rainbow of colors when caught in the light.",
+            "takeable": true,
+            "type": "default"
+	    "hidden": true
+        },
         "collapsed passage": {
             "description": "A large pile of rocks and other debris block the passage to the east. Gaps in the ceiling above provide the room's only source of light.",
             "takeable": false,
