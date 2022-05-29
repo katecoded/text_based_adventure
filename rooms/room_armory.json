@@ -23,6 +23,17 @@
             "description": "The ghost appears to be sleeping, though it's difficult to tell, it being a ghost and all.",
             "takeable": true,
             "type": "default"
+        },
+=	"weapon rack": {
+            "description": "A wooden rack meant for storing weapons on it. Strangely there are no weapons on it.",
+            "takeable": false,
+            "type": "default"
+        },
+	"tripod parts": {
+            "description": "Three metal rods that seem to serve as the legs for a tripod. You wonder if these the can be combined with something",
+            "takeable": true,
+            "type": "default",
+	    "hidden": true
         }
     }
 }
