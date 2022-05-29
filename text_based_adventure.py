@@ -2,7 +2,7 @@ import random
 from objects.game import Game
 from load_rooms import load_rooms
 from tba_parser import parser
-from use_and_combine_dicts import use_dict as use_dict, combine_dict as combine_dict 
+from use_and_combine_dicts import use_dict as use_dict, combine_dict as combine_dict
 
 
 def set_up_game():
