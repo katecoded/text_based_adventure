@@ -146,7 +146,7 @@ def interactive_command_handler(action, str_list, gamestate):
         return examine_handler(gamestate, str_list[0])
     # Attempts to use an item on an object or open a door with object
     elif len(str_list) > 2 and str_list[1] in prepositions and \
-            (action in use_actions or or action in give_actions or action in open_actions):
+            (action in use_actions or action in give_actions or action in open_actions):
         return use_open_splitter(gamestate, action, str_list)
     elif len(str_list) > 2 and str_list[1] in prepositions and \
             action in combine_actions:
