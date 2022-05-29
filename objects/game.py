@@ -80,6 +80,12 @@ class Game:
         """
         return self._inventory
 
+    def reset_inventory(self):
+        """
+        Empties the player's current inventory.
+        """
+        self._inventory = {}
+
     def get_combined_items(self):
         """
         Returns dictionary of items obtained by combining

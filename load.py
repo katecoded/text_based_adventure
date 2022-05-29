@@ -7,6 +7,7 @@ def fill_inventory(held_items, gamestate):
     """
     Adds items in to player inventory after reading inventory dictionary from inventory.json
     """
+    gamestate.reset_inventory()
     for name in held_items.keys():
         inv_item = Item(name, held_items[name]["description"],
                         held_items[name]["takeable"],
