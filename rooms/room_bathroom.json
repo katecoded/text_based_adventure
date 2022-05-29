@@ -18,7 +18,7 @@
 			"type": "default"
 		},  
 		"tube of paste": {
-			"description": "Is this some kind of toothpaste? It reads \'RUST-BE-GONE\'. Perhaps not.",
+			"description": "Is this some kind of toothpaste? It reads \"RUST-BE-GONE\". Perhaps not.",
 			"takeable": true,
 			"type": "default"
 		},
