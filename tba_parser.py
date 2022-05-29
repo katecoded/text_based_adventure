@@ -398,7 +398,7 @@ def open_handler(key, door):
     return "The door is already unlocked"
 
 
-def use_handler(item, use_on_item, action gamestate):
+def use_handler(item, use_on_item, action, gamestate):
     """
     Will handle any use actions not involving doors
     """
