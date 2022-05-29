@@ -152,7 +152,7 @@ def interactive_command_handler(action, str_list, gamestate):
             action in combine_actions:
         return combine_handler(gamestate, str_list)
     elif len(str_list) > 0 and action in use_actions:
-        return use_handler(str_list[0], None, gamestate)
+        return use_handler(str_list[0], None, action, gamestate)
     elif len(str_list) > 0 and action in talk_actions:
         return talk_handler(gamestate, str_list[0])
     return "Sorry I don't understand how to do that"
