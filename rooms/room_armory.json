@@ -25,7 +25,7 @@
             "type": "default"
         },
 	"weapon rack": {
-            "description": "A wooden rack meant for storing weapons on it. Strangely there are no weapons on it.",
+            "description": "A wooden rack meant for storing weapons on it. A few weapons rest upon it.",
             "takeable": false,
             "type": "default"
         },
