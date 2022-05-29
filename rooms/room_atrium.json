@@ -20,7 +20,7 @@
 		    }
     },
     "items": {
-        "ston wall": {
+        "stone wall": {
             "description": "This wall seems to be adjoining the tower. Now where is the entrance?",
             "takeable": false,
             "type": "default"

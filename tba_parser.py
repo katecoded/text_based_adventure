@@ -16,11 +16,12 @@ eat_actions = ["eat", "consume", "drink"]
 examine_actions = ["lookat", "examine"]
 combine_actions = ["combine"]
 talk_actions = ["talk", "speak"]
+give_actions = ["give", "donate", "handover"]
 
 inventory_actions = pickup_actions + drop_actions
 all_available_actions = non_interactive_actions + pickup_actions + \
                         movement_actions + inventory_actions + \
-                        use_actions + open_actions + \
+                        use_actions + open_actions + give_actions + \
                         examine_actions + combine_actions + talk_actions
 prepositions = ["on", "upon", "at", "to", "with", "using"]
 # prepositions = ["in", "at", "to", "with", "toward", "towards", "on", "into", "onto"]
@@ -33,6 +34,7 @@ def pre_process_commands(input):
     Changes look at into lookat and pick up into pickup
     """
     refined_input = input.replace("look at", "lookat", 1)
+    refined_input = refined_input.replace("hand over", "handover", 1)
     return refined_input.replace("pick up", "pickup", 1)
 
 
@@ -157,13 +159,13 @@ def interactive_command_handler(action, str_list, gamestate):
         return examine_handler(gamestate, str_list[0])
     # Attempts to use an item on an object or open a door with object
     elif len(str_list) > 2 and str_list[1] in prepositions and \
-            (action in use_actions or action in open_actions):
+            (action in use_actions or action in give_actions or action in open_actions):
         return use_open_splitter(gamestate, action, str_list)
     elif len(str_list) > 2 and str_list[1] in prepositions and \
             action in combine_actions:
         return combine_handler(gamestate, str_list)
     elif len(str_list) > 0 and action in use_actions:
-        return use_handler(str_list[0], None, gamestate)
+        return use_handler(str_list[0], None, action, gamestate)
     elif len(str_list) > 0 and action in talk_actions:
         return talk_handler(gamestate, str_list[0])
     return "Sorry I don't understand how to do that"
@@ -367,8 +369,9 @@ def use_open_splitter(gamestate, action, str_list):
             return "There is no door with the name " + str_list[0] + " here"
         return "You do not have a " + str_list[2] + " in your inventory"
 
-    # format for use actions is use x on/upon y
-    elif str_list[1] in use_prepositions:
+    # format for use actions is use x on/upon y, give actions is give x to y
+    elif (action in use_actions and str_list[1] in use_prepositions) or \
+            (action in give_actions and str_list[1] == "to"):
         item = gamestate.get_item_by_name(str_list[0])
         # Use commands might be done on either doors or other objects, so it
         # will search for both doors or items of that name in the room
@@ -377,11 +380,14 @@ def use_open_splitter(gamestate, action, str_list):
 
         # Only call open_hander() if item is item with key property and the subject on
         # which it acts is a door
-        if item is not None and use_on_door is not None and item.get_type() == "key":
+        if item is not None and use_on_door is not None and item.get_type() == "key" \
+                and action in use_actions:
             return open_handler(item, use_on_door)
         # If both item and subject on which it acts are items call use_handler()
         elif item is not None and use_on_item is not None:
-            return use_handler(item.get_name(), use_on_item.get_name(), gamestate)
+            if use_on_item.get_type() != "creature" and action in give_actions:
+                return "You cannot give anything to an object"
+            return use_handler(item.get_name(), use_on_item.get_name(), action, gamestate)
         elif item is None:
             return "You do not have a " + str_list[0] + " in your inventory"
         return "There is nothing with the name " + str_list[2] + " here"
@@ -405,7 +411,7 @@ def open_handler(key, door):
     return "The door is already unlocked"
 
 
-def use_handler(item, use_on_item, gamestate):
+def use_handler(item, use_on_item, action, gamestate):
     """
     Will handle any use actions not involving doors
     """
@@ -414,7 +420,9 @@ def use_handler(item, use_on_item, gamestate):
         if hidden is not None:
             reveal_hidden(hidden, gamestate)
         return random.choice(message)
-    return "You cannot use " + item + " on " + use_on_item
+    if action in use_actions:
+        return "You cannot use " + item + " on " + use_on_item
+    return "You cannot give " + item + " to" + use_on_item
 
 
 def combine_handler(gamestate, str_list):

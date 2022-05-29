@@ -34,6 +34,17 @@
 			"takeable": false,
 			"type": "creature",
 			"hidden": true
+		},
+		"red potion": {
+			"description": "A vial of some kind of red liquid. Covering it with your hand shows it shines in the dark. You shouldn't drink this",
+			"takeable": true,
+			"type": "default"
+		},
+		"copper key": {
+			"description": "A very ordinary key made of copper",
+			"takeable": true,
+			"type": "key",
+			"hidden": true
 		}
 	}
 }
