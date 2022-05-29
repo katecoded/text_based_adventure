@@ -355,7 +355,7 @@ def use_open_splitter(gamestate, action, str_list):
         elif door is None:
             return "There is no door with the name " + str_list[0] + " here"
         return "You do not have a " + str_list[2] + " in your inventory"
-      
+
     # format for use actions is use x on/upon y, give actions is give x to y
     elif (action in use_actions and str_list[1] in use_prepositions) or \
             (action in give_actions and str_list[1] == "to"):
