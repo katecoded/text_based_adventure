@@ -8,7 +8,7 @@
 			"direction": "south",
 			"key": "",
 			"locked": false,
-			"description": "The archway leads back towards a room inside the tower. Despite of the moonlight shining from, the archway is still shrouded in darkness"
+			"description": "The archway leads back towards a room inside the tower. Despite of the moonlight shining from above, the archway is still shrouded in darkness"
 		},
 		"annex entryway": {
 			"destination": "Atrium",
