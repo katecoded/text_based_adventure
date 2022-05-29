@@ -39,6 +39,11 @@
 			"description": "How the mushrooms can grow here is a question you can't seem to answer. You think you can make out an entry to the annex on the other side, but first you need to find a gap big enough to squueze through",
 			"takeable": false,
 			"type": "default"
+		},
+		"copper key": {
+			"description": "A small, smooth copper key. What does it unlock?",
+			"takeable": true,
+			"type": "default"
 		}
 	}
 }
