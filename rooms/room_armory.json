@@ -24,7 +24,7 @@
             "takeable": true,
             "type": "default"
         },
-=	"weapon rack": {
+	"weapon rack": {
             "description": "A wooden rack meant for storing weapons on it. Strangely there are no weapons on it.",
             "takeable": false,
             "type": "default"
