@@ -15,12 +15,18 @@
 			"direction": "north",
 			"key": "iron key",
 			"locked": true,
-			"description": "The cracked wooden trapdoor is raised far enough from the ground that it has avoided much of the room's moisture. The iron handle, rusted with age, is set in an equally-rusted iron plate with a strangely swirled keyhole."
+			"description": "The cracked wooden trapdoor is raised far enough from the ground that it has avoided much of the room's moisture. The iron handle, rusted with age, is set in an equally-rusted iron plate with a strangely swirled keyhole.",
+			"hidden": true
 		}
 	},
 	"items": {
 		"wall": {
 			"description": "The stream from the wall is slow but constant. Must be from some underground reservoir.",
+			"takeable": false,
+			"type": "default"
+		},
+		"rubble": {
+			"description": "A pile of debris that seemed to have formed from sections of the roof and floor falling off.",
 			"takeable": false,
 			"type": "default"
 		},

@@ -1,0 +1,36 @@
+{
+	"name": "Bathroom",
+	"short_description": "A luxurious bathroom filled with various toiletries.",
+	"long_description": "The wizard's bathroom is inordinately ornate with small scultupures and lavish adronments. You can tell the wizard wanted to spend his private time in splendor.",
+	"doors": {
+		"decorative doorway": {
+			"destination": "Wizard's Study",
+			"direction": "south",
+			"key": "golden key",
+			"locked": false,
+			"description": "The door is decorated with ornate designs of what appear to be golden flowers."
+		}
+	},
+	"items": {
+  		"toothbrush": {
+			"description": "The bristles on the brush curve slightly at the edges. Perhaps the wizard does not have the best brushing technique.",
+			"takeable": false,
+			"type": "default"
+		},  
+		"tube of paste": {
+			"description": "Is this some kind of toothpaste? It reads \"RUST-BE-GONE\". Perhaps not.",
+			"takeable": true,
+			"type": "default"
+		},
+		"golden throne": {
+			"description": "The toilet seems to be be made out of solid gold! Makes you think twice about using it.",
+			"takeable": false,
+			"type": "default"
+		},
+    		"luxurious bath": {
+			"description": "The wizard seems to have spent a lot of time and effort designing the bath. The large, circular tub is almost 10 feet in radius, enough to fit several people. Sculptures of small cherubs holding little pitchers line the sides. Presumably the pitchers pour water when it is on. The tub is currently filled, alhough you find the water is cold when you dip your hand inside.",
+			"takeable": false,
+			"type": "default"
+		}
+	}
+}

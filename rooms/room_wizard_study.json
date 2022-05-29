@@ -9,7 +9,14 @@
             "key": "",
             "locked": false,
             "description": "The open doorway is surrounded by ornate golden patterns inlaid with gemstones. The doorway itself seems to shimmer slightly."
-        }
+        },
+        "decorative doorway": {
+			"destination": "Bathroom",
+			"direction": "north",
+			"key": "golden key",
+			"locked": true,
+			"description": "The door is decorated with ornate designs of what appear to be golden flowers."
+		}
     },
     "items": {
         "dragon": {
@@ -27,6 +34,11 @@
             "takeable": false,
             "type": "default"
         },
+        "magic 8-ball": {
+            "description": "A magic 8-ball. Maybe it lets you see the future?",
+            "takeable": true,
+            "type": "default"
+        },	
         "iron key": {
             "description": "Shimmering with golden light, the iron key has a distinctly swirled shape at the end. You wonder what, if anything, it could unlock.",
             "takeable": true,
