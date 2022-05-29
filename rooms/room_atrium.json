@@ -15,7 +15,7 @@
 		"direction": "west",
 		"key": "",
 		"locked": false,
-		"description": "The revealed archway leads in the direction of the tower. As it is too dark to see, the only option is to try your luck"
+		"description": "The revealed archway leads in the direction of the tower. As it is too dark to see, the only option is to try your luck",
         	"hidden": true
 		    }
     },
