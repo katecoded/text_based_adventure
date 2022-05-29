@@ -2,6 +2,12 @@ import json
 
 
 def save_door_data(room, door):
+    """
+    Saves the given Door object's data as a dictionary
+    within the given room's dictionary.
+    :room: A dictionary representing a room.
+    :door: A Door object.
+    """
     name = door.get_name()
     room["doors"][name] = {
         "destination": door.get_destination(),
@@ -14,6 +20,12 @@ def save_door_data(room, door):
 
 
 def save_item_data(room, item):
+    """
+    Saves the given Item object's data as a dictionary
+    within the given room's dictionary.
+    :room: A dictionary representing a room.
+    :item: An Item object.
+    """
     name = item.get_name()
     room["items"][name] = {
         "description": item.get_description(),
@@ -24,6 +36,10 @@ def save_item_data(room, item):
 
 
 def make_json(curr):
+    """
+    Converts and saves the curr Room object as a JSON file.
+    :curr: A Room object.
+    """
     name = curr.get_name()
     doors = curr.get_doors()
     items = curr.get_items()
@@ -42,6 +58,8 @@ def make_json(curr):
         save_door_data(room_data, value)
     for value in list(items.values()):
         save_item_data(room_data, value)
+    if curr.get_visited():
+        room_data["visited"] = True
     json_output = json.dumps(room_data, indent=4)
     name = name.lower()
     name = name.replace(" ", "_")
@@ -53,6 +71,12 @@ def make_json(curr):
 
 
 def add_player_items(dict, item):
+    """
+    Saves the given Item object to a dictionary
+    representing the player's inventory.
+    :dict: A dictionary representing the inventory.
+    :item: An Item object.
+    """
     name = item.get_name()
     dict[name] = {
         "description": item.get_description(),
@@ -63,6 +87,12 @@ def add_player_items(dict, item):
 
 
 def create_save(gamestate):
+    """
+    Saves the current state of the game including the current state
+    of all rooms, the player's inventory, and the player's current
+    location.
+    :gamestate: A Game object.
+    """
     location = gamestate.get_current_room()
     location = location.get_name()
     with open("saves/player_loc.txt", "w") as outfile:

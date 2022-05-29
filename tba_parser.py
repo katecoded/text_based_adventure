@@ -124,6 +124,7 @@ def non_interactive_command_handler(command, gamestate):
         # check if files exist to be loaded
         if os.path.exists('saves/player_loc.txt'):
             load.load_game(gamestate)
+            gamestate.get_current_room().set_visited()
             print("Game Loaded \n")
             print(gamestate.get_current_room().get_name())
             print(gamestate.get_current_room().get_long_description())
