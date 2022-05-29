@@ -1,6 +1,7 @@
 import unittest
 import os
 import json
+import random
 from io import StringIO
 from unittest import mock
 
@@ -97,6 +98,9 @@ class TextBasedAdventureTestCase(unittest.TestCase):
         with mock.patch('sys.stdout', new_callable=StringIO):
             with mock.patch('builtins.input', side_effect=test_inputs):
                 main()
+                main()
+                main()
+                main()
 
     def test_examine_items_in_courtyard(self):
         """
@@ -104,17 +108,22 @@ class TextBasedAdventureTestCase(unittest.TestCase):
         the correct descriptions.
         """
         courtyard = self.rooms["courtyard"]
-        test_inputs = ["examine mushrooms", "examine ivory key",
-                       "look at rusty gate", "look at tower", "exit"]
-        expected_output = courtyard["items"]["mushrooms"]["description"] +\
-            "\n" + courtyard["items"]["ivory key"]["description"] +\
-            "\n" + courtyard["items"]["rusty gate"]["description"] +\
-            "\n" + courtyard["items"]["tower"]["description"]
+
+        # create the test inputs and expected output
+        test_inputs = []
+        expected_output = []
+        for item in courtyard["items"]:
+            test_inputs.append(str(random.choice(["examine", "look at"])) +
+                               " " + item)
+            expected_output.append(courtyard["items"][item]["description"])
+        test_inputs.append("exit")
 
         with mock.patch('sys.stdout', new_callable=StringIO) as mock_out:
             with mock.patch('builtins.input', side_effect=test_inputs):
                 main()
-        self.assertIn(expected_output, mock_out.getvalue())
+
+        for expected in expected_output:
+            self.assertIn(expected, mock_out.getvalue())
 
     def test_examine_doors_in_courtyard(self):
         """
@@ -122,12 +131,19 @@ class TextBasedAdventureTestCase(unittest.TestCase):
         the correct descriptions.
         """
         courtyard = self.rooms["courtyard"]
-        test_inputs = ["examine dark corridor", "look at stone staircase",
-                       "end"]
-        expected_output = courtyard["doors"]["dark corridor"]["description"] \
-            + "\n" + courtyard["doors"]["stone staircase"]["description"]
+
+        # create the test inputs and expected output
+        test_inputs = []
+        expected_output = []
+        for door in courtyard["doors"]:
+            test_inputs.append(str(random.choice(["examine", "look at"])) +
+                               " " + door)
+            expected_output.append(courtyard["doors"][door]["description"])
+        test_inputs.append("exit")
 
         with mock.patch('sys.stdout', new_callable=StringIO) as mock_out:
             with mock.patch('builtins.input', side_effect=test_inputs):
                 main()
-        self.assertIn(expected_output, mock_out.getvalue())
+
+        for expected in expected_output:
+            self.assertIn(expected, mock_out.getvalue())
