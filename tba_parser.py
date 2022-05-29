@@ -209,6 +209,27 @@ def perform_movement(gamestate, door):
         + "\n" + new_room.get_doors_and_items_description()
 
 
+def print_art(obj_name):
+    # if obj_name == "tower":
+    # art_file = open('tba_ascii_art/tower.txt', 'r')
+    if obj_name == "flower":
+        art_file = open('tba_ascii_art/blue_flower.txt', 'r')
+    elif obj_name == "solar system diorama":
+        art_file = open('tba_ascii_art/planet.txt', 'r')
+    # elif obj_name == "mushrooms":
+    # art_file = open('tba_ascii_art/mushrooms.txt', 'r')
+    elif obj_name == "rusty sword":
+        art_file = open('tba_ascii_art/sword.txt', 'r')
+    else:
+        art_file = None
+
+    if art_file is not None:
+        art_lines = art_file.readlines()
+        for line in art_lines:
+            print(line)
+        art_file.close()
+
+
 def examine_handler(gamestate, obj_name):
     """
     Returns the description of the object that the player wants to
@@ -220,6 +241,13 @@ def examine_handler(gamestate, obj_name):
     # if it is an item in the current room
     item = current_room.get_item_by_name(obj_name)
     if item is not None:
+        (message, hidden) = gamestate.get_use_info(("examine", item.get_name()))
+        if hidden is not None:
+            reveal_hidden(hidden, gamestate)
+            if message is not None:
+                return item.get_description() + "\n" + message
+
+        print_art(obj_name)
         return item.get_description()
     else:
         # if it is a door in the current room
@@ -247,9 +275,18 @@ def inventory_handler(gamestate, action, obj_name):
         item = current_room.get_item_by_name(obj_name)
         if item is not None:
             if item.is_takeable():
-                gamestate.add_item_to_inventory(item.get_name(), item)
-                current_room.remove_item(item)
-                return item.get_name() + " is now in your inventory"
+                if obj_name == "blackberries":
+                    # the player can keep taking blackberries
+                    # as long as they are not already in their inventory
+                    player_inv = gamestate.get_inventory()
+                    if "blackberries" not in player_inv:
+                        gamestate.add_item_to_inventory(item.get_name(), item)
+                        return item.get_name() + " is now in your inventory"
+
+                else:
+                    gamestate.add_item_to_inventory(item.get_name(), item)
+                    current_room.remove_item(item)
+                    return item.get_name() + " is now in your inventory"
 
             # If the item was could not be taken
             return "That item cannot be taken"
@@ -277,8 +314,11 @@ def eat_handler(gamestate, obj_name):
     item = current_room.get_item_by_name(obj_name)
     if item is not None:
         if item.get_type() == "food":
-            current_room.remove_item(item)
-            return "You have consumed the " + item.get_name()
+            if obj_name == "blackberries":
+                return "You have consumed the " + item.get_name()
+            else:
+                current_room.remove_item(item)
+                return "You have consumed the " + item.get_name()
         return "You can't eat the " + item.get_name()
     else:
         # if the item is in the player's inventory
@@ -359,14 +399,7 @@ def use_handler(item, use_on_item, gamestate):
     (message, hidden) = gamestate.get_use_info((item, use_on_item))
     if message is not None:
         if hidden is not None:
-            cur_room = gamestate.get_current_room()
-            hidden_object = cur_room.get_hidden_object_by_name(hidden)
-            if hidden_object is not None:
-                cur_room.remove_hidden(hidden_object)
-                if isinstance(hidden_object, Item):
-                    cur_room.add_item(hidden_object)
-                if isinstance(hidden_object, Door):
-                    cur_room.add_door(hidden_object)
+            reveal_hidden(hidden, gamestate)
         return random.choice(message)
     return "You cannot use " + item + " on " + use_on_item
 
@@ -392,44 +425,128 @@ def combine_handler(gamestate, str_list):
     return "I don't understand how to do that"
 
 
+def fairy_talk_handler(item):
+    if item.get_description() == "This tiny blue-haired fairy is sighing in apparent disappointment.":
+        print("Blue-haired Fairy: 'I'm supposed to be in charge of making a blackberry cobbler."
+              " But I can't find any blackberries in here anywhere - I've looked a dozen times!"
+              " Do you have any blackberries by chance?'")
+        print("Choose a response:")
+        print("1. 'I have some blackberries!'")
+        print("2. 'Sorry, I don't have any blackberries right now.'")
+        loop = True
+
+        while loop:
+            choice = input("> ")
+            if choice == "1":
+                print("You: 'I have some blackberries!'")
+                print("Blue-haired Fairy: 'Oh, that's great! Just give them to me and I'll get that cobbler started.'")
+                loop = False
+            elif choice == "2":
+                print("You: 'Sorry, I don't have any blackberries right now.'")
+                print("Blue-haired Fairy: 'That's alright. Come tell me if you find any!'")
+                loop = False
+            else:
+                print("Not a valid choice. Try again.")
+
+    elif item.get_description() == "The tiny blue-haired fairy is busy working on a blackberry cobbler.":
+        print("Blue-haired Fairy: 'This blackberry cobbler is coming along well! Thank you for your help!'")
+
+
+def ghost_talk_handler(item):
+    if item.get_description == "This ghost looks quite annoyed about something. He" \
+                               " has a very authoritative look about him as well.":
+        print("Stern-looking Ghost: 'Have you seen Snoozes? He's supposed to be haunting this room right now "
+              "but he hasn't shown up, as usual. Honestly, when will he start taking"
+              "his haunting responsibilities seriously? Could you bring him here if you find him?'")
+        print("Choose a response:")
+        print("1. 'Who are you and who is Snoozes?'")
+        print("2. 'I've brought Snoozes with me!'")
+        print("3. 'I don't have Snoozes with me, sorry.'")
+        loop = True
+
+        while loop:
+            choice = input("> ")
+            if choice == "1":
+                print("You: 'Who are you and who is Snoozes?'")
+                print("Stern-looking Ghost: 'I'm Ghoulian, the Chief of Ghostly Staff for this castle. I make sure "
+                      "all castle-haunting duties are fulfilled without issue. Snoozes is one of our newer ghostly recruits."
+                      "He's quite lethargic. He's probably fallen asleep at some random location again.' *face-palm*"
+                      " 'Have you found him?'")
+                print("Choose a response:")
+                print("1. 'Who are you and who is Snoozes?'")
+                print("2. 'I've brought Snoozes with me!'")
+                print("3. 'I don't have Snoozes with me, sorry.'")
+            elif choice == "2":
+                print("You: 'I've brought Snoozes with me!'")
+                print("Stern-looking Ghost: 'Thank you for finding him. You can leave him here with me. "
+                      "I'll have a word with him after he manages to wake up.'")
+
+                loop = False
+            elif choice == "3":
+                print("You: I don't have Snoozes with me, sorry.'")
+                print("Stern-looking Ghost: 'That's alright. Just bring him here if you end up finding him.'")
+                loop = False
+            else:
+                print("Not a valid choice. Try again.")
+
+    elif item.get_description() == "The authoritative-looking Chief of Ghostly Staff " \
+                                   "seems a little less annoyed now. Maybe.":
+        print("Stern-looking Ghost: 'Thanks for bringing Snoozes to me. I'll be having a word with him after he wakes up.'")
+
+
 def talk_handler(gamestate, creature_name):
     current_room = gamestate.get_current_room()
     item = current_room.get_item_by_name(creature_name)
     if item is not None:
         if creature_name == "blue-haired fairy":
-            if item.get_description() == "This tiny blue-haired fairy is sighing in apparent disappointment.":
-                print("Blue-haired Fairy: 'I'm supposed to be in charge of making a blackberry cobbler."
-                      "But I can't find any blackberries in here anywhere - I've looked a dozen "
-                      "times! Do you have any blackberries by chance?'")
-                print("Choose a response:")
-                print("1. 'I have some blackberries!'")
-                print("2. 'Sorry, I don't have any blackberries right now.'")
-                loop = True
+            fairy_talk_handler(item)
+        elif creature_name == "stern-looking ghost":
+            ghost_talk_handler(item)
+        elif creature_name == "giant mushroom":
+            print("Giant Mushroom: 'Hi there.'")
+            print("Choose a response:")
+            print("1. 'Let me guess, you want me to find something for you too?'")
+            print("2. 'You can talk!?'")
+            loop = True
 
-                while loop:
-                    choice = input("> ")
-                    if choice == "1":
-                        print("You: 'I have some blackberries!'")
-                        print("Blue-haired Fairy: 'Oh, that's great! Just give them to me and I'll get that cobbler started.'")
-                        loop = False
-                    elif choice == "2":
-                        print("You: 'Sorry, I don't have any blackberries right now.'")
-                        print("Blue-haired Fairy: 'That's alright. Come tell me if you find any!'")
-                        loop = False
-                    else:
-                        print("Not a valid choice. Try again.")
+            while loop:
+                choice = input("> ")
+                if choice == "1":
+                    print("You: 'Let me guess, you want me to find something for you?'")
+                    print("Giant Mushroom: 'No, I don't need anything. Just wanted to say hi. Have a nice day!'")
+                    loop = False
+                if choice == "2":
+                    print("You: ''You can talk!?'")
+                    print("Giant Mushroom: 'Yep. It's always such a surprise to people when they find out. "
+                          "Anyway, I hope you have a great day!'")
+                    loop = False
 
-            elif item.get_description() == "The tiny blue-haired fairy is busy working on a blackberry cobbler.":
-                print("Blue-haired Fairy: 'This blackberry cobbler is coming along well! Thank you for your help!'")
-
-            return ""
+        return ""
     else:
         # if it is a creature in the player's inventory (like a ghost)
         if gamestate.get_item_by_name(creature_name) is not None:
-            return "You can't talk to " + creature_name
+            return "You can't talk to the " + creature_name
 
         # if it is an item that is not in the room or inventory
-        return creature_name + " is not here"
+        return "There is no creature by that name here"
 
     # if it is an item in the room, but can't be spoken to
-    return "You can't talk to " + creature_name
+    return "You can't talk to the " + creature_name
+
+
+def reveal_hidden(object_name, gamestate):
+    """
+    Function that takes the name of a hidden object, checks if it
+    exists in the hidden object dictionary and reveals it if exists
+    :param object_name: name of hidden object that is revealed
+    :param gamestate: Game object housing data of current playthrough
+    :return: n/a
+    """
+    cur_room = gamestate.get_current_room()
+    hidden_object = cur_room.get_hidden_object_by_name(object_name)
+    if hidden_object is not None:
+        cur_room.remove_hidden(hidden_object)
+        if isinstance(hidden_object, Item):
+            cur_room.add_item(hidden_object)
+        if isinstance(hidden_object, Door):
+            cur_room.add_door(hidden_object)

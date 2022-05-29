@@ -29,7 +29,8 @@ def validate_schema(json_data):
                         "direction": {"type": "string"},
                         "key": {"type": "string"},
                         "locked": {"type": "boolean"},
-                        "description": {"type": "string"}
+                        "description": {"type": "string"},
+                        "hidden": {"type": "boolean"}
                     },
                     "additionalProperties": False,
                     "required": ["destination", "direction", "key",
@@ -43,7 +44,8 @@ def validate_schema(json_data):
                     "properties": {
                         "description": {"type": "string"},
                         "takeable": {"type": "boolean"},
-                        "type": {"type": "string"}
+                        "type": {"type": "string"},
+                        "hidden": {"type": "boolean"}
                     },
                     "additionalProperties": False,
                     "required": ["description", "takeable", "type"]
@@ -66,22 +68,31 @@ def create_object_dictionary(object_data, object_type):
     specified type with the names as keys.
     """
     result_dict = {}
+    hidden_dict = {}
 
     # for each key, create a game object of the specified type and
     # add it to the dictionary
     for name in object_data.keys():
         if object_type == "item":
-            result_dict[name] = Item(name, object_data[name]["description"],
-                                     object_data[name]["takeable"],
-                                     object_data[name]["type"])
+            item = Item(name, object_data[name]["description"],
+                        object_data[name]["takeable"],
+                        object_data[name]["type"])
+            if "hidden" in object_data[name] and object_data[name]["hidden"]:
+                hidden_dict[name] = item
+            else:
+                result_dict[name] = item
         else:
-            result_dict[name] = Door(name, object_data[name]["destination"],
-                                     object_data[name]["direction"],
-                                     object_data[name]["key"],
-                                     object_data[name]["locked"],
-                                     object_data[name]["description"])
+            door = Door(name, object_data[name]["destination"],
+                        object_data[name]["direction"],
+                        object_data[name]["key"],
+                        object_data[name]["locked"],
+                        object_data[name]["description"])
+            if "hidden" in object_data[name] and object_data[name]["hidden"]:
+                hidden_dict[name] = door
+            else:
+                result_dict[name] = door
 
-    return result_dict
+    return result_dict, hidden_dict
 
 
 def load_rooms(directory="rooms"):
@@ -119,14 +130,17 @@ def load_rooms(directory="rooms"):
             validate_schema(room_data)
 
             # create Item object and Room object dictionaries
-            items = create_object_dictionary(room_data["items"], "item")
-            doors = create_object_dictionary(room_data["doors"], "door")
+            items, hidden_items = create_object_dictionary(room_data["items"], "item")
+            doors, hidden_doors = create_object_dictionary(room_data["doors"], "door")
+
+            # merges hidden item and door dictionaries into one
+            hidden_objects = {**hidden_items, **hidden_doors}
 
             # create a Room object with the Item and Door dictionaries
             room_dict[room_data["name"]] = Room(room_data["name"],
                                                 room_data["short_description"],
                                                 room_data["long_description"],
-                                                doors, items)
+                                                doors, items, hidden_objects)
 
     return room_dict
 

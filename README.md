@@ -11,22 +11,34 @@ It also requires having Python installed (version >= 3.6) and pip.
 
 <strong>1. Clone the repository:</strong>  
 *if using a Personal Access Token (PAT):*  
-`git clone https://github.com/katecoded/text_based_adventure.git`  
+```
+git clone https://github.com/katecoded/text_based_adventure.git
+```  
 *if using an SSH key:*  
-`git clone git@github.com:katecoded/text_based_adventure.git`  
+```
+git clone git@github.com:katecoded/text_based_adventure.git
+```  
 (see [About remote repositories](https://docs.github.com/en/get-started/getting-started-with-git/about-remote-repositories) for help on which URL to use)  
 
 <strong>2. Navigate into the project folder:</strong>  
-`cd text_based_adventure`  
+```
+cd text_based_adventure
+```  
 
-<strong>4. Install dependencies using pip:</strong>  
-`pip install -r requirements.txt`  
+<strong>3. Install dependencies using pip:</strong>  
+```
+pip install -r requirements.txt
+```  
 
-<strong>5. Run text based adventure.py:</strong>  
+<strong>4. Run text based adventure.py:</strong>  
 *for Windows:*  
-`py text_based_adventure.py`  
+```
+py text_based_adventure.py
+```  
 *for Linux and Mac:*  
-`python3 text_based_adventure.py`
+```
+python3 text_based_adventure.py
+```
 
 ## How to Play
 
