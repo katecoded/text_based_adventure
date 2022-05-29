@@ -534,7 +534,7 @@ def talk_handler(gamestate, creature_name):
                           "Anyway, I hope you have a great day!'")
                     loop = False
                 else:
-                  print("Not a valid choice. Try again.")
+                    print("Not a valid choice. Try again.")
         else:
             # if it is an item in the room, but can't be spoken to
             return "You can't talk to the " + creature_name
