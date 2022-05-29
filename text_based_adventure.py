@@ -2,6 +2,7 @@ import random
 from objects.game import Game
 from load_rooms import load_rooms
 from tba_parser import parser
+from use_and_combine_dicts import use_dict as use_dict, combine_dict as combine_dict 
 
 
 def set_up_game():
@@ -18,7 +19,7 @@ def set_up_game():
     random.shuffle(authors)
     starting_location = "Courtyard"
 
-    return Game(title, authors, load_rooms(), starting_location, {})
+    return Game(title, authors, load_rooms(), starting_location, use_dict, combine_dict)
 
 
 def introduction(game):
