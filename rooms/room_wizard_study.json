@@ -34,6 +34,11 @@
             "takeable": false,
             "type": "default"
         },
+        "magic 8-ball": {
+            "description": "A magic 8-ball. Maybe it lets you see the future?",
+            "takeable": true,
+            "type": "default"
+        },	
         "iron key": {
             "description": "Shimmering with golden light, the iron key has a distinctly swirled shape at the end. You wonder what, if anything, it could unlock.",
             "takeable": true,
