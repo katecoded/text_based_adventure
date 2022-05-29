@@ -50,7 +50,8 @@ def validate_schema(json_data):
                     "additionalProperties": False,
                     "required": ["description", "takeable", "type"]
                 },
-            }
+            },
+            "visited": {"type": "boolean"}
         },
         "additionalProperties": False,
         "required": ["name", "short_description", "long_description",
@@ -121,6 +122,10 @@ def load_rooms(directory="rooms"):
         if not file.endswith(".json"):
             continue
 
+        # skip inventory file
+        if os.path.splitext(file)[0] == "inventory":
+            continue
+
         # get the relative path to the room data file and open it
         file_path = directory + "/" + file
         with open(file_path) as room_json:
@@ -141,6 +146,10 @@ def load_rooms(directory="rooms"):
                                                 room_data["short_description"],
                                                 room_data["long_description"],
                                                 doors, items, hidden_objects)
+
+            # if the room has been visited, set its visited attribute to True
+            if "visited" in room_data and room_data["visited"]:
+                room_dict[room_data["name"]].set_visited()
 
     return room_dict
 

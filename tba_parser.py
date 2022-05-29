@@ -1,6 +1,9 @@
 from objects.item import Item
 from objects.door import Door
 import random
+import save
+import load
+import os
 # from objects.game import Game
 
 non_interactive_actions = ["inventory", "help", "look", "savegame", "loadgame"]
@@ -114,10 +117,20 @@ def non_interactive_command_handler(command, gamestate):
                "Certain synonyms such as \"Pick Up\" or \"Move\" will also work"
     # Saves current game-state to a file
     elif command == "savegame":
-        return "Not functional yet, sorry for the inconvenience"
+        save.create_save(gamestate)
+        return "Game Saved"
     # Loads gamestate from a file
     elif command == "loadgame":
-        return "Not functional yet, sorry for the inconvenience"
+        # check if files exist to be loaded
+        if os.path.exists('saves/player_loc.txt'):
+            load.load_game(gamestate)
+            gamestate.get_current_room().set_visited()
+            print("Game Loaded \n")
+            print(gamestate.get_current_room().get_name())
+            print(gamestate.get_current_room().get_long_description())
+            return gamestate.get_current_room().get_doors_and_items_description()
+        else:
+            return "No save file to load"
     # Gives long description of current room
     elif command == "look":
         # returns long description of room
