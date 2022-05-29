@@ -1,5 +1,7 @@
 import json
 
+from objects.item import Item
+
 
 def save_door_data(room, door):
     """
@@ -35,6 +37,21 @@ def save_item_data(room, item):
     return
 
 
+def save_hidden_objects(room_data, hidden_objects):
+    """
+    Saves the given room's hidden objects.
+    :room_data: A dictionary of room data.
+    :hidden_objects: A dictionary of Item and Door objects.
+    """
+    for object in hidden_objects.values():
+        if isinstance(object, Item):
+            save_item_data(room_data, object)
+            room_data["items"][object.get_name()]["hidden"] = True
+        else:
+            save_door_data(room_data, object)
+            room_data["doors"][object.get_name()]["hidden"] = True
+
+
 def make_json(curr):
     """
     Converts and saves the curr Room object as a JSON file.
@@ -54,12 +71,19 @@ def make_json(curr):
 
         }
     }
+
+    # save doors and items
     for value in list(doors.values()):
         save_door_data(room_data, value)
     for value in list(items.values()):
         save_item_data(room_data, value)
+    # save hidden doors and items
+    if curr.get_hidden_objects():
+        save_hidden_objects(room_data, curr.get_hidden_objects())
+    # save visited rooms
     if curr.get_visited():
         room_data["visited"] = True
+
     json_output = json.dumps(room_data, indent=4)
     name = name.lower()
     name = name.replace(" ", "_")
