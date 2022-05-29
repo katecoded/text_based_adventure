@@ -9,7 +9,14 @@
             "key": "",
             "locked": false,
             "description": "Made of stone bricks, the middle of the staircase is covered in a luxurious-feeling carpet runner that spirals up into the distance. It seems to lead to the top of the tower."
-        }
+        },
+      	"tower entrance": {
+		    "destination": "Atrium",
+		    "direction": "east",
+		    "key": "",
+		    "locked": false,
+		    "description": "The revealed archway leading back to the Atrium",
+		}
     },
     "items": {
         "map": {
