@@ -93,7 +93,7 @@ class LoadRoomsTestCase(unittest.TestCase):
                     "description": "A door so squeaky it could wake the "
                                    "dead"
                 }
-            },
+            }
             "items": {}
         }
         with open("rooms/room_test_2.json", "w") as room_test_2:
