@@ -24,12 +24,12 @@
 			"takeable": true,
 			"type": "food"
 		},
-		"blue-haired fairy": {
+		"frowning blue-haired fairy": {
 			"description": "This tiny blue-haired fairy is sighing in apparent disappointment.",
 			"takeable": false,
 			"type": "creature"
 		},
-		"blue-haired fairy": {
+		"busy blue-haired fairy": {
 			"description": "The tiny blue-haired fairy is busy working on a blackberry cobbler.",
 			"takeable": false,
 			"type": "creature",
