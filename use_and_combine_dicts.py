@@ -9,37 +9,37 @@ eight_ball_list = ["It is certain.", "It it's decidedly so.", "Without a doubt."
                    "Outlook not so good.", "Very doubtful."]
 
 use_dict = {
-    ("magic 8-ball", None): (eight_ball_list, None),
+    ("magic 8-ball", None): (eight_ball_list, None, False),
     ("red potion", "mass of mushrooms"): (["Pouring the red potion on the mass of mushroom seems to have had an "
                                            "effect. After a few seconds a section starts shrinking, leaving enough "
-                                           "room for you to pass"], "annex entryway"),
+                                           "room for you to pass"], "annex entryway", True),
     ("mounted telescope", "stone pedestal"): (["As you place align the telescope's legs into the small indentations "
                                                "in the pedestal you feel a tremor. Suddenly a section of the west "
                                                "wall starts shifting, moving downwards into the floor. Slowly, a "
                                                "a passageway wide enough for a person is revealed in the stone."],
-                                              "tower entrance"),
+                                              "tower entrance", False),
     ("tube of paste", "rusty sword"): (["You apply the paste to the sword. To your astonishment the rust simply falls "
                                         "away as if it were a layer of dust, and the sword regains the luster it had "
-                                        "before."], "shiny sword"),
+                                        "before."], "shiny sword", True),
     ("blackberries", "frowning blue-haired fairy"): (["\"Thank you!\" the fairy exclaims as she hurriedly sets to work on the "
                                                       "blackberry cobbler. \"In case you haven't found it, I think I dropped "
                                                       "the key to the potion room in the pile of cookbooks. You can have it "
-                                                      "for your help!\""], "busy blue-haired fairy"),
+                                                      "for your help!\""], "busy blue-haired fairy", True),
     ("ghost", "annoyed stern-looking ghost"): (["\"Thank you for bringing Snoozes to me.\" says the stern-looking ghost. "
                                                 "\"You know, I read in one of these potions books that combining a gem with "
                                                 "a rune scroll can activate it or some "
-                                                "such thing.\""], "stern-looking ghost"),
+                                                "such thing.\""], "stern-looking ghost", True),
     ("examine", "rubble"): (["Sifting through the rubble you notice something wooden underneath. You take a few "
-                             "minutes to move the stone away, and you find a trap door."], "trapdoor"),
+                             "minutes to move the stone away, and you find a trap door."], "trapdoor", False),
     ("examine", "weapon rack"): (["Actually, on closer look, there are a few metal rods here that don't seem to be"
                                   "weapons of any kind. In fact you've seen rods like these before. Some kind of "
-                                  "tripod legs?"], "tripod parts"),
+                                  "tripod legs?"], "tripod parts", False),
     ("examine", "mysterious bushes"): (["As you are about to walk away you focus on one bush in particular. You think "
                                         "the berries here looks familiar. After looking closer you confirm that this "
-                                        "is actually a blackberry bush"], "blackberry bushes"),
+                                        "is actually a blackberry bush"], "blackberry bushes", False),
     ("examine", "blackberry bushes"): (["You poke gingerly at the blackberries, then pop one into your mouth. Yup, "
-                                        "definitely blackberries. You think you can pick some."], "blackberries"),
-    ("examine", "stacks of cookbooks"): (["Digging through the pile causes a copper key to fall out"], "copper key")
+                                        "definitely blackberries. You think you can pick some."], "blackberries", False),
+    ("examine", "stacks of cookbooks"): (["Digging through the pile causes a copper key to fall out"], "copper key", False)
 }
 
 hint_scroll = Item("awakened rune scroll", "Although you cannot read the runes, suddenly you feel as if you understand "
