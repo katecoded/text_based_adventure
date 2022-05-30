@@ -262,10 +262,8 @@ def print_art(obj_name):
         art_file = open('tba_ascii_art/planet.txt', 'r')
     elif obj_name == "mushrooms":
         art_file = open('tba_ascii_art/mushrooms.txt', 'r')
-    elif obj_name == "rusty sword":
+    elif obj_name == "rusty sword" or obj_name == "shiny sword":
         art_file = open('tba_ascii_art/sword.txt', 'r')
-    elif obj_name == "shiny sword":
-        art_file = open('tba_ascii_art/shiny_sword.txt', 'r')
     elif obj_name == "glass door":
         art_file = open('tba_ascii_art/glass_door.txt', 'r')
     else:
