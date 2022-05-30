@@ -30,7 +30,7 @@ use_dict = {
                                                 "a rune scroll can activate it or some "
                                                 "such thing.\""], "stern-looking ghost", True),
     ("examine", "rubble"): (["Sifting through the rubble you notice something wooden underneath. You take a few "
-                             "minutes to move the stone away, and you find a trap door."], "trapdoor"),
+                             "minutes to move the stone away, and you find a trap door."], "trapdoor", False),
     ("examine", "weapon rack"): (["Actually, on closer look, there are a few metal rods here that don't seem to be"
                                   "weapons of any kind. In fact you've seen rods like these before. Some kind of "
                                   "tripod legs?"], "tripod parts", False),
