@@ -528,18 +528,20 @@ def fairy_talk_handler(item):
         while loop:
             choice = input("> ")
             if choice == "1":
+                loop = False
                 print("You: 'I have some blackberries!'")
-                print("Blue-haired Fairy: 'Oh, that's great! Just give them to me and I'll get that cobbler started.'")
-                loop = False
+                return "Blue-haired Fairy: 'Oh, that's great! Just give them to me and I'll get that cobbler started.'"
+
             elif choice == "2":
-                print("You: 'Sorry, I don't have any blackberries right now.'")
-                print("Blue-haired Fairy: 'That's alright. Come tell me if you find any!'")
                 loop = False
+                print("You: 'Sorry, I don't have any blackberries right now.'")
+                return "Blue-haired Fairy: 'That's alright. Come tell me if you find any!'"
+
             else:
                 print("Not a valid choice. Try again.")
 
     elif item.get_description() == "The tiny blue-haired fairy is busy working on a blackberry cobbler.":
-        print("Blue-haired Fairy: 'This blackberry cobbler is coming along well! Thank you for your help!'")
+        return "Blue-haired Fairy: 'This blackberry cobbler is coming along well! Thank you for your help!'"
 
 
 def ghost_talk_handler(item):
@@ -567,21 +569,23 @@ def ghost_talk_handler(item):
                 print("2. 'I've brought Snoozes with me!'")
                 print("3. 'I don't have Snoozes with me, sorry.'")
             elif choice == "2":
+                loop = False
                 print("You: 'I've brought Snoozes with me!'")
-                print("Stern-looking Ghost: 'Thank you for finding him. You can leave him here with me. "
-                      "I'll have a word with him after he manages to wake up.'")
+                message = "Stern-looking Ghost: 'Thank you for finding him. You can leave him here with me. " \
+                          "I'll have a word with him after he manages to wake up.'"
+                return message
 
-                loop = False
             elif choice == "3":
-                print("You: I don't have Snoozes with me, sorry.'")
-                print("Stern-looking Ghost: 'That's alright. Just bring him here if you end up finding him.'")
                 loop = False
+                print("You: I don't have Snoozes with me, sorry.'")
+                return "Stern-looking Ghost: 'That's alright. Just bring him here if you end up finding him.'"
+
             else:
                 print("Not a valid choice. Try again.")
 
     elif item.get_description() == "The authoritative-looking Chief of Ghostly Staff " \
                                    "seems a little less annoyed now. Maybe.":
-        print("Stern-looking Ghost: 'Thanks for bringing Snoozes to me. I'll be having a word with him after he wakes up.'")
+        return "Stern-looking Ghost: 'Thanks for bringing Snoozes to me. I'll be having a word with him after he wakes up.'"
 
 
 def talk_handler(gamestate, creature_name):
@@ -589,9 +593,9 @@ def talk_handler(gamestate, creature_name):
     item = current_room.get_item_by_name(creature_name)
     if item is not None:
         if creature_name == "frowning blue-haired fairy" or creature_name == "busy blue-haired fairy":
-            fairy_talk_handler(item)
+            return fairy_talk_handler(item)
         elif creature_name == "annoyed stern-looking ghost" or creature_name == "stern-looking ghost":
-            ghost_talk_handler(item)
+            return ghost_talk_handler(item)
         elif creature_name == "giant mushroom":
             print("Giant Mushroom: 'Hi there.'")
             print("Choose a response:")
@@ -602,21 +606,22 @@ def talk_handler(gamestate, creature_name):
             while loop:
                 choice = input("> ")
                 if choice == "1":
+                    loop = False
                     print("You: 'Let me guess, you want me to find something for you too?'")
-                    print("Giant Mushroom: 'No, I don't need anything. Just wanted to say hi. Have a nice day!'")
-                    loop = False
+                    message = "Giant Mushroom: 'No, I don't need anything. Just wanted to say hi. Have a nice day!'"
+                    return message
                 elif choice == "2":
-                    print("You: ''You can talk!?'")
-                    print("Giant Mushroom: 'Yep. It's always such a surprise to people when they find out. "
-                          "Anyway, I hope you have a great day!'")
                     loop = False
+                    print("You: ''You can talk!?'")
+                    message = "Giant Mushroom: 'Yep. It's always such a surprise to people when they find out. " \
+                              "Anyway, I hope you have a great day!'"
+                    return message
                 else:
                     print("Not a valid choice. Try again.")
         else:
             # if it is an item in the room, but can't be spoken to
             return "You can't talk to the " + creature_name
 
-        return ""
     else:
         # if it is a creature in the player's inventory (like a ghost)
         if gamestate.get_item_by_name(creature_name) is not None:
