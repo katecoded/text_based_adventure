@@ -22,7 +22,7 @@
 			"takeable": true,
 			"type": "default"
 		},
-	    "stern-looking ghost": {
+	    "annoyed stern-looking ghost": {
 	   		"description": "This ghost looks quite annoyed about something. He has a very authoritative look about him as well.",
 		    	"takeable": false,
                         "type": "creature"

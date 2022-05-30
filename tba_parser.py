@@ -278,7 +278,7 @@ def examine_handler(gamestate, obj_name):
                 item = gamestate.get_inventory()[obj_name]
                 return item.get_description()
     # if the object is not found in the room or inventory
-    return "That item isn't here"
+    return "There is no item with that name here"
 
 
 def inventory_handler(gamestate, action, obj_name):
@@ -526,9 +526,9 @@ def talk_handler(gamestate, creature_name):
     current_room = gamestate.get_current_room()
     item = current_room.get_item_by_name(creature_name)
     if item is not None:
-        if creature_name == "blue-haired fairy":
+        if creature_name == "frowning blue-haired fairy" or creature_name == "busy blue-haired fairy":
             fairy_talk_handler(item)
-        elif creature_name == "stern-looking ghost":
+        elif creature_name == "annoyed stern-looking ghost" or creature_name == "stern-looking ghost":
             ghost_talk_handler(item)
         elif creature_name == "giant mushroom":
             print("Giant Mushroom: 'Hi there.'")
@@ -540,14 +540,19 @@ def talk_handler(gamestate, creature_name):
             while loop:
                 choice = input("> ")
                 if choice == "1":
-                    print("You: 'Let me guess, you want me to find something for you?'")
+                    print("You: 'Let me guess, you want me to find something for you too?'")
                     print("Giant Mushroom: 'No, I don't need anything. Just wanted to say hi. Have a nice day!'")
                     loop = False
-                if choice == "2":
+                elif choice == "2":
                     print("You: ''You can talk!?'")
                     print("Giant Mushroom: 'Yep. It's always such a surprise to people when they find out. "
                           "Anyway, I hope you have a great day!'")
                     loop = False
+                else:
+                    print("Not a valid choice. Try again.")
+        else:
+            # if it is an item in the room, but can't be spoken to
+            return "You can't talk to the " + creature_name
 
         return ""
     else:
@@ -557,9 +562,6 @@ def talk_handler(gamestate, creature_name):
 
         # if it is an item that is not in the room or inventory
         return "There is no creature by that name here"
-
-    # if it is an item in the room, but can't be spoken to
-    return "You can't talk to the " + creature_name
 
 
 def reveal_hidden(object_name, gamestate):
