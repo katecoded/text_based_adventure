@@ -22,7 +22,8 @@ inventory_actions = pickup_actions + drop_actions
 all_available_actions = non_interactive_actions + pickup_actions + \
                         movement_actions + inventory_actions + \
                         use_actions + open_actions + give_actions + \
-                        examine_actions + combine_actions + talk_actions
+                        examine_actions + combine_actions + talk_actions + \
+                        eat_actions
 prepositions = ["on", "upon", "at", "to", "with", "using"]
 # prepositions = ["in", "at", "to", "with", "toward", "towards", "on", "into", "onto"]
 # directions = ["north", "south", "east", "west"]  # up/down?
