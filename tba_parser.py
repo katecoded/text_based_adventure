@@ -481,7 +481,7 @@ def fairy_talk_handler(item):
 
 
 def ghost_talk_handler(item):
-    if item.get_description == "This ghost looks quite annoyed about something. He" \
+    if item.get_description() == "This ghost looks quite annoyed about something. He" \
                                " has a very authoritative look about him as well.":
         print("Stern-looking Ghost: 'Have you seen Snoozes? He's supposed to be haunting this room right now "
               "but he hasn't shown up, as usual. Honestly, when will he start taking"
