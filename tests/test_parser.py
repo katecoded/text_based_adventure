@@ -125,7 +125,8 @@ class TestParser(TestCase):
         Test that help command prints proper message
         """
         message = "The following is a list of allowed commands:\nHelp\nInventory\n" \
-                  "Take\nDrop\nLook\nLook At\nGo\nUse\nOpen\nUnlock\nSavegame\nLoadgame\n" \
+                  "Take\nDrop\nLook\nLook At\nGo\nUse\nOpen\nUnlock\nCombine\nGive\n" \
+                  "Eat\nTalk To\nSavegame\nLoadgame\n" \
                   "Certain synonyms such as \"Pick Up\" or \"Move\" will also work"
         parser_output = parser("help", self.game)
         self.assertEqual(message, parser_output)
