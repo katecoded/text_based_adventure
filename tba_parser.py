@@ -330,6 +330,8 @@ def inventory_handler(gamestate, action, obj_name):
                     if "blackberries" not in player_inv:
                         gamestate.add_item_to_inventory(item.get_name(), item)
                         return item.get_name() + " is now in your inventory"
+                    else:
+                        return "That item is already in your inventory"
 
                 else:
                     gamestate.add_item_to_inventory(item.get_name(), item)
@@ -338,6 +340,11 @@ def inventory_handler(gamestate, action, obj_name):
 
             # If the item was could not be taken
             return "That item cannot be taken"
+
+        # if it was an item already in the inventory
+        if obj_name in gamestate.get_inventory():
+            return "That item is already in your inventory"
+
         return "There is no item with that name here"
 
     # Otherwise the action is a drop item, so tries to drop it
@@ -362,11 +369,23 @@ def eat_handler(gamestate, obj_name):
     item = current_room.get_item_by_name(obj_name)
     if item is not None:
         if item.get_type() == "food":
+            message = "You have consumed the " + item.get_name()
             if obj_name == "blackberries":
-                return "You have consumed the " + item.get_name()
+                print(message)
+                return "The blackberries are so juicy and delicious!"
+
             else:
                 current_room.remove_item(item)
-                return "You have consumed the " + item.get_name()
+
+                if obj_name == "slice of chocolate cake":
+                    print(message)
+                    eat_message = "You close your eyes, savoring the taste of the " \
+                                  "chocolate cake. As you enjoy the delicious taste, " \
+                                  "you see a vision in your mind's eye. You see a mushroom " \
+                                  " and a starry night sky. What could this mean?"
+                    return eat_message
+                else:
+                    return message
         return "You can't eat the " + item.get_name()
     else:
         # if the item is in the player's inventory
@@ -374,7 +393,20 @@ def eat_handler(gamestate, obj_name):
         if item is not None:
             if item.get_type() == "food":
                 gamestate.remove_item_from_inventory(obj_name)
-                return "You have consumed the " + item.get_name()
+                message = "You have consumed the " + item.get_name()
+                
+                if obj_name == "blackberries":
+                    print(message)
+                    return "The blackberries are so juicy and delicious!"
+                elif obj_name == "slice of chocolate cake":
+                    print(message)
+                    eat_message = "You close your eyes, savoring the taste of the " \
+                                  "chocolate cake. As you enjoy the delicious taste, " \
+                                  "you see a vision in your mind's eye. You see a mushroom " \
+                                  " and a starry night sky. What could this mean?"
+                    return eat_message
+                else:
+                    return message
             return "You can't eat the " + item.get_name()
     return "There is no item with that name here"
 
