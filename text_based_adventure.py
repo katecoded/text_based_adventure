@@ -70,10 +70,24 @@ def main():
         # get the command from the user
         user_command = input("\n> ")
 
-        # if that command is to end the game, exit the game
+        # if that command is to end the game, exit the game after
+        # a confirmation
         if user_command.lower().strip() in\
                 ["exit", "exit game", "end", "end game"]:
-            running = False
+            # confirm the user's choice
+            print("Warning - exiting does not save the game. "
+                  "\nAre you sure? (Y/N)")
+            choosing = True
+            while choosing:
+                choice = input("> ")
+                if choice.lower().strip() in ["yes", "y", "1"]:
+                    print("Thank you for playing!")
+                    choosing = False
+                    running = False
+                elif choice.lower().strip() in ["no", "n", "0"]:
+                    choosing = False
+                else:
+                    print("Not a valid choice. Try again.")
             continue
 
         # otherwise, pass that command on to the parser and output
@@ -83,9 +97,26 @@ def main():
         # if the diary is in the user's inventory, that triggers the
         # end of the game
         if "diary" in game.get_inventory():
-            print("\nEpilogue.\n"
-                  "That concludes The Whimsical Castle. "
-                  "Thank you for playing!")
+            print("\nEpilogue"
+                  "\nAn odd feeling comes over you as you hold the diary - "
+                  "you feel strangely as if you have seen it before. And as "
+                  "the peculiar sense of familiarity overtakes you, your "
+                  "hands tremble as you open the book. "
+                  "\nAll at once, a glow, gentle at first and then "
+                  "overwhelmingly bright, shines from the diary. You have no "
+                  "time to be afraid as the world seems to twist and tilt "
+                  "sideways - and then, it rights itself. A strange sense of "
+                  "calm flows through you, before you throw the book aside "
+                  "with a jolt. This is your castle! No wonder it had "
+                  "seemed so familiar. You had just been working on a "
+                  "complicated spell this morning before..."
+                  "\nYou smacked a hand to your forehead as memories of the "
+                  "massive explosion of magic invade your mind, groaning at "
+                  "the amount of repairs you'll have to do. "
+                  "This is the last time you ever take advice from a "
+                  "giant mushroom."
+                  "\n\nThis concludes The Whimsical Castle."
+                  "\nThank you for playing!")
             running = False
 
 

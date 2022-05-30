@@ -94,7 +94,8 @@ class TextBasedAdventureTestCase(unittest.TestCase):
         (This test validates that the main script exits and therefore does
         not require asserts.)
         """
-        test_inputs = ["exit", "exit game", "end", "end game"]
+        test_inputs = ["exit", "y", "exit game", "yes", "end", "1",
+                       "end game", "Yes"]
         with mock.patch('sys.stdout', new_callable=StringIO):
             with mock.patch('builtins.input', side_effect=test_inputs):
                 main()
@@ -117,6 +118,7 @@ class TextBasedAdventureTestCase(unittest.TestCase):
                                " " + item)
             expected_output.append(courtyard["items"][item]["description"])
         test_inputs.append("exit")
+        test_inputs.append("y")
 
         with mock.patch('sys.stdout', new_callable=StringIO) as mock_out:
             with mock.patch('builtins.input', side_effect=test_inputs):
@@ -140,6 +142,7 @@ class TextBasedAdventureTestCase(unittest.TestCase):
                                " " + door)
             expected_output.append(courtyard["doors"][door]["description"])
         test_inputs.append("exit")
+        test_inputs.append("y")
 
         with mock.patch('sys.stdout', new_callable=StringIO) as mock_out:
             with mock.patch('builtins.input', side_effect=test_inputs):

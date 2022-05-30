@@ -1,14 +1,14 @@
 {
 	"name": "Bathroom",
-	"short_description": "A luxurious bathroom filled with various toiletries.",
-	"long_description": "The wizard's bathroom is inordinately ornate with small scultupures and lavish adronments. You can tell the wizard wanted to spend his private time in splendor.",
+	"short_description": "A luxurious bathroom filled with sculptures and various toiletries.",
+	"long_description": "The wizard's bathroom is inordinately ornate with small sculptures and lavish adornments. The mirror above the vanity has a frame that appears to be pure gold. You can the wizard who lives here wanted to spend their private time in splendor.",
 	"doors": {
 		"decorative doorway": {
 			"destination": "Wizard's Study",
 			"direction": "south",
 			"key": "golden key",
 			"locked": false,
-			"description": "The door is decorated with ornate designs of what appear to be golden flowers."
+			"description": "The door is decorated with ornate designs of what appear to be golden flowers. A strange, glowing aura lays across the doorway that seems to ripple like water when you touch it."
 		}
 	},
 	"items": {
@@ -27,8 +27,8 @@
 			"takeable": false,
 			"type": "default"
 		},
-    		"luxurious bath": {
-			"description": "The wizard seems to have spent a lot of time and effort designing the bath. The large, circular tub is almost 10 feet in radius, enough to fit several people. Sculptures of small cherubs holding little pitchers line the sides. Presumably the pitchers pour water when it is on. The tub is currently filled, alhough you find the water is cold when you dip your hand inside.",
+		"luxurious bath": {
+			"description": "The wizard seems to have spent a lot of time and effort designing the bath. The large, circular tub is almost 10 feet in radius, enough to fit several people. Sculptures of small cherubs holding little pitchers line the sides. Presumably the pitchers pour water when it is on. The tub is currently filled, although you find the water is cold when you dip your hand inside.",
 			"takeable": false,
 			"type": "default"
 		}
