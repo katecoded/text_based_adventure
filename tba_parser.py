@@ -123,28 +123,7 @@ def non_interactive_command_handler(command, gamestate):
         return "Game Saved"
     # Loads gamestate from a file
     elif command == "loadgame":
-        # first, confirm choice to load game
-        print("Are you sure you would like to load your save file? (Y/N)")
-        choosing = True
-        while choosing:
-            choice = input("> ")
-            if choice.lower().strip() in ["y", "yes", "1"]:
-                choosing = False
-                # check if files exist to be loaded
-                if os.path.exists('saves/player_loc.txt'):
-                    load.load_game(gamestate)
-                    gamestate.get_current_room().set_visited()
-                    print("Game Loaded \n")
-                    print(gamestate.get_current_room().get_name())
-                    print(gamestate.get_current_room().get_long_description())
-                    return gamestate.get_current_room().get_doors_and_items_description()
-                else:
-                    return "No save file to load"
-            elif choice.lower().strip() in ["n", "no", "0"]:
-                choosing = False
-                return "No Game Loaded"
-            else:
-                print("Not a valid choice. Try again.")
+        return load_game_handler(gamestate)
     # Gives long description of current room
     elif command == "look":
         # returns long description of room
@@ -181,6 +160,35 @@ def interactive_command_handler(action, str_list, gamestate):
     elif len(str_list) > 0 and action in talk_actions:
         return talk_handler(gamestate, str_list[0])
     return "Sorry I don't understand how to do that"
+
+
+def load_game_handler(gamestate):
+    """
+    Handler that handles confirmation and loading
+    of save files.
+    """
+    # first, confirm choice to load game
+    print("Are you sure you would like to load your save file? (Y/N)")
+    choosing = True
+    while choosing:
+        choice = input("> ")
+        if choice.lower().strip() in ["y", "yes", "1"]:
+            choosing = False
+            # check if files exist to be loaded
+            if os.path.exists('saves/player_loc.txt'):
+                load.load_game(gamestate)
+                gamestate.get_current_room().set_visited()
+                print("Game Loaded \n")
+                print(gamestate.get_current_room().get_name())
+                print(gamestate.get_current_room().get_long_description())
+                return gamestate.get_current_room().get_doors_and_items_description()
+            else:
+                return "No save file to load"
+        elif choice.lower().strip() in ["n", "no", "0"]:
+            choosing = False
+            return "No save file loaded"
+        else:
+            print("Not a valid choice. Try again.")
 
 
 def movement_handler(gamestate, direction, known_status):
