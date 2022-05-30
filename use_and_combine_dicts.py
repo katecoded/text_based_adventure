@@ -9,7 +9,7 @@ eight_ball_list = ["It is certain.", "It it's decidedly so.", "Without a doubt."
                    "Outlook not so good.", "Very doubtful."]
 
 use_dict = {
-    ("magic 8-ball", None): (eight_ball_list, None),
+    ("magic 8-ball", None): (eight_ball_list, None, False),
     ("red potion", "mass of mushrooms"): (["Pouring the red potion on the mass of mushroom seems to have had an "
                                            "effect. After a few seconds a section starts shrinking, leaving enough "
                                            "room for you to pass"], "annex entryway, False"),
