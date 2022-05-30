@@ -25,6 +25,10 @@ use_dict = {
                                              "blackberry cobbler. \"In case you haven't found it, I think I dropped "
                                              "the key to the potion room in the pile of cookbooks. You can have it for "
                                              "your help!\""], "busy blue-haired fairy"),
+    ("ghost", "annoyed stern-looking ghost"): (["\"Thank you for bringing Snoozes to me.\" says the stern-looking ghost. "
+                                             "\"You know, I read in one of these potions books that combining a gem with "
+                                             "a rune scroll can activate it or some "
+                                             "such thing.\""], "stern-looking ghost"),
     ("examine", "rubble"): (["Sifting through the rubble you notice something wooden underneath. You take a few "
                              "minutes to move the stone away, and you find a trap door."], "trapdoor"),
     ("examine", "weapon rack"): (["Actually, on closer look, there are a few metal rods here that don't seem to be"
