@@ -19,7 +19,7 @@ def set_up_game():
     random.shuffle(authors)
     starting_location = "Courtyard"
 
-    return Game(title, authors, load_rooms(), starting_location, use_dict, combine_dict)
+    return Game(title, authors, load_rooms(), starting_location, {}, use_dict, combine_dict)
 
 
 def introduction(game):
