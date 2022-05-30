@@ -70,10 +70,24 @@ def main():
         # get the command from the user
         user_command = input("\n> ")
 
-        # if that command is to end the game, exit the game
+        # if that command is to end the game, exit the game after
+        # a confirmation
         if user_command.lower().strip() in\
                 ["exit", "exit game", "end", "end game"]:
-            running = False
+            # confirm the user's choice
+            print("Warning - exiting does not save the game. "
+                  "\nAre you sure? (Y/N)")
+            choosing = True
+            while choosing:
+                choice = input("> ")
+                if choice.lower().strip() in ["yes", "y", "1"]:
+                    print("Thank you for playing!")
+                    choosing = False
+                    running = False
+                elif choice.lower().strip() in ["no", "n", "0"]:
+                    choosing = False
+                else:
+                    print("Not a valid choice. Try again.")
             continue
 
         # otherwise, pass that command on to the parser and output
