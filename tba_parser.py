@@ -394,7 +394,7 @@ def eat_handler(gamestate, obj_name):
             if item.get_type() == "food":
                 gamestate.remove_item_from_inventory(obj_name)
                 message = "You have consumed the " + item.get_name()
-                
+
                 if obj_name == "blackberries":
                     print(message)
                     return "The blackberries are so juicy and delicious!"
