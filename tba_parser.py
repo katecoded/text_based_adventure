@@ -268,9 +268,12 @@ def examine_handler(gamestate, obj_name):
     # if it is an item in the current room
     item = current_room.get_item_by_name(obj_name)
     if item is not None:
-        (message, hidden) = gamestate.get_use_info(("examine", item.get_name()))
+        (message, hidden, remove) = gamestate.get_use_info(("examine", item.get_name()))
         if hidden is not None:
             reveal_hidden(hidden, gamestate)
+            if remove:
+                cur_room = gamestate.get_current_room()
+                cur_room.remove_item(item)
             if message is not None:
                 return item.get_description() + "\n" + random.choice(message)
 
@@ -427,10 +430,14 @@ def use_handler(item, use_on_item, action, gamestate):
     """
     Will handle any use actions not involving doors
     """
-    (message, hidden) = gamestate.get_use_info((item, use_on_item))
+    (message, hidden, remove) = gamestate.get_use_info((item, use_on_item))
     if message is not None:
         if hidden is not None:
             reveal_hidden(hidden, gamestate)
+        if remove:
+            cur_room = gamestate.get_current_room()
+            removed_item = cur_room.get_item_by_name(use_on_item)
+            cur_room.remove_item(removed_item)
         return random.choice(message)
     if action in use_actions:
         return "You cannot use " + item + " on " + use_on_item
