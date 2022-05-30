@@ -246,6 +246,11 @@ def perform_movement(gamestate, door):
 
 
 def print_art(obj_name):
+    """
+    Outputs ASCII art for an object if it has any.
+    :obj_name: A String name of an object.
+    """
+    print(obj_name)
     if obj_name == "tower":
         art_file = open('tba_ascii_art/tower.txt', 'r')
     elif obj_name == "flower":
@@ -256,6 +261,8 @@ def print_art(obj_name):
         art_file = open('tba_ascii_art/mushrooms.txt', 'r')
     elif obj_name == "rusty sword":
         art_file = open('tba_ascii_art/sword.txt', 'r')
+    elif obj_name == "glass door":
+        art_file = open('tba_ascii_art/glass_door.txt', 'r')
     else:
         art_file = None
 
@@ -292,11 +299,13 @@ def examine_handler(gamestate, obj_name):
         # if it is a door in the current room
         door = current_room.get_door_by_name(obj_name)
         if door is not None:
+            print_art(obj_name)
             return door.get_description()
         else:
             # if it is an item in the player's inventory
             if obj_name in gamestate.get_inventory():
                 item = gamestate.get_inventory()[obj_name]
+                print_art(obj_name)
                 return item.get_description()
     # if the object is not found in the room or inventory
     return "There is no item with that name here"
