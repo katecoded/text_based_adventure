@@ -22,9 +22,9 @@ use_dict = {
                                         "away as if it were a layer of dust, and the sword regains the luster it had "
                                         "before."], "shiny sword"),
     ("blackberries", "frowning blue-haired fairy"): (["\"Thank you!\" the fairy exclaims as she hurriedly sets to work on the "
-                                                     "blackberry cobbler. \"In case you haven't found it, I think I dropped "
-                                                     "the key to the potion room in the pile of cookbooks. You can have it for "
-                                                     "your help!\""], "busy blue-haired fairy"),
+                                                      "blackberry cobbler. \"In case you haven't found it, I think I dropped "
+                                                      "the key to the potion room in the pile of cookbooks. You can have it "
+                                                      "for your help!\""], "busy blue-haired fairy"),
     ("ghost", "annoyed stern-looking ghost"): (["\"Thank you for bringing Snoozes to me.\" says the stern-looking ghost. "
                                                 "\"You know, I read in one of these potions books that combining a gem with "
                                                 "a rune scroll can activate it or some "
