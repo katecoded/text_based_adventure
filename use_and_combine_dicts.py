@@ -12,7 +12,7 @@ use_dict = {
     ("magic 8-ball", None): (eight_ball_list, None, False),
     ("red potion", "mass of mushrooms"): (["Pouring the red potion on the mass of mushroom seems to have had an "
                                            "effect. After a few seconds a section starts shrinking, leaving enough "
-                                           "room for you to pass"], "annex entryway", False),
+                                           "room for you to pass"], "annex entryway", True),
     ("mounted telescope", "stone pedestal"): (["As you place align the telescope's legs into the small indentations "
                                                "in the pedestal you feel a tremor. Suddenly a section of the west "
                                                "wall starts shifting, moving downwards into the floor. Slowly, a "
