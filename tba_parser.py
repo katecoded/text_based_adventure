@@ -260,7 +260,7 @@ def examine_handler(gamestate, obj_name):
         if hidden is not None:
             reveal_hidden(hidden, gamestate)
             if message is not None:
-                return item.get_description() + "\n" + message
+                return item.get_description() + "\n" + random.choice(message)
 
         print_art(obj_name)
         return item.get_description()

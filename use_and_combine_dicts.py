@@ -21,6 +21,10 @@ use_dict = {
     ("tube of paste", "rusty sword"): (["You apply the paste to the sword. To your astonishment the rust simply falls "
                                         "away as if it were a layer of dust, and the sword regains the luster it had "
                                         "before."], "shiny sword"),
+    ("blackberries", "blue-haired fairy"): (["\"Thank you!\" the fairy exclaims as she hurriedly sets to work on the "
+                                             "blackberry cobbler. \"In case you haven't found it, I think I dropped "
+                                             "the key to the potion room in the pile of cookbooks. You can have it for "
+                                             "your help!\""], "blue-haired fairy"),
     ("examine", "rubble"): (["Sifting through the rubble you notice something wooden underneath. You take a few "
                              "minutes to move the stone away, and you find a trap door."], "trapdoor"),
     ("examine", "weapon rack"): (["Actually, on closer look, there are a few metal rods here that don't seem to be"
@@ -30,7 +34,8 @@ use_dict = {
                                         "the berries here looks familiar. After looking closer you confirm that this "
                                         "is actually a blackberry bush"], "blackberry bushes"),
     ("examine", "blackberry bushes"): (["You poke gingerly at the blackberries, then pop one into your mouth. Yup, "
-                                        "definitely blackberries. You think you can pick some."], "blackberries")
+                                        "definitely blackberries. You think you can pick some."], "blackberries"),
+    ("examine", "stacks of cookbooks"): (["Digging through the pile causes a copper key to fall out"], "copper key")
 }
 
 hint_scroll = Item("awakened rune scroll", "Although you cannot read the runes, suddenly you feel as if you understand "
