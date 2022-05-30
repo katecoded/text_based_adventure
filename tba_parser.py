@@ -519,9 +519,9 @@ def talk_handler(gamestate, creature_name):
     current_room = gamestate.get_current_room()
     item = current_room.get_item_by_name(creature_name)
     if item is not None:
-        if creature_name == "blue-haired fairy":
+        if creature_name == "frowning blue-haired fairy" or creature_name == "busy blue-haired fairy":
             fairy_talk_handler(item)
-        elif creature_name == "stern-looking ghost":
+        elif creature_name == "annoyed stern-looking ghost" or creature_name == "stern-looking ghost":
             ghost_talk_handler(item)
         elif creature_name == "giant mushroom":
             print("Giant Mushroom: 'Hi there.'")
