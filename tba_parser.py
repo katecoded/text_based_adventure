@@ -15,7 +15,7 @@ use_actions = ["use", "utilize"]
 eat_actions = ["eat", "consume", "drink"]
 examine_actions = ["lookat", "examine"]
 combine_actions = ["combine"]
-talk_actions = ["talk", "speak"]
+talk_actions = ["talk", "speak", "talkto", "speakto"]
 give_actions = ["give", "donate", "handover"]
 
 inventory_actions = pickup_actions + drop_actions
@@ -36,6 +36,8 @@ def pre_process_commands(input):
     """
     refined_input = input.replace("look at", "lookat", 1)
     refined_input = refined_input.replace("hand over", "handover", 1)
+    refined_input = refined_input.replace("talk to", "talkto", 1)
+    refined_input = refined_input.replace("speak to", "speakto", 1)
     return refined_input.replace("pick up", "pickup", 1)
 
 
@@ -116,7 +118,8 @@ def non_interactive_command_handler(command, gamestate):
     # Returns vocabulary of usable actions
     elif command == "help":
         return "The following is a list of allowed commands:\nHelp\nInventory\n" \
-               "Take\nDrop\nLook\nLook At\nGo\nUse\nOpen\nUnlock\nSavegame\nLoadgame\n" \
+               "Take\nDrop\nLook\nLook At\nGo\nUse\nOpen\nUnlock\nCombine\nGive\n" \
+               "Eat\nTalk To\nSavegame\nLoadgame\n" \
                "Certain synonyms such as \"Pick Up\" or \"Move\" will also work"
     # Saves current game-state to a file
     elif command == "savegame":
