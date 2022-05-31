@@ -53,7 +53,7 @@ use_dict = {
                                           "bubbling."], "empty potion bottle", False),
     ("examine", "mysterious bushes"): (["As you are about to walk away, you focus on one bush in particular. You think "
                                         "the berries here looks familiar. After looking closer, you confirm that this "
-                                        "one is actually a blackberry bush"], "blackberry bush", False),
+                                        "one is actually a blackberry bush."], "blackberry bush", False),
     ("examine", "blackberry bush"): (["You poke gingerly at the blackberries, then pop one into your mouth. Yup, "
                                      "definitely blackberries. You think you can pick some."], "blackberries", False),
     ("examine", "stack of cookbooks"): (["Digging through the pile causes a copper key to fall "
