@@ -15,7 +15,7 @@ use_actions = ["use", "utilize"]
 eat_actions = ["eat", "consume", "drink"]
 examine_actions = ["lookat", "examine"]
 combine_actions = ["combine"]
-talk_actions = ["talk", "speak"]
+talk_actions = ["talk", "speak", "talkto", "speakto"]
 give_actions = ["give", "donate", "handover"]
 
 inventory_actions = pickup_actions + drop_actions
@@ -36,6 +36,8 @@ def pre_process_commands(input):
     """
     refined_input = input.replace("look at", "lookat", 1)
     refined_input = refined_input.replace("hand over", "handover", 1)
+    refined_input = refined_input.replace("talk to", "talkto", 1)
+    refined_input = refined_input.replace("speak to", "speakto", 1)
     return refined_input.replace("pick up", "pickup", 1)
 
 
@@ -116,7 +118,8 @@ def non_interactive_command_handler(command, gamestate):
     # Returns vocabulary of usable actions
     elif command == "help":
         return "The following is a list of allowed commands:\nHelp\nInventory\n" \
-               "Take\nDrop\nLook\nLook At\nGo\nUse\nOpen\nUnlock\nSavegame\nLoadgame\n" \
+               "Take\nDrop\nLook\nLook At\nGo\nUse\nOpen\nUnlock\nCombine\nGive\n" \
+               "Eat\nTalk To\nSavegame\nLoadgame\n" \
                "Certain synonyms such as \"Pick Up\" or \"Move\" will also work"
     # Saves current game-state to a file
     elif command == "savegame":
@@ -259,7 +262,7 @@ def print_art(obj_name):
         art_file = open('tba_ascii_art/planet.txt', 'r')
     elif obj_name == "mushrooms":
         art_file = open('tba_ascii_art/mushrooms.txt', 'r')
-    elif obj_name == "rusty sword":
+    elif obj_name == "rusty sword" or obj_name == "shiny sword":
         art_file = open('tba_ascii_art/sword.txt', 'r')
     elif obj_name == "glass door":
         art_file = open('tba_ascii_art/glass_door.txt', 'r')
@@ -330,6 +333,8 @@ def inventory_handler(gamestate, action, obj_name):
                     if "blackberries" not in player_inv:
                         gamestate.add_item_to_inventory(item.get_name(), item)
                         return item.get_name() + " is now in your inventory"
+                    else:
+                        return "That item is already in your inventory"
 
                 else:
                     gamestate.add_item_to_inventory(item.get_name(), item)
@@ -338,6 +343,11 @@ def inventory_handler(gamestate, action, obj_name):
 
             # If the item was could not be taken
             return "That item cannot be taken"
+
+        # if it was an item already in the inventory
+        if obj_name in gamestate.get_inventory():
+            return "That item is already in your inventory"
+
         return "There is no item with that name here"
 
     # Otherwise the action is a drop item, so tries to drop it
@@ -362,11 +372,23 @@ def eat_handler(gamestate, obj_name):
     item = current_room.get_item_by_name(obj_name)
     if item is not None:
         if item.get_type() == "food":
+            message = "You have consumed the " + item.get_name()
             if obj_name == "blackberries":
-                return "You have consumed the " + item.get_name()
+                print(message)
+                return "The blackberries are so juicy and delicious!"
+
             else:
                 current_room.remove_item(item)
-                return "You have consumed the " + item.get_name()
+
+                if obj_name == "slice of chocolate cake":
+                    print(message)
+                    eat_message = "You close your eyes, savoring the taste of the " \
+                                  "chocolate cake. As you enjoy the delicious taste, " \
+                                  "you see a vision in your mind's eye. You see a mushroom " \
+                                  " and a starry night sky. What could this mean?"
+                    return eat_message
+                else:
+                    return message
         return "You can't eat the " + item.get_name()
     else:
         # if the item is in the player's inventory
@@ -374,7 +396,20 @@ def eat_handler(gamestate, obj_name):
         if item is not None:
             if item.get_type() == "food":
                 gamestate.remove_item_from_inventory(obj_name)
-                return "You have consumed the " + item.get_name()
+                message = "You have consumed the " + item.get_name()
+
+                if obj_name == "blackberries":
+                    print(message)
+                    return "The blackberries are so juicy and delicious!"
+                elif obj_name == "slice of chocolate cake":
+                    print(message)
+                    eat_message = "You close your eyes, savoring the taste of the " \
+                                  "chocolate cake. As you enjoy the delicious taste, " \
+                                  "you see a vision in your mind's eye. You see a mushroom " \
+                                  " and a starry night sky. What could this mean?"
+                    return eat_message
+                else:
+                    return message
             return "You can't eat the " + item.get_name()
     return "There is no item with that name here"
 
@@ -496,18 +531,20 @@ def fairy_talk_handler(item):
         while loop:
             choice = input("> ")
             if choice == "1":
+                loop = False
                 print("You: 'I have some blackberries!'")
-                print("Blue-haired Fairy: 'Oh, that's great! Just give them to me and I'll get that cobbler started.'")
-                loop = False
+                return "Blue-haired Fairy: 'Oh, that's great! Just give them to me and I'll get that cobbler started.'"
+
             elif choice == "2":
-                print("You: 'Sorry, I don't have any blackberries right now.'")
-                print("Blue-haired Fairy: 'That's alright. Come tell me if you find any!'")
                 loop = False
+                print("You: 'Sorry, I don't have any blackberries right now.'")
+                return "Blue-haired Fairy: 'That's alright. Come tell me if you find any!'"
+
             else:
                 print("Not a valid choice. Try again.")
 
     elif item.get_description() == "The tiny blue-haired fairy is busy working on a blackberry cobbler.":
-        print("Blue-haired Fairy: 'This blackberry cobbler is coming along well! Thank you for your help!'")
+        return "Blue-haired Fairy: 'This blackberry cobbler is coming along well! Thank you for your help!'"
 
 
 def ghost_talk_handler(item):
@@ -535,21 +572,23 @@ def ghost_talk_handler(item):
                 print("2. 'I've brought Snoozes with me!'")
                 print("3. 'I don't have Snoozes with me, sorry.'")
             elif choice == "2":
+                loop = False
                 print("You: 'I've brought Snoozes with me!'")
-                print("Stern-looking Ghost: 'Thank you for finding him. You can leave him here with me. "
-                      "I'll have a word with him after he manages to wake up.'")
+                message = "Stern-looking Ghost: 'Thank you for finding him. You can leave him here with me. " \
+                          "I'll have a word with him after he manages to wake up.'"
+                return message
 
-                loop = False
             elif choice == "3":
-                print("You: I don't have Snoozes with me, sorry.'")
-                print("Stern-looking Ghost: 'That's alright. Just bring him here if you end up finding him.'")
                 loop = False
+                print("You: I don't have Snoozes with me, sorry.'")
+                return "Stern-looking Ghost: 'That's alright. Just bring him here if you end up finding him.'"
+
             else:
                 print("Not a valid choice. Try again.")
 
     elif item.get_description() == "The authoritative-looking Chief of Ghostly Staff " \
                                    "seems a little less annoyed now. Maybe.":
-        print("Stern-looking Ghost: 'Thanks for bringing Snoozes to me. I'll be having a word with him after he wakes up.'")
+        return "Stern-looking Ghost: 'Thanks for bringing Snoozes to me. I'll be having a word with him after he wakes up.'"
 
 
 def talk_handler(gamestate, creature_name):
@@ -557,9 +596,9 @@ def talk_handler(gamestate, creature_name):
     item = current_room.get_item_by_name(creature_name)
     if item is not None:
         if creature_name == "frowning blue-haired fairy" or creature_name == "busy blue-haired fairy":
-            fairy_talk_handler(item)
+            return fairy_talk_handler(item)
         elif creature_name == "annoyed stern-looking ghost" or creature_name == "stern-looking ghost":
-            ghost_talk_handler(item)
+            return ghost_talk_handler(item)
         elif creature_name == "giant mushroom":
             print("Giant Mushroom: 'Hi there.'")
             print("Choose a response:")
@@ -570,21 +609,22 @@ def talk_handler(gamestate, creature_name):
             while loop:
                 choice = input("> ")
                 if choice == "1":
+                    loop = False
                     print("You: 'Let me guess, you want me to find something for you too?'")
-                    print("Giant Mushroom: 'No, I don't need anything. Just wanted to say hi. Have a nice day!'")
-                    loop = False
+                    message = "Giant Mushroom: 'No, I don't need anything. Just wanted to say hi. Have a nice day!'"
+                    return message
                 elif choice == "2":
-                    print("You: ''You can talk!?'")
-                    print("Giant Mushroom: 'Yep. It's always such a surprise to people when they find out. "
-                          "Anyway, I hope you have a great day!'")
                     loop = False
+                    print("You: ''You can talk!?'")
+                    message = "Giant Mushroom: 'Yep. It's always such a surprise to people when they find out. " \
+                              "Anyway, I hope you have a great day!'"
+                    return message
                 else:
                     print("Not a valid choice. Try again.")
         else:
             # if it is an item in the room, but can't be spoken to
             return "You can't talk to the " + creature_name
 
-        return ""
     else:
         # if it is a creature in the player's inventory (like a ghost)
         if gamestate.get_item_by_name(creature_name) is not None:
