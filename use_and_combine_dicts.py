@@ -73,9 +73,9 @@ telescope = Item("mounted telescope", "At first glance, the telescope seems like
                                       "you try and use it to see something in the distance, you realize it is capable "
                                       "of showing a great deal. Perhaps it is quite magical.", True)
 
-gold_key = Item("gold key", "A key that seems to be made of pure gold. You think to bite it to make sure, but "
-                            "decide against it. Somehow you feel it would leave teethmarks and you don't want "
-                            "to damage it.", True, "key")
+gold_key = Item("golden key", "A key that seems to be made of pure gold. You think to bite it to make sure, but "
+                              "decide against it. Somehow you feel it would leave teethmarks and you don't want "
+                              "to damage it", True, "key")
 
 combine_dict = {
     ("small telescope", "tripod parts"): telescope,
