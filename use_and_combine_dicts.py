@@ -56,7 +56,8 @@ use_dict = {
                                         "is actually a blackberry bush"], "blackberry bushes", False),
     ("examine", "blackberry bushes"): (["You poke gingerly at the blackberries, then pop one into your mouth. Yup, "
                                         "definitely blackberries. You think you can pick some."], "blackberries", False),
-    ("examine", "stacks of cookbooks"): (["Digging through the pile causes a copper key to fall out"], "copper key", False)
+    ("examine", "stacks of cookbooks"): (["Digging through the pile causes a copper key to fall out"], "copper key", False),
+    ("examine", "basket"): (["Looking inside the basket you only see a single normal egg. Is that it?"], "egg", False)
 }
 
 hint_scroll = Item("awakened rune scroll", "Although you cannot read the runes, suddenly you feel as if you understand "
