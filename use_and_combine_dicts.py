@@ -80,5 +80,5 @@ gold_key = Item("gold key", "A key that seems to be made of pure gold. You think
 combine_dict = {
     ("small telescope", "tripod parts"): telescope,
     ("scroll of runes", "teal gem"): hint_scroll,
-    ("gold potion", "flower"): gold_key
+    ("golden potion", "flower"): gold_key
 }
