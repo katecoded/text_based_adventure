@@ -150,3 +150,45 @@ class TextBasedAdventureTestCase(unittest.TestCase):
 
         for expected in expected_output:
             self.assertIn(expected, mock_out.getvalue())
+
+    def test_complete_game(self):
+        """
+        Validates that the game can be completed from start to finish.
+        """
+        test_inputs = ["take ivory key", "east", "take small telescope",
+                       "east", "take iron key", "west", "unlock oak door "
+                       "with ivory key", "west", "west", "examine rubble",
+                       "unlock trapdoor with iron key", "north", "west",
+                       "examine weapon rack", "take tripod parts", "north",
+                       "take red potion", "south", "east", "south", "east",
+                       "east", "north", "north", "use red potion on mass of "
+                       "mushrooms", "north", "combine small telescope with "
+                       "tripod parts", "use mounted telescope on stone "
+                       "pedestal", "west", "north", "take diary"]
+        with mock.patch('sys.stdout', new_callable=StringIO) as mock_out:
+            with mock.patch('builtins.input', side_effect=test_inputs):
+                main()
+
+        expected_epilogue = "\nEpilogue" \
+            "\nAn odd feeling comes over you as you hold the diary - " \
+            "you feel strangely as if you have seen it before. And as " \
+            "the peculiar sense of familiarity overtakes you, your " \
+            "hands tremble as you open the book. " \
+            "\nAll at once, a glow, gentle at first and then " \
+            "overwhelmingly bright, shines from the diary. You have no " \
+            "time to be afraid as the world seems to twist and tilt " \
+            "sideways - and then, it rights itself. A strange sense of " \
+            "calm flows through you, before you throw the book aside " \
+            "with a jolt. This is your castle! No wonder it had " \
+            "seemed so familiar. You had just been working on a " \
+            "complicated spell this morning before..." \
+            "\nYou smacked a hand to your forehead as memories of the " \
+            "massive explosion of magic invade your mind, groaning at " \
+            "the amount of repairs you'll have to do. " \
+            "This is the last time you ever take advice from a " \
+            "giant mushroom." \
+            "\n\nThis concludes The Whimsical Castle." \
+            "\nThank you for playing!"
+
+        # assert epilogue is included in output (indicating end of game)
+        self.assertIn(expected_epilogue, mock_out.getvalue())
