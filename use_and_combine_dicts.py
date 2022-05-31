@@ -50,7 +50,7 @@ use_dict = {
     ("examine", "potion rack"): (["After scanning the potions bottles a bit, you do find one that looks intact."],
                                  "empty potion bottle", False),
     ("examine", "lit cast-iron stove"): (["The contents of the pan seem to have liquefied due to the heat, and are now "
-                                          "bubbling."], "empty potion bottle", False),
+                                          "bubbling."], "metal pan", False),
     ("examine", "mysterious bushes"): (["As you are about to walk away, you focus on one bush in particular. You think "
                                         "the berries here looks familiar. After looking closer, you confirm that this "
                                         "one is actually a blackberry bush."], "blackberry bush", False),
