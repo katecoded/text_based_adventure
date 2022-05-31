@@ -21,6 +21,15 @@ use_dict = {
     ("tube of paste", "rusty sword"): (["You apply the paste to the sword. To your astonishment the rust simply falls "
                                         "away as if it were a layer of dust, and the sword regains the luster it had "
                                         "before."], "shiny sword", True),
+    ("torch", "cast-iron stove"): (["Sticking the torch inside the stove causes the drywood inside to catch aflame. "
+                                    "Waiting for a couple of seconds causes the flame to grow into a sizeable fire, "
+                                    "turning the stove on"], "lit cast-iron stove", True),
+    ("empty potion bottle", "metal pan"): (["Gingerly, you dip the potion bottle into the liquid inside the pan. This "
+                                            "doesn't seem particularly safe, but you don't really have any better way "
+                                            "about it. The bottle fills with the golden liquid, producing a golden "
+                                            "potion. The hotness of the bottle makes you drop the bottle, but "
+                                            "thankfully it lands safely on a pile of scattered flower left over by "
+                                            "the cooks."], "golden potion", False),
     ("blackberries", "frowning blue-haired fairy"): (["\"Thank you!\" the fairy exclaims as she hurriedly sets to work on the "
                                                       "blackberry cobbler. \"In case you haven't found it, I think I dropped "
                                                       "the key to the potion room in the pile of cookbooks. You can have it "
@@ -34,6 +43,10 @@ use_dict = {
     ("examine", "weapon rack"): (["Actually, on closer look, there are a few metal rods here that don't seem to be"
                                   "weapons of any kind. In fact you've seen rods like these before. Some kind of "
                                   "tripod legs?"], "tripod parts", False),
+    ("examine", "potion rack"): (["After scanning the potions bottles a bit, you do find one that look intact"], 
+                                 "empty potion bottle", False),
+    ("examine", "lit cast-iron stove"): (["The contents of the pan seem to have liquefied due to the heat, and are now "
+                                          "bubbling."], "empty potion bottle", False),
     ("examine", "mysterious bushes"): (["As you are about to walk away you focus on one bush in particular. You think "
                                         "the berries here looks familiar. After looking closer you confirm that this "
                                         "is actually a blackberry bush"], "blackberry bushes", False),
