@@ -57,7 +57,7 @@ use_dict = {
     ("examine", "blackberry bush"): (["You poke gingerly at the blackberries, then pop one into your mouth. Yup, "
                                      "definitely blackberries. You think you can pick some."], "blackberries", False),
     ("examine", "stack of cookbooks"): (["Digging through the pile causes a copper key to fall "
-                                          "to the floor."], "copper key", False),
+                                        "to the floor."], "copper key", False),
     ("examine", "basket"): (["Looking inside the basket, you only see a single normal egg. Is that it?"], "egg", False)
 }
 
