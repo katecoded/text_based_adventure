@@ -10,6 +10,14 @@
             "locked": false,
             "description": "Made of frosted glass, the door is etched with depictions of various plants. It is cool to the touch."
         }
+        "mysterious door": {
+            "destination": "Egg Room",
+            "direction": "west",
+            "key": "",
+            "locked": false,
+            "description": "The door seems ethereal as if it was not made out of matter, but rather of the fabric of the cosmos itself..."
+            "hidden": true
+        }
     },
     "items": {
         "giant mushroom": {
@@ -19,6 +27,11 @@
         },
         "waterfalls": {
             "description": "The water is crystal clear, though you puzzle over its source. It seems to appear out of thin air, as if created by the bricks themselves.",
+            "takeable": false,
+            "type": "default"
+        },
+        "rock": {
+            "description": "A lone rock the size of an average dog stands in a clearing amidst the mushrooms. It must be most normal thing in this room.",
             "takeable": false,
             "type": "default"
         },
