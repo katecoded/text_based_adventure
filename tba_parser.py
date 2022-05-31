@@ -486,11 +486,13 @@ def use_handler(item, use_on_item, action, gamestate):
     (message, hidden, remove) = gamestate.get_use_info((item, use_on_item))
     if message is not None:
         if hidden is not None:
-            reveal_hidden(hidden, gamestate)
-        if remove:
-            cur_room = gamestate.get_current_room()
-            removed_item = cur_room.get_item_by_name(use_on_item)
-            cur_room.remove_item(removed_item)
+            already_revealed = reveal_hidden(hidden, gamestate)
+            if remove:
+                cur_room = gamestate.get_current_room()
+                removed_item = cur_room.get_item_by_name(use_on_item)
+                cur_room.remove_item(removed_item)
+            if not already_revealed:
+                return random.choice(message)
         return random.choice(message)
     if action in use_actions:
         return "You cannot use " + item + " on " + use_on_item
