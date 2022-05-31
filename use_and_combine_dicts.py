@@ -38,6 +38,10 @@ use_dict = {
                                                 "\"You know, I read in one of these potions books that combining a gem with "
                                                 "a rune scroll can activate it or some "
                                                 "such thing.\""], "stern-looking ghost", True),
+    ("shiny sword", "rock"): (["While thinking: \"I've seen this in a movie!\" you stab the sword into the rock. To "
+                               "you surprise, not only does the sword stick but a deep rumbling can be felt as if the "
+                               "very foundations of the castle were giving way. As the rumbling subsides you look at "
+                               "the wall ahead and find that a doorway has opened up."], "mysterious door", False),
     ("examine", "rubble"): (["Sifting through the rubble you notice something wooden underneath. You take a few "
                              "minutes to move the stone away, and you find a trap door."], "trapdoor", False),
     ("examine", "weapon rack"): (["Actually, on closer look, there are a few metal rods here that don't seem to be"
