@@ -289,11 +289,11 @@ def examine_handler(gamestate, obj_name):
     if item is not None:
         (message, hidden, remove) = gamestate.get_use_info(("examine", item.get_name()))
         if hidden is not None:
-            reveal_hidden(hidden, gamestate)
+            already_revealed = reveal_hidden(hidden, gamestate)
             if remove:
                 cur_room = gamestate.get_current_room()
                 cur_room.remove_item(item)
-            if message is not None:
+            if message is not None and not already_revealed:
                 return item.get_description() + "\n" + random.choice(message)
 
         print_art(obj_name)
@@ -640,13 +640,24 @@ def reveal_hidden(object_name, gamestate):
     exists in the hidden object dictionary and reveals it if exists
     :param object_name: name of hidden object that is revealed
     :param gamestate: Game object housing data of current playthrough
-    :return: n/a
+    :return: Boolean representing if the object has already previously
+        been revealed
     """
     cur_room = gamestate.get_current_room()
     hidden_object = cur_room.get_hidden_object_by_name(object_name)
+
+    # if the object has already been revealed previously, return True
+    already_revealed = bool(cur_room.get_item_by_name(object_name) or
+                            cur_room.get_door_by_name(object_name) or
+                            gamestate.get_item_by_name(object_name))
+    if already_revealed:
+        return True
+
     if hidden_object is not None:
         cur_room.remove_hidden(hidden_object)
         if isinstance(hidden_object, Item):
             cur_room.add_item(hidden_object)
         if isinstance(hidden_object, Door):
             cur_room.add_door(hidden_object)
+
+    return False
