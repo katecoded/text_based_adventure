@@ -9,7 +9,7 @@
             "key": "",
             "locked": false,
             "description": "Made of frosted glass, the door is etched with depictions of various plants. It is cool to the touch."
-        }
+        },
         "mysterious door": {
             "destination": "Egg Room",
             "direction": "west",
