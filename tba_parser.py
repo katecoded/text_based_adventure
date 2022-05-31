@@ -645,11 +645,8 @@ def reveal_hidden(object_name, gamestate):
     exists in the hidden object dictionary and reveals it if exists
     :param object_name: name of hidden object that is revealed
     :param gamestate: Game object housing data of current playthrough
-    :return: n/a
+    :return: boolean
     """
-    cur_room = gamestate.get_current_room()
-    hidden_object = cur_room.get_hidden_object_by_name(object_name)
-    if hidden_object is not None:
     cur_room = gamestate.get_current_room()
     hidden_object = cur_room.get_hidden_object_by_name(object_name)
     if hidden_object is not None:
