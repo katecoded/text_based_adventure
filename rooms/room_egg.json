@@ -1,7 +1,7 @@
 {
 	"name": "Egg Room",
 	"short_description": "Barely large enough to be called a room, it serves as the stashing place for the wizard's most secret items.",
-	"long_description": "The room is only a couple of meters wide and just barely tall enough to stand in. Curtains drop down from the ceiling around a central stone pillar reaching to about waist height. A small basket rests untop the pillar",
+	"long_description": "The room is only a couple of meters wide and just barely tall enough to stand in. Curtains drop down from the ceiling around a central stone pillar reaching to about waist height. A small basket rests utop the pillar",
 	"doors": {
 		"mysterious door": {
 			"destination": "Mushroom Forest",
@@ -12,8 +12,8 @@
 		}
 	},
 	"items": {
-    "lavish curtains": {
-			"description": "The curtains are red in hue, with elaborate gold and silver stiching weaving ornate patterns across their length. The curtains surround the central pillar with the basket on top. You can't tell if there's something suspending the curtains or if they are coming straight out of the rock itself.",
+    	"lavish curtains": {
+			"description": "The curtains are red in hue, with elaborate gold and silver stitching weaving ornate patterns across their length. The curtains surround the central pillar with the basket on top. You can't tell if there's something suspending the curtains or if they are coming straight out of the rock itself.",
 			"takeable": false,
 			"type": "default"
 		},
@@ -22,7 +22,7 @@
 			"takeable": false,
 			"type": "default"
 		},
-    "basket": {
+		"basket": {
 			"description": "A simple wooden basket resting on top of the stone pillar.",
 			"takeable": false,
 			"type": "default"
@@ -31,7 +31,7 @@
 			"description": "A perfectly oval white egg.",
 			"takeable": false,
 			"type": "food",
-      "hidden": true
+			"hidden": true
 		}
 	}
 }

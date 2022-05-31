@@ -36,12 +36,12 @@
             "type": "default"
         },
         "mysterious bushes":{
-            "description": "An out of place set of bushes grow in a corner, the only plants other than mushrooms here. As you examine them you see all sorts of otherwordly berries growing on them. All of them look too wild too eat.",
+            "description": "An out of place set of bushes grow in a corner, the only plants other than mushrooms here. As you examine them you see all sorts of otherworldly berries growing on them. All of them look too wild too eat.",
             "takeable": false,
             "type": "default"
         },
-        "blackberry bushes": {
-            "description": "A blackberry bush grows in a corner among other types of berry bushes. You can see clusters of blackberries.",
+        "blackberry bush": {
+            "description": "A blackberry bush grows in a corner among other types of berry bushes. You can see clusters of blackberries growing on it.",
             "takeable": false,
             "type": "default",
             "hidden": true

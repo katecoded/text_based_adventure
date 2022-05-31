@@ -11,7 +11,7 @@
             "description": "The open doorway is surrounded by ornate golden patterns inlaid with gemstones. The doorway itself seems to shimmer slightly."
         },
         "decorative doorway": {
-			"destination": "Bathroom",
+			"destination": "Washroom",
 			"direction": "north",
 			"key": "golden key",
 			"locked": true,
@@ -29,9 +29,9 @@
             "takeable": false,
             "type": "default"
         },
-	"hand-scrawled note": {
-            "description": "The note reads: \"Although I let the mushrooms be for the most part, the ones that block passage through the castle are starting to be a problem. I should ask the fairy to make more of the red potion just in case. Also I lost the key to the bathroom again. Have to come up with a better way of making the key without alchemically transmuting a flower into gold.\"",
-            "takeable": false,
+	    "hand-scrawled note": {
+            "description": "The note reads: \"Although I let the mushrooms be for the most part, the ones that block passage through the castle are starting to be a problem. I should ask the fairy to make more of the red potion just in case.\nAlso I lost the key to the bathroom again. Have to come up with a better way of making the key without alchemically transmuting a flower into gold.\"",
+            "takeable": true,
             "type": "default"
         },
         "crystal sphere": {

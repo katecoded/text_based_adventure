@@ -5,7 +5,7 @@
     "doors": {
         "hickory door": {
             "destination": "Underground Passage",
-            "direction": "south",
+            "direction": "east",
             "key": "",
             "locked": false,
             "description": "The wood shimmers with an otherworldly light and is engraved with strange patterns. Though cracked in a few places, it appears otherwise untouched."
@@ -24,16 +24,16 @@
             "takeable": true,
             "type": "default"
         },
-	"weapon rack": {
-            "description": "A wooden rack meant for storing weapons on it. A few weapons rest upon it.",
+        "weapon rack": {
+            "description": "A wooden rack meant for storing weapons on it. A few glimmering weapons rest upon it, though it is difficult to tell what kinds since they seem to change shape as you look at them.",
             "takeable": false,
             "type": "default"
         },
-	"tripod parts": {
-            "description": "Three metal rods that seem to serve as the legs for a tripod. You wonder if these the can be combined with something",
+        "tripod parts": {
+            "description": "Three metal rods that seem to serve as the legs for a tripod. You wonder if these can be combined with something.",
             "takeable": true,
             "type": "default",
-	    "hidden": true
+            "hidden": true
         }
     }
 }

@@ -11,7 +11,7 @@ pickup_actions = ["take", "grab", "get", "pickup"]
 movement_actions = ["go", "move", "travel"]
 drop_actions = ["drop", "remove"]
 open_actions = ["open", "unlock"]
-use_actions = ["use", "utilize"]
+use_actions = ["use", "utilize", "put", "place"]
 eat_actions = ["eat", "consume", "drink"]
 examine_actions = ["lookat", "examine"]
 combine_actions = ["combine"]
@@ -433,6 +433,8 @@ def use_open_splitter(gamestate, action, str_list):
         # Only call open_hander() if door is door, key is item with key property
         if door is not None and key is not None and key.get_type() == "key":
             return open_handler(key, door)
+        elif door is not None and key is not None and key.get_type() != "key":
+            return key.get_name() + " is not a key"
         elif door is None:
             return "There is no door with the name " + str_list[0] + " here"
         return "You do not have a " + str_list[2] + " in your inventory"

@@ -1,42 +1,42 @@
 {
     "name": "Atrium",
-    "short_description": "The barren stone room is bathed in moonlight casting long shadows that seem to hide some sort of a secret. A single stone bench offers breif respite",
-    "long_description": "The main room of the annex is a barren stone atrium. Moonlight shines through the skylight above as well as well as through the plethora of openings in the wall that serve as windows. At the center stands a lone stone bench next to a circular pedestal which seems to be completely empty.",
+    "short_description": "The barren stone room is bathed in moonlight casting long shadows that seem to hide some sort of a secret. A single stone bench offers a brief respite from the outside world.",
+    "long_description": "The main room of the annex is a barren stone atrium. Moonlight shines through the skylight above as well as through the plethora of openings in the wall that serve as windows. At the center stands a lone stone bench next to a circular pedestal which seems to be completely empty.",
     "doors": {
-	"annex entryway": {
-		"destination": "Atrium",
-		"direction": "north",
-		"key": "",
-		"locked": false,
-		"description": "The way out of the annex is covered in mushrooms. You think you may be able to just barely squeeze through"
-		    },
-      	"tower entrance": {
-		"destination": "Tower Stairwell",
-		"direction": "west",
-		"key": "",
-		"locked": false,
-		"description": "The revealed archway leads in the direction of the tower. As it is too dark to see, the only option is to try your luck",
-        	"hidden": true
-		    }
+        "annex entryway": {
+            "destination": "Bridge",
+            "direction": "south",
+            "key": "",
+            "locked": false,
+            "description": "The way out of the annex is covered in mushrooms, though still passable. There is light coming from outside."
+        },
+        "tower entrance": {
+            "destination": "Tower Stairwell",
+            "direction": "west",
+            "key": "",
+            "locked": false,
+            "description": "The revealed archway leads in the direction of the tower. As it is too dark to see, the only option is to try your luck.",
+            "hidden": true
+        }
     },
     "items": {
         "stone wall": {
-            "description": "This wall seems to be adjoining the tower. Now where is the entrance?",
+            "description": "This wall seems to be adjoining the tower. Now, where is the entrance?",
             "takeable": false,
             "type": "default"
         },
         "stone bench": {
-            "description": "A simple stone bench located next to the pedestal. The moonlight from the skylight seems to shine directly upon it",
+            "description": "A simple stone bench located next to the pedestal. The moonlight from the skylight seems to shine directly upon it.",
             "takeable": false,
             "type": "default"
         },
         "stone pedestal": {
-            "description": "The pedestal is a perfectly circular piece of stone that stands at the center of the room. Usually you would expect something akin to a statue here. Upon closer look there seems to be three ciruclar indentaions in its base",
+            "description": "The pedestal is a perfectly circular piece of stone that stands at the center of the room. Usually you would expect something akin to a statue here. Upon closer inspection, there seems to be three circular indentations in its base.",
             "takeable": false,
             "type": "default"
         },
         "skylight": {
-            "description": "The most prominent feature of the room, the skylight is wide and overlooks a large swathe of the night sky. Looking above you see nothing but the light of stars falling down upon you. You think this would be a good place for stargazing.",
+            "description": "The most prominent feature of the room, the skylight is wide and overlooks a large swathe of the night sky. Looking above, you see nothing but the light of stars falling down upon you. You think this would be a good place for stargazing.",
             "takeable": false,
             "type": "default"
         }

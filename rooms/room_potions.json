@@ -1,24 +1,24 @@
 {
     "name": "Potions Room",
     "short_description": "Ingredients of every kind line the shelves that fill this room. There is a work-table with a few bubbling cauldrons and opened books on it.",
-    "long_description": " The room is filled with shelves that hold ingredients of every kind from dried flowers to moon dust. There is a work-table upon which sit a few bubbling cauldrons and books laid open to specific pages.",
+    "long_description": "The room is filled with shelves that hold ingredients of every kind, from dried flowers to moon dust. There is a work-table upon which sit a few bubbling cauldrons and books laid open to specific pages.",
     "doors": {
 		"cherry door": {
 			"destination": "Kitchen",
 			"direction": "east",
 			"key": "copper key",
-			"locked": true,
+			"locked": false,
 			"description": "This aged cherry door has a copper keyhole."
 		}
 	},
     "items": {
 	    "teal gem": {
-          		"description": "A curious teal-colored gemstone. It is a little smaller than your palm and sparkles beautifully. It has a mysterious glow.",
-          		"takeable": true,
-          		"type": "default"
-        	},
+			"description": "A curious teal-colored gemstone. It is a little smaller than your palm and sparkles beautifully. It has a mysterious glow.",
+			"takeable": true,
+			"type": "default"
+		},
 	    "potion rack": {
-			"description": "A rack holding bottles for storing potions. Most of them seem cracked though.",
+			"description": "A rack holding bottles for storing potions. Most of them seem cracked, unfortunately.",
 			"takeable": true,
 			"type": "default"
 		},
@@ -28,7 +28,7 @@
 			"type": "food"
 		},
 	    "green potion": {
-			"description": "A vial of some kind of green liquid. Just by holding it you feel it emanating some sort of energy. You shouldn't drink this",
+			"description": "A vial of some kind of green liquid. Just by holding it you feel it emanating some sort of energy. You shouldn't drink this.",
 			"takeable": true,
 			"type": "default"
 		},
@@ -36,17 +36,17 @@
 			"description": "An empty vial capable of holding potions.",
 			"takeable": true,
 			"type": "default",
-		    	"hidden": true
+			"hidden": true
 		},
 	    "annoyed stern-looking ghost": {
 	   		"description": "This ghost looks quite annoyed about something. He has a very authoritative look about him as well.",
-		    	"takeable": false,
-                        "type": "creature"
+			"takeable": false,
+			"type": "creature"
 	    },
 	    "stern-looking ghost": {
 		    "description": "The authoritative-looking Chief of Ghostly Staff seems a little less annoyed now. Maybe.",
 		    "takeable": false,
-                    "type": "creature",
+			"type": "creature",
 		    "hidden": true
 	    }
 	}
