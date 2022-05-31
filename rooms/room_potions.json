@@ -7,7 +7,7 @@
 			"destination": "Kitchen",
 			"direction": "east",
 			"key": "copper key",
-			"locked": true,
+			"locked": false,
 			"description": "This aged cherry door has a copper keyhole."
 		}
 	},
