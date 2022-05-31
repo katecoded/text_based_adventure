@@ -1,7 +1,7 @@
 {
 "name": "Flooded Chamber",
-	"short_description": "As you move down the corridor you notice it is flooded with a few inches of water, you eventually reach a small dark chamber with it's floor completely submerged.",
-	"long_description": "The chamber is very dark aside from one torch. For the most part the floor looks like a shiny black mirror reflecting the torch light on its surface. You squint and spot a crack in the wall where the water is slowly trickling in. In one corner a patch of dirt sticks up above the water's surface. A the top of this mound you see a single blue flower.",
+	"short_description": "A small dark chamber with its floor completely submerged in water. It is very dark aside from one torch.",
+	"long_description": "The chamber is very dark aside from one torch. For the most part the floor looks like a shiny black mirror reflecting the torch light on its surface. You squint and spot a crack in the wall where the water is slowly trickling in. In one corner, a patch of dirt sticks up above the water's surface, enough room for a plant to grow here.",
 	"doors": {
 		"dark corridor": {
 			"destination": "Courtyard",
@@ -31,12 +31,12 @@
 			"type": "default"
 		},
 		"flower": {
-			"description": "You've never seen a flower like this. Its petals have a bit of a shimmer to them. You wonder how it grew without sunlight.",
+			"description": "You've never seen a flower like this. Its blue petals have a bit of a shimmer to them. You wonder how it grew without sunlight.",
 			"takeable": true,
 			"type": "default"
 		},
 		"torch": {
-			"description": "The torch on the wall burns as if it has just been lit. There is no sign of who lit it, but it could come in handy for corridors chambers like this.",
+			"description": "The torch on the wall burns as if it has just been lit. There is no sign of who lit it, but it could come in handy.",
 			"takeable": true,
 			"type": "default"
 		}

@@ -1,27 +1,27 @@
 {
 	"name": "Bridge",
-	"short_description": "A stone bridge suspended above connecting the main castle to the annex. The lake breeze feels cold and humid. Giant mushrooms have found there way here too and make traversing the narrow bridge difficult. Are these things everywhere?",
-	"long_description": "Once again you feel the breath of fresh air as you find yourself standing on a stone bridge connecting the main castle to a side structure. Looking towards the castle you realize that it had been situated at the edge of a cliff above a lake. The other side connects to the castle's annex resting on a patch of land jutting out of the water, the castle's high stone tower looming over you. As with so many other places in this castle, the giant mushrooms have made their way here, and since the bridge is only about 10 feet wide, you find moving through somewhat difficult.",
+	"short_description": "A stone bridge suspended from above that connects the main castle to the annex. The lake breeze feels cold and humid. Giant mushrooms have found there way here too and make traversing the narrow bridge difficult. Are these things everywhere?",
+	"long_description": "Once again you feel the breath of fresh air as you find yourself standing on a stone bridge connecting the main castle to a side structure. Looking towards the castle, you realize that it had been situated at the edge of a cliff above a lake. The other side connects to the castle's annex resting on a patch of land jutting out of the water, the castle's high stone tower looming over you. As with so many other places in this castle, the giant mushrooms have made their way here, and since the bridge is only about 10 feet wide, you find moving through somewhat difficult.",
 	"doors": {
 		"dim archway": {
 			"destination": "Watcher's Void",
 			"direction": "south",
 			"key": "",
 			"locked": false,
-			"description": "The archway leads back towards a room inside the tower. Despite of the moonlight shining from above, the archway is still shrouded in darkness"
+			"description": "The archway leads back towards a room inside the tower. Despite of the moonlight shining from above, the archway is still shrouded in darkness."
 		},
 		"annex entryway": {
 			"destination": "Atrium",
 			"direction": "north",
 			"key": "",
 			"locked": false,
-			"description": "Through the clearing in the mushrooms you see the entrance to the annex. You think you may be able to just barely squeeze through",
-      			"hidden": true
+			"description": "Through the clearing in the mushrooms you see the entrance to the annex. You think you may be able to just barely squeeze through.",
+			"hidden": true
 		}
 	},
 	"items": {
 		"lake": {
-			"description": "The lake looks quite beautiful bathed in the light of the full moon. It makes you want to stay here and watch, if only for a moment",
+			"description": "The lake looks quite beautiful bathed in the light of the full moon. It makes you want to stay here and watch, if only for a moment.",
 			"takeable": false,
 			"type": "default"
 		},
@@ -36,7 +36,7 @@
 			"type": "default"
 		},
 		"mass of mushrooms": {
-			"description": "How the mushrooms can grow here is a question you can't seem to answer. You think you can make out an entry to the annex on the other side, but first you need to find a gap big enough to squeeze through",
+			"description": "How the mushrooms can grow here is a question you can't seem to answer. You think you can make out an entry to the annex on the other side, but first you need to find a gap big enough to squeeze through.",
 			"takeable": false,
 			"type": "default"
 		}

@@ -41,7 +41,7 @@
             "type": "default"
         },
         "blackberry bush": {
-            "description": "A blackberry bush grows in a corner among other types of berry bushes. You can see clusters of blackberries.",
+            "description": "A blackberry bush grows in a corner among other types of berry bushes. You can see clusters of blackberries growing on it.",
             "takeable": false,
             "type": "default",
             "hidden": true

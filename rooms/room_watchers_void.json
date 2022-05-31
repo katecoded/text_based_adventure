@@ -15,7 +15,7 @@
 			"direction": "north",
 			"key": "",
 			"locked": false,
-			"description": "Obscured in the darkness, you almost miss this archway.There is a faint glimmer of light in the distance. Could this lead outside?"
+			"description": "Obscured in the darkness, you almost miss this archway. There is a faint glimmer of light in the distance. Could this lead outside?"
 	},
         "sealed door": {
             "destination": "Nowhere",
