@@ -1,7 +1,7 @@
 {
-	"name": "Bathroom",
-	"short_description": "A luxurious bathroom filled with sculptures and various toiletries.",
-	"long_description": "The wizard's bathroom is inordinately ornate with small sculptures and lavish adornments. The mirror above the vanity has a frame that appears to be pure gold. You can the wizard who lives here wanted to spend their private time in splendor.",
+	"name": "Washroom",
+	"short_description": "A luxurious washroom filled with sculptures and various toiletries.",
+	"long_description": "The wizard's washroom is inordinately ornate with small sculptures and lavish adornments. The mirror above the vanity has a frame that appears to be pure gold. You can the wizard who lives here wanted to spend their private time in splendor.",
 	"doors": {
 		"decorative doorway": {
 			"destination": "Wizard's Study",
