@@ -17,7 +17,7 @@
           		"takeable": true,
           		"type": "default"
         	},
-=	    "potion rack": {
+	    "potion rack": {
 			"description": "A rack holding bottles for storing potions. Most of them seem cracked though.",
 			"takeable": true,
 			"type": "default"
@@ -35,7 +35,7 @@
 	    "empty potion bottle": {
 			"description": "An empty vial capable of holding potions.",
 			"takeable": true,
-			"type": "default"
+			"type": "default",
 		    	"hidden": true
 		},
 	    "annoyed stern-looking ghost": {
