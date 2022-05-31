@@ -500,7 +500,7 @@ def use_handler(item, use_on_item, action, gamestate):
             return "Nothing seems to happen"
         return random.choice(message)
     if use_on_item is None:
-        return "You cannot use " + item + " here." 
+        return "You cannot use " + item + " here."
     if action in use_actions:
         return "You cannot use " + item + " on " + use_on_item
     return "You cannot give " + item + " to" + use_on_item
