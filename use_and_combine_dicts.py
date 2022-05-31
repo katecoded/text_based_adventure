@@ -21,6 +21,15 @@ use_dict = {
     ("tube of paste", "rusty sword"): (["You apply the paste to the sword. To your astonishment the rust simply falls "
                                         "away as if it were a layer of dust, and the sword regains the luster it had "
                                         "before."], "shiny sword", True),
+    ("torch", "cast-iron stove"): (["Sticking the torch inside the stove causes the drywood inside to catch aflame. "
+                                    "Waiting for a couple of seconds causes the flame to grow into a sizeable fire, "
+                                    "turning the stove on"], "lit cast-iron stove", True),
+    ("empty potion bottle", "metal pan"): (["Gingerly, you dip the potion bottle into the liquid inside the pan. This "
+                                            "doesn't seem particularly safe, but you don't really have any better way "
+                                            "about it. The bottle fills with the golden liquid, producing a golden "
+                                            "potion. The hotness of the bottle makes you drop the bottle, but "
+                                            "thankfully it lands safely on a pile of scattered flower left over by "
+                                            "the cooks."], "golden potion", False),
     ("blackberries", "frowning blue-haired fairy"): (["\"Thank you!\" the fairy exclaims as she hurriedly sets to work on the "
                                                       "blackberry cobbler. \"In case you haven't found it, I think I dropped "
                                                       "the key to the potion room in the pile of cookbooks. You can have it "
@@ -29,17 +38,26 @@ use_dict = {
                                                 "\"You know, I read in one of these potions books that combining a gem with "
                                                 "a rune scroll can activate it or some "
                                                 "such thing.\""], "stern-looking ghost", True),
+    ("shiny sword", "rock"): (["While thinking: \"I've seen this in a movie!\" you stab the sword into the rock. To "
+                               "you surprise, not only does the sword stick but a deep rumbling can be felt as if the "
+                               "very foundations of the castle were giving way. As the rumbling subsides you look at "
+                               "the wall ahead and find that a doorway has opened up."], "mysterious door", False),
     ("examine", "rubble"): (["Sifting through the rubble you notice something wooden underneath. You take a few "
                              "minutes to move the stone away, and you find a trap door."], "trapdoor", False),
     ("examine", "weapon rack"): (["Actually, on closer look, there are a few metal rods here that don't seem to be"
                                   "weapons of any kind. In fact you've seen rods like these before. Some kind of "
                                   "tripod legs?"], "tripod parts", False),
+    ("examine", "potion rack"): (["After scanning the potions bottles a bit, you do find one that look intact"],
+                                 "empty potion bottle", False),
+    ("examine", "lit cast-iron stove"): (["The contents of the pan seem to have liquefied due to the heat, and are now "
+                                          "bubbling."], "empty potion bottle", False),
     ("examine", "mysterious bushes"): (["As you are about to walk away you focus on one bush in particular. You think "
                                         "the berries here looks familiar. After looking closer you confirm that this "
                                         "is actually a blackberry bush"], "blackberry bushes", False),
     ("examine", "blackberry bushes"): (["You poke gingerly at the blackberries, then pop one into your mouth. Yup, "
                                         "definitely blackberries. You think you can pick some."], "blackberries", False),
-    ("examine", "stacks of cookbooks"): (["Digging through the pile causes a copper key to fall out"], "copper key", False)
+    ("examine", "stacks of cookbooks"): (["Digging through the pile causes a copper key to fall out"], "copper key", False),
+    ("examine", "basket"): (["Looking inside the basket you only see a single normal egg. Is that it?"], "egg", False)
 }
 
 hint_scroll = Item("awakened rune scroll", "Although you cannot read the runes, suddenly you feel as if you understand "
