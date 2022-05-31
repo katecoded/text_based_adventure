@@ -294,7 +294,7 @@ def examine_handler(gamestate, obj_name):
                 cur_room = gamestate.get_current_room()
                 cur_room.remove_item(item)
             if message is not None and revealed:
-                return item.get_description() + "\n" + message
+                return item.get_description() + "\n" + random.choice(message)
 
         print_art(obj_name)
         return item.get_description()
