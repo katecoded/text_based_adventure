@@ -35,6 +35,29 @@
 			"type": "creature",
 			"hidden": true
 		},
+		"cast-iron stove":{
+			"description": "An iron cooking stove with some drywood that needs to be lit in order to be able to cook. There's a large pan with some kind of sludge resting on top.",
+			"takeable": false,
+			"type": "default"
+		},
+		"lit cast-iron stove":{
+			"description": "A iron cooking stove that is currently on and heating a large pan on top.",
+			"takeable": false,
+			"type": "default",
+			"hidden": true
+		},
+		"metal pan":{
+			"description": "The metal pan is resting on top of the stove and its contents are being heated. It seems that the heat has made the sludge turn into some kind of a golden liquid",
+			"takeable": false,
+			"type": "default",
+			"hidden": true
+		},
+		"golden potion":{
+			"description": "A potion that looks like liquid gold. You don't want to drink this",
+			"takeable": true,
+			"type": "default",
+			"hidden": true
+		},
 		"stacks of cookbooks":{
 			"description": "Cookbook of all shaped and sizes lie messily in a pile on the table. A lot of these seem to be for baked items and sweets. It seems the owner has a bit of a sweettooth.",
 			"takeable": false,
