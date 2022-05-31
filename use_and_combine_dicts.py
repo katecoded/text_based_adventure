@@ -47,7 +47,7 @@ use_dict = {
     ("examine", "weapon rack"): (["Actually, on closer look, there are a few metal rods here that don't seem to be"
                                   "weapons of any kind. In fact you've seen rods like these before. Some kind of "
                                   "tripod legs?"], "tripod parts", False),
-    ("examine", "potion rack"): (["After scanning the potions bottles a bit, you do find one that look intact"], 
+    ("examine", "potion rack"): (["After scanning the potions bottles a bit, you do find one that look intact"],
                                  "empty potion bottle", False),
     ("examine", "lit cast-iron stove"): (["The contents of the pan seem to have liquefied due to the heat, and are now "
                                           "bubbling."], "empty potion bottle", False),
