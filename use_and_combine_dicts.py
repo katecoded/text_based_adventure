@@ -17,7 +17,7 @@ use_dict = {
                                                "in the pedestal, you feel a tremor. Suddenly, a section of the west "
                                                "wall starts shifting, moving downwards into the floor. Slowly, a "
                                                "passageway wide enough for a person is revealed in the stone."],
-                                              "tower entrance", False),
+                                              "tower entrance", False, False),
     ("tube of paste", "rusty sword"): (["You apply the paste to the sword. To your astonishment, the rust simply falls "
                                         "away as if it were a layer of dust, and the sword regains the luster it had "
                                         "before."], "shiny sword", True, False),
