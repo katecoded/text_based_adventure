@@ -1,5 +1,5 @@
 import json
-
+import os
 from objects.item import Item
 
 
@@ -119,6 +119,8 @@ def create_save(gamestate):
     """
     location = gamestate.get_current_room()
     location = location.get_name()
+    if not os.path.isdir("saves"):
+        os.mkdir("saves")
     with open("saves/player_loc.txt", "w") as outfile:
         outfile.write(location)
     outfile.close()
