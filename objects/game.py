@@ -135,7 +135,7 @@ class Game:
         if item_key in self._legal_use.keys():
             return self._legal_use[item_key]
         else:
-            return None, None, None
+            return None, None, None, None
 
     def add_item_to_inventory(self, new_item_key, new_item):
         """

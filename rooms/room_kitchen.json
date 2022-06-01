@@ -41,7 +41,7 @@
 			"type": "default"
 		},
 		"lit cast-iron stove":{
-			"description": "A iron cooking stove that is currently on and heating a large pan on top.",
+			"description": "An iron cooking stove that is currently on and heating a large pan on top.",
 			"takeable": false,
 			"type": "default",
 			"hidden": true

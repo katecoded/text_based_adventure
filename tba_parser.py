@@ -287,13 +287,13 @@ def examine_handler(gamestate, obj_name):
     # if it is an item in the current room
     item = current_room.get_item_by_name(obj_name)
     if item is not None:
-        (message, hidden, remove) = gamestate.get_use_info(("examine", item.get_name()))
+        (message, hidden, remove, remove_inv) = gamestate.get_use_info(("examine", item.get_name()))
         if hidden is not None:
-            reveal_hidden(hidden, gamestate)
+            revealed = reveal_hidden(hidden, gamestate)
             if remove:
                 cur_room = gamestate.get_current_room()
                 cur_room.remove_item(item)
-            if message is not None:
+            if message is not None and revealed:
                 return item.get_description() + "\n" + random.choice(message)
 
         print_art(obj_name)
@@ -485,18 +485,25 @@ def use_handler(item, use_on_item, action, gamestate):
     """
     Will handle any use actions not involving doors
     """
-    (message, hidden, remove) = gamestate.get_use_info((item, use_on_item))
+    (message, hidden, remove, remove_inv) = gamestate.get_use_info((item, use_on_item))
     if message is not None:
-        if hidden is not None:
-            reveal_hidden(hidden, gamestate)
         if remove:
             cur_room = gamestate.get_current_room()
             removed_item = cur_room.get_item_by_name(use_on_item)
             cur_room.remove_item(removed_item)
+        if remove_inv:
+            gamestate.remove_item_from_inventory(item)
+        if hidden is not None:
+            revealed = reveal_hidden(hidden, gamestate)
+            if revealed:
+                return random.choice(message)
+            return "Nothing seems to happen"
         return random.choice(message)
+    if use_on_item is None:
+        return "You cannot use " + item + " here."
     if action in use_actions:
         return "You cannot use " + item + " on " + use_on_item
-    return "You cannot give " + item + " to" + use_on_item
+    return "You cannot give " + item + " to " + use_on_item
 
 
 def combine_handler(gamestate, str_list):
@@ -642,7 +649,7 @@ def reveal_hidden(object_name, gamestate):
     exists in the hidden object dictionary and reveals it if exists
     :param object_name: name of hidden object that is revealed
     :param gamestate: Game object housing data of current playthrough
-    :return: n/a
+    :return: boolean
     """
     cur_room = gamestate.get_current_room()
     hidden_object = cur_room.get_hidden_object_by_name(object_name)
@@ -652,3 +659,5 @@ def reveal_hidden(object_name, gamestate):
             cur_room.add_item(hidden_object)
         if isinstance(hidden_object, Door):
             cur_room.add_door(hidden_object)
+        return True
+    return False
