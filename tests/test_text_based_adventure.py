@@ -157,13 +157,13 @@ class TextBasedAdventureTestCase(unittest.TestCase):
         """
         test_inputs = ["take ivory key", "east", "take small telescope",
                        "east", "take iron key", "west", "unlock oak door "
-                       "with ivory key", "west", "west", "examine rubble",
-                       "unlock trapdoor with iron key", "north", "west",
-                       "examine weapon rack", "take tripod parts", "north",
-                       "take red potion", "south", "east", "south", "east",
-                       "east", "north", "north", "use red potion on mass of "
-                       "mushrooms", "north", "combine small telescope with "
-                       "tripod parts", "use mounted telescope on stone "
+                       "with ivory key", "west", "west", "examine pile of "
+                       "rubble", "unlock trapdoor with iron key", "north",
+                       "west", "examine weapon rack", "take tripod parts",
+                       "north", "take red potion", "south", "east", "south",
+                       "east", "east", "north", "north", "use red potion on "
+                       "mass of mushrooms", "north", "combine small telescope "
+                       "with tripod parts", "use mounted telescope on stone "
                        "pedestal", "west", "north", "take diary"]
         with mock.patch('sys.stdout', new_callable=StringIO) as mock_out:
             with mock.patch('builtins.input', side_effect=test_inputs):

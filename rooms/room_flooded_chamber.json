@@ -25,7 +25,7 @@
 			"takeable": false,
 			"type": "default"
 		},
-		"rubble": {
+		"pile of rubble": {
 			"description": "A pile of debris that seemed to have formed from sections of the roof and floor falling off.",
 			"takeable": false,
 			"type": "default"
