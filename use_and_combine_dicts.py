@@ -42,8 +42,8 @@ use_dict = {
                                "you surprise, not only does the sword stick but a deep rumbling can be felt as if the "
                                "very foundations of the castle were giving way. As the rumbling subsides, you look at "
                                "the wall ahead and find that a doorway has opened up."], "mysterious door", False, False),
-    ("examine", "rubble"): (["Sifting through the rubble, you notice something wooden underneath. You take a few "
-                             "minutes to move the stone away, and you find a trapdoor."], "trapdoor", False, False),
+    ("examine", "pile of rubble"): (["Sifting through the rubble, you notice something wooden underneath. You take a "
+                                    "few minutes to move the stone away, and you find a trapdoor."], "trapdoor", False, False),
     ("examine", "weapon rack"): (["On closer inspection, there are a few metal rods here that don't seem to be"
                                   "weapons of any kind. In fact, you've seen rods like these before - they look like "
                                   "the legs of a tripod. Perhaps they go to something?"], "tripod parts", False, False),
